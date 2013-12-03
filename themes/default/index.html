@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="description" content="<?php echo $page->description; ?>">
+    <meta name="keywords" content="<?php echo $page->keywords; ?>">    
+    <link rel="shortcut icon" href="<?php echo $config->site_url; ?>favicon.png">
+
+    <title><?php echo $page->title; ?></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="<?php echo $config->site_url; ?>/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $config->site_url; ?>/themes/default/assets/css/default.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<?php echo $config->site_url; ?>"><?php echo $config->site_title; ?></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+            <li <?php if($page->slug == 'index') { ?> class="active" <?php } ?>><a href="<?php echo $config->site_url; ?>/index ">Home</a></li>
+            <li <?php if($page->slug == 'about') { ?> class="active" <?php } ?>><a href="<?php echo $config->site_url; ?>/about">About</a></li>
+      </ul>
+    </div>
+    </div>
+    </nav>
+
+    <div class="container">
+        <p><?php echo $page->content; ?></p>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="<?php echo $config->site_url; ?>/themes/default/assets/js/bootstrap.min.js"></script>
+  </body>
+</html>
