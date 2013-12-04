@@ -1,4 +1,4 @@
-morfy-cms
+Morfy CMS
 =========
 
 Content Management System
