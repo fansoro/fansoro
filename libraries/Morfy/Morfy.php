@@ -77,10 +77,10 @@ class Morfy
     }
 
     /**
-     * Run Morfy application
+     * Run Morfy Application
      *
      *  <code>
-     *      Morfy::run($path);
+     *      Morfy::factory()->run($path);
      *  </code>
      *
      * @param string $path Config path
@@ -145,7 +145,7 @@ class Morfy
     }
 
     /**
-     *
+     * Get Url
      */
     protected function getUrl()
     {
@@ -162,7 +162,9 @@ class Morfy
     }
 
     /**
-     *
+     * Get page
+     * 
+     * @param string $url Url
      */
     protected function getPage($url)
     {
@@ -187,7 +189,10 @@ class Morfy
     }
 
     /**
-     *
+     * Get Page Headers
+     * 
+     * @param  string $content Content to parse
+     * @return array  $content Headers array
      */
     protected function getPageHeaders($content)
     {
@@ -215,8 +220,8 @@ class Morfy
     /**
      * Parses the content using Markdown
      *
-     * @param  string $content the raw txt content
-     * @return string $content the Markdown formatted content
+     * @param  string $content Content to parse
+     * @return string $content Formatted content
      */
     protected function parseContent($content)
     {
