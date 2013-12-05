@@ -228,9 +228,8 @@ class Morfy
     {
         $content = preg_replace('#/\*.+?\*/#s', '', $content);
         $content = str_replace('{site_url}', static::$config['site_url'], $content);
-        $content = $this->applyFilter('content', $content);
 
-        return $content;
+        return $this->applyFilter('content', $content);
     }
 
     /**
