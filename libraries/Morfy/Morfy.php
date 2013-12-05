@@ -88,6 +88,7 @@ class Morfy
      */
     public function run($path)
     {
+
         // Load config file
         $this->loadConfig($path);
 
@@ -119,27 +120,25 @@ class Morfy
             array_walk_recursive($_REQUEST, 'stripslashesGPC');
         }
 
+        // Load Plugins
         $this->loadPlugins();
         $this->runAction('plugins_loaded');
 
-        // Get page
+        // Get page for current requested url
         $page = $this->getPage($this->getUrl());
-
-        // Select current template
-        $template = !empty($page->template) ? $page->template : 'index';
 
         // Overload page title, keywords and description
         empty($page['title']) and $page['title'] = static::$config['site_title'];
         empty($page['keywords']) and $page['keywords'] = static::$config['site_keywords'];
         empty($page['description']) and $page['description'] = static::$config['site_description'];
 
-        // Vars for Template
+        // Variables for Template more pretty ? Yep.
         $page   = (object) $page;
         $config = (object) self::$config;
 
         // Load template
         $this->runAction('before_render');
-        include THEMES_PATH .'/'. static::$config['site_theme'] . '/'. $template .'.html';
+        require THEMES_PATH .'/'. $config->site_theme . '/'. ($template = !empty($page->template) ? $page->template : 'index') .'.html';
         $this->runAction('after_render');
     }
 
@@ -236,7 +235,11 @@ class Morfy
      */
     protected function loadConfig($path)
     {
-        static::$config = require $path;
+        if (file_exists($path)) {
+            static::$config = require $path;
+        } else {
+            die("Oops.. Where is config file ?!");
+        }
     }
 
     /**
