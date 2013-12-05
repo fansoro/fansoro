@@ -123,20 +123,18 @@ class Morfy
         $this->runAction('plugins_loaded');
 
         // Get page
-        $_page = $this->getPage($this->getUrl());
-        $page_data = $_page['page'];
-        $page_data['slug'] = $_page['file'];
+        $page = $this->getPage($this->getUrl());
 
         // Select current template
-        $template = !empty($page_data['template']) ? $page_data['template'] : 'index';
+        $template = !empty($page['template']) ? $page['template'] : 'index';
 
         // Overload page title, keywords and description
-        empty($page_data['title']) and $page_data['title'] = static::$config['site_title'];
-        empty($page_data['keywords']) and $page_data['keywords'] = static::$config['site_keywords'];
-        empty($page_data['description']) and $page_data['description'] = static::$config['site_description'];
+        empty($page['title']) and $page['title'] = static::$config['site_title'];
+        empty($page['keywords']) and $page['keywords'] = static::$config['site_keywords'];
+        empty($page['description']) and $page['description'] = static::$config['site_description'];
 
         // Vars for Template
-        $page   = (object) $page_data;        
+        $page   = (object) $page;        
         $config = (object) self::$config;
 
         // Load template
@@ -186,8 +184,9 @@ class Morfy
 
         $page = $this->getPageHeaders($content);
         $page['content'] = $this->parseContent($content);
+        $page['slug'] = basename($file, '.md');        
 
-        return array('page' => $page, 'file' => basename($file, '.md'));
+        return $page;
     }
 
     /**
