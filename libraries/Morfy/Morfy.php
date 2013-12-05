@@ -89,10 +89,10 @@ class Morfy
     public function run($path)
     {
         // Load config file
-        static::$config = require $path;
+        $this->loadConfig($path);
 
         // Set default timezone
-        @ini_set('date.timezone', static::$config['site_timezone']);        
+        @ini_set('date.timezone', static::$config['site_timezone']);
         if (function_exists('date_default_timezone_set')) {
             date_default_timezone_set(static::$config['site_timezone']);
         } else {
@@ -126,7 +126,7 @@ class Morfy
         $page = $this->getPage($this->getUrl());
 
         // Select current template
-        $template = !empty($page['template']) ? $page['template'] : 'index';
+        $template = !empty($page->template) ? $page->template : 'index';
 
         // Overload page title, keywords and description
         empty($page['title']) and $page['title'] = static::$config['site_title'];
@@ -134,7 +134,7 @@ class Morfy
         empty($page['description']) and $page['description'] = static::$config['site_description'];
 
         // Vars for Template
-        $page   = (object) $page;        
+        $page   = (object) $page;
         $config = (object) self::$config;
 
         // Load template
@@ -142,7 +142,6 @@ class Morfy
         include THEMES_PATH .'/'. static::$config['site_theme'] . '/'. $template .'.html';
         $this->runAction('after_render');
     }
-
 
     /**
      * Get Url
@@ -163,11 +162,23 @@ class Morfy
 
     /**
      * Get page
-     * 
-     * @param string $url Url
+     *
+     * @param  string $url Url
+     * @return array
      */
-    protected function getPage($url)
+    public function getPage($url)
     {
+
+        // Page headers
+        $page_headers = array(
+            'title'         => 'Title',
+            'description'   => 'Description',
+            'keywords'      => 'Keywords',
+            'author'        => 'Author',
+            'date'          => 'Date',
+            'robots'        => 'Robots',
+            'template'      => 'Template',
+        );
 
         // Get the file path
         if($url) $file = CONTENT_PATH . '/' . $url; else $file = CONTENT_PATH . '/' .'index';
@@ -182,45 +193,22 @@ class Morfy
             header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
         }
 
-        $page = $this->getPageHeaders($content);
+        foreach ($page_headers as $field => $regex) {
+            if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]) {
+                $page[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
+            } else {
+                $page[ $field ] = '';
+            }
+        }
+
         $page['content'] = $this->parseContent($content);
-        $page['slug'] = basename($file, '.md');        
+        $page['slug'] = basename($file, '.md');
 
         return $page;
     }
 
     /**
-     * Get Page Headers
-     * 
-     * @param  string $content Content to parse
-     * @return array  $content Headers array
-     */
-    protected function getPageHeaders($content)
-    {
-
-        $headers = array(
-            'title'         => 'Title',
-            'description'   => 'Description',
-            'keywords'      => 'Keywords',
-            'author'        => 'Author',
-            'date'          => 'Date',
-            'robots'        => 'Robots',
-            'template'      => 'Template',
-        );
-
-        foreach ($headers as $field => $regex) {
-            if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]) {
-                $headers[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
-            } else {
-                $headers[ $field ] = '';
-            }
-        }
-
-        return $headers;
-    }
-
-    /**
-     * Parses the content using Markdown
+     * Content Parser
      *
      * @param  string $content Content to parse
      * @return string $content Formatted content
@@ -241,6 +229,14 @@ class Morfy
         foreach (static::$config['plugins'] as $plugin) {
             include_once PLUGINS_PATH .'/'. $plugin.'/'.$plugin.'.php';
         }
+    }
+
+    /**
+     * Load Config
+     */
+    protected function loadConfig($path)
+    {
+        static::$config = require $path;
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-    
+
     /**
      * Markdown plugin
      *
@@ -10,7 +10,7 @@
      *  @version 1.0.0
      *
      */
-     
+
     use \Michelf\MarkdownExtra;
     include PLUGINS_PATH . '/markdown/php-markdown/Michelf/Markdown.php';
     include PLUGINS_PATH . '/markdown/php-markdown/Michelf/MarkdownExtra.php';
