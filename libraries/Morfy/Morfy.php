@@ -202,6 +202,7 @@ class Morfy
         $headers = array(
             'title'         => 'Title',
             'description'   => 'Description',
+            'keywords'      => 'Keywords',
             'author'        => 'Author',
             'date'          => 'Date',
             'robots'        => 'Robots',
