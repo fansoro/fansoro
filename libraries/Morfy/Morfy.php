@@ -92,7 +92,7 @@ class Morfy
         static::$config = require $path;
 
         // Set default timezone
-        @ini_set('date.timezone', static::$config['site_timezone']);
+        @ini_set('date.timezone', static::$config['site_timezone']);        
         if (function_exists('date_default_timezone_set')) {
             date_default_timezone_set(static::$config['site_timezone']);
         } else {
@@ -103,9 +103,9 @@ class Morfy
          * Send default header and set internal encoding
          */
         header('Content-Type: text/html; charset='.static::$config['site_charset']);
-        function_exists('mb_language') AND mb_language('uni');
-        function_exists('mb_regex_encoding') AND mb_regex_encoding(static::$config['site_charset']);
-        function_exists('mb_internal_encoding') AND mb_internal_encoding(static::$config['site_charset']);
+        function_exists('mb_language') and mb_language('uni');
+        function_exists('mb_regex_encoding') and mb_regex_encoding(static::$config['site_charset']);
+        function_exists('mb_internal_encoding') and mb_internal_encoding(static::$config['site_charset']);
 
         /**
          * Gets the current configuration setting of magic_quotes_gpc
@@ -120,6 +120,7 @@ class Morfy
         }
 
         $this->loadPlugins();
+        $this->runAction('plugins_loaded');
 
         // Get page
         $_page = $this->getPage($this->getUrl());
@@ -127,15 +128,15 @@ class Morfy
         $page_data['slug'] = $_page['file'];
 
         // Select current template
-        if (!empty($page_data['template'])) $template = $page_data['template']; else $template = 'index';
+        $template = !empty($page_data['template']) ? $page_data['template'] : 'index';
 
         // Overload page title, keywords and description
-        if (empty($page_data['title'])) $page_data['title'] = static::$config['site_title'];
-        if (empty($page_data['keywords'])) $page_data['keywords'] = static::$config['site_keywords'];
-        if (empty($page_data['description'])) $page_data['description'] = static::$config['site_description'];
+        empty($page_data['title']) and $page_data['title'] = static::$config['site_title'];
+        empty($page_data['keywords']) and $page_data['keywords'] = static::$config['site_keywords'];
+        empty($page_data['description']) and $page_data['description'] = static::$config['site_description'];
 
         // Vars for Template
-        $page   = (object) $page_data;
+        $page   = (object) $page_data;        
         $config = (object) self::$config;
 
         // Load template
@@ -143,6 +144,7 @@ class Morfy
         include THEMES_PATH .'/'. static::$config['site_theme'] . '/'. $template .'.html';
         $this->runAction('after_render');
     }
+
 
     /**
      * Get Url
@@ -200,7 +202,6 @@ class Morfy
         $headers = array(
             'title'         => 'Title',
             'description'   => 'Description',
-            'keywords'      => 'Keywords',
             'author'        => 'Author',
             'date'          => 'Date',
             'robots'        => 'Robots',
