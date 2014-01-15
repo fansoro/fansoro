@@ -51,12 +51,8 @@ foreach ($dir_array as $dir) {
     }
 }
 
-
 // If pressed <Install> button then try to install
 if (isset($_POST['install_submit'])) {
-
-    // If errors is 0 then install cms
-    if (count($errors) == 0) {
 
     	$post_site_url = isset($_POST['site_url']) ? $_POST['site_url'] : '';
     	$post_site_timezone = isset($_POST['site_timezone']) ? $_POST['site_timezone'] : '';
@@ -93,7 +89,7 @@ if (isset($_POST['install_submit'])) {
 
         // Installation done :)
         header("location: index.php");
-    }
+   
 }
 ?>
 <!DOCTYPE html>
@@ -210,27 +206,27 @@ if (isset($_POST['install_submit'])) {
 		<form role="form" method="post">
 		  <div class="form-group">
 		    <label for="sitename">Site Name</label>
-		    <input type="text" class="form-control" id="sitename" placeholder="Enter Site Name" required>
+		    <input type="text" name="sitename" class="form-control" id="sitename" placeholder="Enter Site Name" required>
 		  </div>
 		  <div class="form-group">
-		    <label for="sitename">Site Description</label>
-		    <input type="text" class="form-control" id="sitename" placeholder="Enter Site Description">
+		    <label for="site_description">Site Description</label>
+		    <input type="text" name="site_description" class="form-control" id="site_description" placeholder="Enter Site Description">
 		  </div>
 		  <div class="form-group">
-		    <label for="sitename">Site Keywords</label>
-		    <input type="text" class="form-control" id="sitename" placeholder="Enter Site Keywords">
+		    <label for="site_keywords">Site Keywords</label>
+		    <input type="text" name="site_keywords" class="form-control" id="site_keywords" placeholder="Enter Site Keywords">
 		  </div>
 		  <div class="form-group">
-		    <label for="sitename">Site Url</label>
-		    <input type="text" class="form-control" id="sitename" placeholder="Enter Site Url" value="<?php echo $site_url; ?>" required>
+		    <label for="site_url">Site Url</label>
+		    <input type="text" name="site_url" class="form-control" id="site_url" placeholder="Enter Site Url" value="<?php echo $site_url; ?>" required>
 		  </div>
 		  <div class="form-group">
-		    <label for="sitename">Email</label>
-		    <input type="text" class="form-control" id="sitename" placeholder="Enter Email" required>
+		    <label for="email">Email</label>
+		    <input type="text" name="email" class="form-control" id="email" placeholder="Enter Email" required>
 		  </div>
 	      <div class="form-group">
             <label>Time zone</label>
-            <select class="form-control" name="timezone">
+            <select class="form-control" name="site_timezone">
                 <option value="Kwajalein">(GMT-12:00) International Date Line West</option>
                 <option value="Pacific/Samoa">(GMT-11:00) Midway Island, Samoa</option>
                 <option value="Pacific/Honolulu">(GMT-10:00) Hawaii</option>
