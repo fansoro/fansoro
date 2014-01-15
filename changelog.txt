@@ -1,0 +1,3 @@
+Morfy 1.0.0, 2014-XX-XX
+------------------------
+- Initial release
