@@ -61,9 +61,7 @@ if (isset($_POST['install_submit'])) {
     	$post_site_keywords = isset($_POST['site_keywords']) ? $_POST['site_keywords'] : '';
     	$post_email = isset($_POST['email']) ? $_POST['email'] : '';
 
-    	file_put_contents('config.php', "
-<?php
-
+    	file_put_contents('config.php', "<?php
     return array(
         'site_url' => '{$post_site_url}',
         'site_charset' => 'UTF-8',
@@ -106,6 +104,7 @@ if (isset($_POST['install_submit'])) {
 	<style>
 		.container {
 			max-width: 600px;
+			margin-bottom: 40px;
 		}
 		body {
 	        font-family: "Source Sans Pro","Helvetica","Arial",sans-serif;        
@@ -205,8 +204,8 @@ if (isset($_POST['install_submit'])) {
 		<div class="step-2 hide">
 		<form role="form" method="post">
 		  <div class="form-group">
-		    <label for="sitename">Site Name</label>
-		    <input type="text" name="sitename" class="form-control" id="sitename" placeholder="Enter Site Name" required>
+		    <label for="site_title">Site Name</label>
+		    <input type="text" name="site_title" class="form-control" id="site_title" placeholder="Enter Site Name" required>
 		  </div>
 		  <div class="form-group">
 		    <label for="site_description">Site Description</label>
