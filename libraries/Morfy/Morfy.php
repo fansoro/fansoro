@@ -101,6 +101,11 @@ class Morfy
         }
 
         /**
+         * Sanitize URL to prevent XSS - Cross-site scripting
+         */
+        $this->runSanitizeURL();
+
+        /**
          * Send default header and set internal encoding
          */
         header('Content-Type: text/html; charset='.static::$config['site_charset']);
@@ -157,6 +162,38 @@ class Morfy
         $url = preg_replace('/\?.*/', '', $url); // Strip query string
 
         return $url;
+    }
+
+    /**
+     * Create safe url.
+     *
+     * @param  string $url Url to sanitize
+     * @return string
+     */
+    public function sanitizeURL($url)
+    {
+        $url = trim($url);
+        $url = rawurldecode($url);
+        $url = str_replace(array('--','&quot;','!','@','#','$','%','^','*','(',')','+','{','}','|',':','"','<','>',
+                                  '[',']','\\',';',"'",',','*','+','~','`','laquo','raquo',']>','&#8216;','&#8217;','&#8220;','&#8221;','&#8211;','&#8212;'),
+                            array('-','-','','','','','','','','','','','','','','','','','','','','','','','','','','',''),
+                            $url);
+        $url = str_replace('--', '-', $url);
+        $url = rtrim($url, "-");
+        $url = str_replace('..', '', $url);
+        $url = str_replace('//', '', $url);
+        $url = preg_replace('/^\//', '', $url);
+        $url = preg_replace('/^\./', '', $url);
+
+        return $url;
+     }
+
+    /**
+     * Sanitize URL to prevent XSS - Cross-site scripting
+     */
+    public function runSanitizeURL()
+    {
+        $_GET = array_map('Security::sanitizeURL', $_GET);
     }
 
     /**
