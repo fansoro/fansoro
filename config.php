@@ -8,6 +8,7 @@
         'site_title' => 'Site title',
         'site_description' => 'Site description',
         'site_keywords' => 'site, keywords',
+        'email' => 'admin@admin.com',
         'plugins' => array(
             'markdown',
         ),
