@@ -93,6 +93,7 @@ if (isset($_POST['install_submit'])) {
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Morfy Installer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
