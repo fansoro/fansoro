@@ -124,10 +124,20 @@ if (isset($_POST['install_submit'])) {
 			color: #333;
 		}
 		.ok {
-			color: green;
+			color: #3c763d;
+			background-color: #dff0d8;
 		}
 		.error {
-			color: red;
+			color: #a94442;
+			background-color: #f2dede;
+			border-color: #ebccd1;
+		}
+		.step-1 ul li {
+		    -webkit-font-smoothing: subpixel-antialiased;
+		    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
+		            box-shadow: 0 1px 3px rgba(0,0,0,.13);
+		    margin-bottom: 10px;
+		    padding: 5px;
 		}
 	</style>
 	<script>
