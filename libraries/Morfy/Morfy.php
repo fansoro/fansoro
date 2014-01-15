@@ -193,7 +193,7 @@ class Morfy
      */
     public function runSanitizeURL()
     {
-        $_GET = array_map('Security::sanitizeURL', $_GET);
+        $_GET = array_map(array($this, 'sanitizeURL'), $_GET);
     }
 
     /**
