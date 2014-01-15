@@ -13,6 +13,9 @@ if ($_SERVER["SERVER_PORT"] == "80") $port = ""; else $port = ':'.$_SERVER["SERV
 // Get site URL
 $site_url = 'http://'.$_SERVER["SERVER_NAME"].$port.str_replace(array("index.php", "install.php"), "", $_SERVER['PHP_SELF']);
 
+// Replace last slash in site_url
+$site_url = rtrim($site_url, '/');
+
 // Rewrite base
 $rewrite_base = str_replace(array("index.php", "install.php"), "", $_SERVER['PHP_SELF']);
 
@@ -65,7 +68,7 @@ if (isset($_POST['install_submit'])) {
     <title>Morfy Installer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="<?php echo $site_url; ?>themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $site_url; ?>/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 		.container {
 			max-width: 600px;
@@ -96,7 +99,7 @@ if (isset($_POST['install_submit'])) {
 		  </div>
 		  <div class="form-group">
 		    <label for="sitename">Site Url</label>
-		    <input type="text" class="form-control" id="sitename" placeholder="Enter Site Url">
+		    <input type="text" class="form-control" id="sitename" placeholder="Enter Site Url" value="<?php echo $site_url; ?>">
 		  </div>
 		  <div class="form-group">
 		    <label for="sitename">Email</label>
