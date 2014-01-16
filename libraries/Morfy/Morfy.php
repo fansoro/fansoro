@@ -270,7 +270,7 @@ class Morfy
         $content = $_content;
 
         // Parse {site_url}
-        $content = str_replace('{site_url}', static::$config['site_url'], $_content);
+        $content = str_replace('{site_url}', static::$config['site_url'], $content);
 
         // Parse {morfy_separator}
         $content = str_replace('{morfy_separator}', Morfy::SEPARATOR, $content);
