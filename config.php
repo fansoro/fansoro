@@ -1,7 +1,7 @@
 <?php
 
     return array(
-        'site_url' => 'http://localhost/projects/morfy-cms',
+        'site_url' => '',
         'site_charset' => 'UTF-8',
         'site_timezone' => 'UTC',
         'site_theme' => 'default',
