@@ -73,6 +73,7 @@ if (isset($_POST['install_submit'])) {
         'email' => '{$post_email}',
         'plugins' => array(
             'markdown',
+            'sitemap',
         ),
     );
   		");
