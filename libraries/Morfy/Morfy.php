@@ -64,6 +64,23 @@ class Morfy
     private static $filters = array();
 
     /**
+     * Page headers
+     *
+     * @var array
+     */
+    private $page_headers = array(
+                                    'title'         => 'Title',
+                                    'description'   => 'Description',
+                                    'keywords'      => 'Keywords',
+                                    'author'        => 'Author',
+                                    'date'          => 'Date',
+                                    'robots'        => 'Robots',
+                                    'tags'          => 'Tags',
+                                    'template'      => 'Template',
+                                );
+
+
+    /**
      * Constructor.
      *
      * @access  public
@@ -216,15 +233,7 @@ class Morfy
     {
 
         // Page headers
-        $page_headers = array(
-            'title'         => 'Title',
-            'description'   => 'Description',
-            'keywords'      => 'Keywords',
-            'author'        => 'Author',
-            'date'          => 'Date',
-            'robots'        => 'Robots',
-            'template'      => 'Template',
-        );
+        $page_headers = $this->page_headers;
 
         $pages = $this->getFiles($url);
 
@@ -264,15 +273,7 @@ class Morfy
     public function getPage($url)
     {
         // Page headers
-        $page_headers = array(
-            'title'         => 'Title',
-            'description'   => 'Description',
-            'keywords'      => 'Keywords',
-            'author'        => 'Author',
-            'date'          => 'Date',
-            'robots'        => 'Robots',
-            'template'      => 'Template',
-        );
+        $page_headers = $this->page_headers;
 
         // Get the file path
         if($url) $file = CONTENT_PATH . '/' . $url; else $file = CONTENT_PATH . '/' .'index';
