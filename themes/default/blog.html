@@ -22,11 +22,19 @@
   </head>
 
   <body>
-
-    <?php include 'navbar.html' ?>
+	
+	<?php include 'navbar.html' ?>
 
     <div class="container">
-        <p><?php echo $page->content; ?></p>
+        <p>
+        	<?php
+    				$posts = Morfy::factory()->getPages(CONTENT_PATH . '/blog/', 'date', 'DESC', array('404','index'));
+    				foreach($posts as $post) {
+    				    echo '<a href="'.$config->site_url.'/blog/'.$post['slug'].'"><h3>'.$post['title'].'</h3></a>';
+    				    echo $post['content_short'];
+    				}
+         ?>
+     </p>
     </div>
 
     <!-- Bootstrap core JavaScript
