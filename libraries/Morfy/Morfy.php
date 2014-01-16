@@ -203,6 +203,58 @@ class Morfy
         $_GET = array_map(array($this, 'sanitizeURL'), $_GET);
     }
 
+
+   /**
+     * Get pages
+     *
+     * @param  string  $url        Url
+     * @param  string  $order_by   Order by
+     * @param  string  $order_type Order type
+     * @return array
+     */
+    public function getPages($url, $order_by = 'date', $order_type = 'DESC')
+    {
+
+        // Page headers
+        $page_headers = array(
+            'title'         => 'Title',
+            'description'   => 'Description',
+            'keywords'      => 'Keywords',
+            'author'        => 'Author',
+            'date'          => 'Date',
+            'robots'        => 'Robots',
+            'template'      => 'Template',
+        );
+
+        $pages = $this->getFiles($url);
+
+        foreach($pages as $key => $page) {
+            
+            if (basename($page) != '404.md') {            
+
+                $content = file_get_contents($page);
+
+                $_page_headers = explode(Morfy::SEPARATOR, $content);
+
+                foreach ($page_headers as $field => $regex) {
+                    if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $_page_headers[0], $match) && $match[1]) {
+                        $_pages[$key][ $field ] = trim($match[1]);
+                    } else {
+                        $_pages[$key][ $field ] = '';
+                    }
+                }
+
+                $_pages[$key]['content'] = $this->parseContent($content);
+                $_pages[$key]['slug'] = basename($page, '.md');
+
+            }
+        }
+
+        $_pages = $this->subvalSort($_pages, $order_by, $order_type);
+
+        return $_pages;
+    }
+
     /**
      * Get page
      *
@@ -211,7 +263,6 @@ class Morfy
      */
     public function getPage($url)
     {
-
         // Page headers
         $page_headers = array(
             'title'         => 'Title',
@@ -251,6 +302,51 @@ class Morfy
 
         return $page;
     }
+
+
+    /**
+     * Get list of files in directory recursive
+     *
+     *  <code>
+     *      $files = $this->getFiles('folder');
+     *      $files = $this->getFiles('folder', 'txt');
+     *      $files = $this->getFiles('folder', array('txt', 'log'));
+     *  </code>
+     *
+     * @param  string $folder Folder
+     * @param  mixed  $type   Files types
+     * @return array
+     */
+    public static function getFiles($folder, $type = null)
+    {
+        $data = array();
+        if (is_dir($folder)) {
+            $iterator = new RecursiveDirectoryIterator($folder);
+            foreach (new RecursiveIteratorIterator($iterator) as $file) {
+                if ($type !== null) {
+                    if (is_array($type)) {
+                        $file_ext = substr(strrchr($file->getFilename(), '.'), 1);
+                        if (in_array($file_ext, $type)) {
+                            if (strpos($file->getFilename(), $file_ext, 1)) {
+                                $data[] = $file->getPathName();
+                            }
+                        }
+                    } else {
+                        if (strpos($file->getFilename(), $type, 1)) {
+                            $data[] = $file->getPathName();
+                        }
+                    }
+                } else {
+                    if ($file->getFilename() !== '.' && $file->getFilename() !== '..') $data[] = $file->getPathName();
+                }
+            }
+
+            return $data;
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * Content Parser
