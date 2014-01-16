@@ -274,6 +274,9 @@ class Morfy
 
         // Parse {morfy_separator}
         $content = str_replace('{morfy_separator}', Morfy::SEPARATOR, $content);
+        
+        // Parse {morfy_version}
+        $content = str_replace('{morfy_version}', Morfy::VERSION, $content);
 
         // Return content
         return $this->applyFilter('content', $content);
