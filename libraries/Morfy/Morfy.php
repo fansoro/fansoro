@@ -182,10 +182,25 @@ class Morfy
         $script_url  = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
 
         // Get our url path and trim the / of the left and the right
-        if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
+        if ($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
         $url = preg_replace('/\?.*/', '', $url); // Strip query string
 
         return $url;
+    }
+
+    /**
+     * Get Uri Segments
+     */
+    public function getUriSegments() {
+        return explode('/', $this->getUrl());
+    }
+
+    /**
+     * Get Uri Segment
+     */
+    public function getUriSegment($segment) {
+        $segments = $this->getUriSegments();
+        return isset($segments[$segment]) ? $segments[$segment] : null;
     }
 
     /**
@@ -229,7 +244,7 @@ class Morfy
      * @param  string  $order_type Order type
      * @return array
      */
-    public function getPages($url, $order_by = 'date', $order_type = 'DESC')
+    public function getPages($url, $order_by = 'date', $order_type = 'DESC', $ignore = array('404'))
     {
 
         // Page headers
@@ -239,7 +254,7 @@ class Morfy
 
         foreach($pages as $key => $page) {
             
-            if (basename($page) != '404.md') {            
+            if (!in_array(basename($page, '.md'), $ignore)) {            
 
                 $content = file_get_contents($page);
 
@@ -253,7 +268,15 @@ class Morfy
                     }
                 }
 
-                $_pages[$key]['content'] = $this->parseContent($content);
+                $_content = $this->parseContent($content);        
+                if(is_array($_content)) {
+                    $_pages[$key]['content_short'] = $_content['content_short'];
+                    $_pages[$key]['content'] = $_content['content_full'];
+                } else {
+                    $_pages[$key]['content_short'] = $_content;
+                    $_pages[$key]['content'] = $_content;
+                }
+
                 $_pages[$key]['slug'] = basename($page, '.md');
 
             }
@@ -297,8 +320,16 @@ class Morfy
                 $page[ $field ] = '';
             }
         }
+        
+        $_content = $this->parseContent($content);        
+        if(is_array($_content)) {
+            $page['content_short'] = $_content['content_short'];
+            $page['content'] = $_content['content_full'];
+        } else {
+            $page['content_short'] = $_content;
+            $page['content'] = $_content;
+        }
 
-        $page['content'] = $this->parseContent($content);
         $page['slug'] = basename($file, '.md');
 
         return $page;
@@ -357,7 +388,7 @@ class Morfy
      */
     protected function parseContent($content)
     {       
-        // Parse Headers & Content
+        // Parse Content after Headers
         $_content = '';
         $i = 0;
         foreach (explode(Morfy::SEPARATOR, $content) as $c) {
@@ -375,10 +406,20 @@ class Morfy
         // Parse {morfy_version}
         $content = str_replace('{morfy_version}', Morfy::VERSION, $content);
 
-        // Return content
-        return $this->applyFilter('content', $content);
-    }
+        // Parse {cut}
+        $pos = strpos($content, "{cut}");
+        if ($pos === false) {
+            $content = $this->applyFilter('content', $content);
+        } else {
+            $content = explode("{cut}", $content);
+            $content['content_short'] = $this->applyFilter('content', $content[0]);
+            $content['content_full']  = $this->applyFilter('content', $content[0].$content[1]);                    
+        }
 
+
+        // Return content
+        return $content;
+    }
 
     /**
      * Load Plugins
