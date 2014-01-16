@@ -1,8 +1,7 @@
-/*
 Title: Welcome
 Description: Morfy is a simple and light-weighted Content Management System
 Template: index
-*/
+----
 
 ## Welcome to Morfy
 
@@ -38,15 +37,14 @@ Text files are marked up using Markdown Plugin. They can also contain regular HT
 At the top of text files you can place a block comment and specify certain attributes of the page.
 
 Example:
-
-	/ *  
-	    Title: Welcome  
-	    Description: Some description here   
-	    Author: Awilum  
-	    Date: 2013/12/31  
-	    Robots: noindex,nofollow  
-	    Template: index (allows you to use different templates in your theme)  
-	*/
+	
+	Title: Welcome  
+	Description: Some description here   
+	Author: Awilum  
+	Date: 2013/12/31  
+	Robots: noindex,nofollow  
+	Template: index (allows you to use different templates in your theme)  
+	{morfy_separator}
 
 <br>
 
