@@ -11,5 +11,6 @@
         'email' => 'admin@admin.com',
         'plugins' => array(
             'markdown',
+            'sitemap',
         ),
     );
