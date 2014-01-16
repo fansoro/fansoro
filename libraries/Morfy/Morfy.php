@@ -29,6 +29,13 @@ class Morfy
     const VERSION = '0.0.1';
 
     /**
+     * The separator of Morfy
+     *
+     * @var string
+     */
+    const SEPARATOR = '----';    
+
+    /**
      * Config array.
      *
      * @var array
@@ -229,9 +236,11 @@ class Morfy
             header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
         }
 
+        $_page_headers = explode(Morfy::SEPARATOR, $content);
+
         foreach ($page_headers as $field => $regex) {
-            if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]) {
-                $page[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
+            if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $_page_headers[0], $match) && $match[1]) {
+                $page[ $field ] = trim($match[1]);
             } else {
                 $page[ $field ] = '';
             }
@@ -250,12 +259,26 @@ class Morfy
      * @return string $content Formatted content
      */
     protected function parseContent($content)
-    {
-        $content = preg_replace('#/\*.+?\*/#s', '', $content);
-        $content = str_replace('{site_url}', static::$config['site_url'], $content);
+    {       
+        // Parse Headers & Content
+        $_content = '';
+        $i = 0;
+        foreach (explode(Morfy::SEPARATOR, $content) as $c) {
+            ($i++!=0) and $_content .= $c;
+        }
 
+        $content = $_content;
+
+        // Parse {site_url}
+        $content = str_replace('{site_url}', static::$config['site_url'], $_content);
+
+        // Parse {morfy_separator}
+        $content = str_replace('{morfy_separator}', Morfy::SEPARATOR, $content);
+
+        // Return content
         return $this->applyFilter('content', $content);
     }
+
 
     /**
      * Load Plugins
