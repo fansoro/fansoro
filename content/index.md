@@ -59,6 +59,8 @@ Write text file vars inside `{}` e.g. `{var}`
     </thead>
     <tbody>
         <tr><td>site_url</td><td>Outputs site url</td></tr>
+        <tr><td>morfy_separator</td><td>Outputs morfy separator</td></tr>
+        <tr><td>morfy_version</td><td>Outputs morfy version</td></tr>
     </tbody>
 </table>
 
