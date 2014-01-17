@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <meta name="description" content="<?php echo $page->description; ?>">
-    <meta name="keywords" content="<?php echo $page->keywords; ?>">    
-    <link rel="shortcut icon" href="<?php echo $config->site_url; ?>favicon.png">
+    <meta name="description" content="<?php echo $page['description']; ?>">
+    <meta name="keywords" content="<?php echo $page['keywords']; ?>">    
+    <link rel="shortcut icon" href="<?php echo $config['site_url']; ?>favicon.png">
 
-    <title><?php echo $page->title; ?></title>
+    <title><?php echo $page['title']; ?></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo $config->site_url; ?>/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo $config->site_url; ?>/themes/default/assets/css/default.css" rel="stylesheet">
+    <link href="<?php echo $config['site_url']; ?>/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $config['site_url']; ?>/themes/default/assets/css/default.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,13 +26,13 @@
     <?php include 'navbar.html' ?>
 
     <div class="container">
-        <p><?php echo $page->content; ?></p>
+        <p><?php echo $page['content']; ?></p>
     </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?php echo $config->site_url; ?>/themes/default/assets/js/jquery.min.js"></script>
-    <script src="<?php echo $config->site_url; ?>/themes/default/assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo $config['site_url']; ?>/themes/default/assets/js/jquery.min.js"></script>
+    <script src="<?php echo $config['site_url']; ?>/themes/default/assets/js/bootstrap.min.js"></script>
   </body>
 </html>
