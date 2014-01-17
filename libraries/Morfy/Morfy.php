@@ -242,9 +242,11 @@ class Morfy
      * @param  string  $url        Url
      * @param  string  $order_by   Order by
      * @param  string  $order_type Order type
+     * @param  array   $ignore     Pages to ignore
+     * @param  int     $limit      Limit of pages
      * @return array
      */
-    public function getPages($url, $order_by = 'date', $order_type = 'DESC', $ignore = array('404'))
+    public function getPages($url, $order_by = 'date', $order_type = 'DESC', $ignore = array('404'), $limit = null)
     {
 
         // Page headers
@@ -284,6 +286,8 @@ class Morfy
 
         $_pages = $this->subvalSort($_pages, $order_by, $order_type);
 
+        if($limit != null) $_pages = array_slice($_pages, null, $limit);
+
         return $_pages;
     }
 
@@ -318,7 +322,7 @@ class Morfy
                 $page[ $field ] = trim($match[1]);
             } else {
                 $page[ $field ] = '';
-            }
+            }            
         }
         
         $_content = $this->parseContent($content);        
