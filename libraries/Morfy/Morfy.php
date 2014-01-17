@@ -166,7 +166,7 @@ class Morfy
 
         // Load template
         $this->runAction('before_render');
-        require THEMES_PATH .'/'. $config['site_theme'] . '/'. ($template = !empty($page->template) ? $page->template : 'index') .'.html';
+        require THEMES_PATH .'/'. $config['site_theme'] . '/'. ($template = !empty($page['template']) ? $page['template'] : 'index') .'.html';
         $this->runAction('after_render');
     }
 
