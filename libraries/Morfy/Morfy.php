@@ -40,7 +40,7 @@ class Morfy
      *
      * @var array
      */
-    protected static $config;
+    public static $config;
 
     /**
      * Plugins
@@ -161,13 +161,12 @@ class Morfy
         empty($page['keywords']) and $page['keywords'] = static::$config['site_keywords'];
         empty($page['description']) and $page['description'] = static::$config['site_description'];
 
-        // Variables for Template more pretty ? Yep.
-        $page   = (object) $page;
-        $config = (object) self::$config;
+        $page   = $page;
+        $config = self::$config;
 
         // Load template
         $this->runAction('before_render');
-        require THEMES_PATH .'/'. $config->site_theme . '/'. ($template = !empty($page->template) ? $page->template : 'index') .'.html';
+        require THEMES_PATH .'/'. $config['site_theme'] . '/'. ($template = !empty($page->template) ? $page->template : 'index') .'.html';
         $this->runAction('after_render');
     }
 
@@ -270,6 +269,13 @@ class Morfy
                     }
                 }
 
+                $url = str_replace(CONTENT_PATH, Morfy::$config['site_url'], $page);
+                $url = str_replace('index.md', '', $url);
+                $url = str_replace('.md', '', $url);
+                $url = str_replace('\\', '/', $url);
+                $url = rtrim($url, '/');
+                $_pages[$key]['url'] = $url;
+
                 $_content = $this->parseContent($content);        
                 if(is_array($_content)) {
                     $_pages[$key]['content_short'] = $_content['content_short'];
@@ -324,7 +330,14 @@ class Morfy
                 $page[ $field ] = '';
             }            
         }
-        
+
+        $url = str_replace(CONTENT_PATH, Morfy::$config['site_url'], $file);
+        $url = str_replace('index.md', '', $url);
+        $url = str_replace('.md', '', $url);
+        $url = str_replace('\\', '/', $url);
+        $url = rtrim($url, '/');
+        $pages['url'] = $url;
+
         $_content = $this->parseContent($content);        
         if(is_array($_content)) {
             $page['content_short'] = $_content['content_short'];
