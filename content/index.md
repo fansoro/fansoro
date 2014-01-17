@@ -41,9 +41,11 @@ Example:
 	
 	Title: Welcome  
 	Description: Some description here   
+    Keywords: key, words
 	Author: Awilum  
 	Date: 2013/12/31  
-	Robots: noindex,nofollow  
+	Tags: tag1, tag2
+    Robots: noindex,nofollow  
 	Template: index (allows you to use different templates in your theme)  
 	{morfy_separator}
 
@@ -61,6 +63,7 @@ Write text file vars inside `{}` e.g. `{var}`
         <tr><td>site_url</td><td>Outputs site url</td></tr>
         <tr><td>morfy_separator</td><td>Outputs morfy separator</td></tr>
         <tr><td>morfy_version</td><td>Outputs morfy version</td></tr>
+        <tr><td>cut</td><td>Page Cut</td></tr>
     </tbody>
 </table>
 
@@ -83,22 +86,24 @@ You can seperate index.html to header.html and footer.html on your wish and easy
     </thead>
     <tbody>
         <tr><td>Config</td><td></td></tr>
-        <tr><td>$config->site_url;</td><td>Site url</td></tr>
-        <tr><td>$config->site_charset;</td><td>Site charset</td></tr>
-        <tr><td>$config->site_timezone;</td><td>Site timezone</td></tr>
-        <tr><td>$config->site_theme;</td><td>Site theme</td></tr>
-        <tr><td>$config->site_title;</td><td>Site title</td></tr>
-        <tr><td>$config->site_description;</td><td>Site description</td></tr>
-        <tr><td>$config->site_keywords;</td><td>Site keywords</td></tr>
+        <tr><td>$config['site_url']</td><td>Site url</td></tr>
+        <tr><td>$config['site_charset']</td><td>Site charset</td></tr>
+        <tr><td>$config['site_timezone']</td><td>Site timezone</td></tr>
+        <tr><td>$config['site_theme']</td><td>Site theme</td></tr>
+        <tr><td>$config['site_title']</td><td>Site title</td></tr>
+        <tr><td>$config['site_description']</td><td>Site description</td></tr>
+        <tr><td>$config['site_keywords']</td><td>Site keywords</td></tr>
         <tr><td>Page</td><td></td></tr>
-        <tr><td>$page->title;</td><td>Page title</td></tr>
-        <tr><td>$page->description;</td><td>Page description</td></tr>
-        <tr><td>$page->keywords;</td><td>Page keywords</td></tr>
-        <tr><td>$page->author;</td><td>Page author</td></tr>
-        <tr><td>$page->date;</td><td>Page date</td></tr>
-        <tr><td>$page->robots;</td><td>Page robots</td></tr>
-        <tr><td>$page->template;</td><td>Page template</td></tr>
+        <tr><td>$page['title']</td><td>Page title</td></tr>
+        <tr><td>$page['description']</td><td>Page description</td></tr>
+        <tr><td>$page['keywords']</td><td>Page keywords</td></tr>
+        <tr><td>$page['tags']</td><td>Page tags</td></tr>
+        <tr><td>$page['url']</td><td>Page url</td></tr>
+        <tr><td>$page['author']</td><td>Page author</td></tr>
+        <tr><td>$page['date']</td><td>Page date</td></tr>
+        <tr><td>$page['robots']</td><td>Page robots</td></tr>
+        <tr><td>$page['template']</td><td>Page template</td></tr>
     </tbody>
 </table>
 
-Example how to output variable: `<?php echo $page->title; ?>`
+Example how to output variable: `<?php echo $page['title']; ?>`
