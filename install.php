@@ -113,12 +113,6 @@ if (isset($_POST['install_submit'])) {
 	        font-size: 16px;
 	        line-height: 26px;
 	        color: #333;
-	        
-	        background: url('bg.jpg') no-repeat center center fixed; 
-	        -webkit-background-size: cover;
-	        -moz-background-size: cover;
-	        -o-background-size: cover;
-	        background-size: cover;
 	    }
 		h1 {
 			font-size: 126px;
