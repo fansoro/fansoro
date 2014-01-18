@@ -107,3 +107,10 @@ You can seperate index.html to header.html and footer.html on your wish and easy
 </table>
 
 Example how to output variable: `<?php echo $page['title']; ?>`
+
+
+### Config
+You can set your own site title, keywords, description and etc.. by editing config.php in the root Morfy directory. 
+
+### Documentation
+For more help have a look at the Mory documentation at http://morfy.monstra.org/documentation
