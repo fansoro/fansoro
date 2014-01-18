@@ -1,6 +1,7 @@
 Title: Hello
 Date: 16/01/2014 16:08
 Template: blog_post
+
 ----
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
