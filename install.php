@@ -87,7 +87,7 @@ if (isset($_POST['install_submit'])) {
         fclose($handle);
 
         // Installation done :)
-        header("location: index.php");
+        header("location: index.php?install=done");
    
 }
 ?>

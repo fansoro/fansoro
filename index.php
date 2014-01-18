@@ -26,6 +26,23 @@ define('PLUGINS_PATH', __DIR__ .'/plugins');
 require LIBRARIES_PATH . '/Morfy/Morfy.php';
 
 /**
- * Run Morfy Application
+ * First check for installer then go
  */
-Morfy::factory()->run('config.php');
+if (file_exists('install.php')) {
+    if (isset($_GET['install']) && $_GET['install'] == 'done') {        
+        
+        // Try to delete install file if not DELETE MANUALLY !!!
+        @unlink('install.php');
+
+        // Redirect to main page
+        header('location: index.php');
+
+    } else {
+        include 'install.php';
+    }
+} else {
+	/**
+	 * Run Morfy Application
+	 */
+	Morfy::factory()->run('config.php');
+}
