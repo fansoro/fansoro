@@ -218,7 +218,8 @@ class Morfy
      * @access  public
      * @return array
      */
-    public function getUriSegments() {
+    public function getUriSegments() 
+    {
         return explode('/', $this->getUrl());
     }
 
@@ -232,7 +233,8 @@ class Morfy
      * @access  public
      * @return string
      */
-    public function getUriSegment($segment) {
+    public function getUriSegment($segment) 
+    {
         $segments = $this->getUriSegments();
         return isset($segments[$segment]) ? $segments[$segment] : null;
     }
@@ -408,7 +410,6 @@ class Morfy
 
         return $page;
     }
-
 
     /**
      * Get list of files in directory recursive
