@@ -81,17 +81,31 @@ class Morfy
 
 
     /**
+     * Protected clone method to enforce singleton behavior.
+     *
+     * @access  protected
+     */
+    protected function __clone()
+    {
+        // Nothing here.
+    }
+
+    /**
      * Constructor.
      *
      * @access  public
      */
-    public function __construct()
+    protected function __construct()
     {
         // Nothing here
     }
 
     /**
      * Factory method making method chaining possible right off the bat.
+     *
+     *  <code>
+     *      $morfy = Morfy::factory();
+     *  </code>
      *
      * @access  public
      */
@@ -172,6 +186,13 @@ class Morfy
 
     /**
      * Get Url
+     *
+     *  <code>
+     *      $url = Morfy::factory()->getUrl();
+     *  </code>
+     *
+     * @access  public
+     * @return string
      */
     public function getUrl()
     {
@@ -189,6 +210,13 @@ class Morfy
 
     /**
      * Get Uri Segments
+     *
+     *  <code>
+     *      $uri_segments = Morfy::factory()->getUriSegments();
+     *  </code>
+     *
+     * @access  public
+     * @return array
      */
     public function getUriSegments() {
         return explode('/', $this->getUrl());
@@ -196,6 +224,13 @@ class Morfy
 
     /**
      * Get Uri Segment
+     *
+     *  <code>
+     *      $uri_segment = Morfy::factory()->getUriSegment(1);
+     *  </code>
+     *
+     * @access  public
+     * @return string
      */
     public function getUriSegment($segment) {
         $segments = $this->getUriSegments();
@@ -205,6 +240,11 @@ class Morfy
     /**
      * Create safe url.
      *
+     *  <code>
+     *      $url = Morfy::factory()->sanitizeURL($url);
+     *  </code>
+     *
+     * @access  public
      * @param  string $url Url to sanitize
      * @return string
      */
@@ -228,6 +268,13 @@ class Morfy
 
     /**
      * Sanitize URL to prevent XSS - Cross-site scripting
+     *
+     *  <code>
+     *      Morfy::factory()->runSanitizeURL();
+     *  </code>
+     *
+     * @access  public
+     * @return void
      */
     public function runSanitizeURL()
     {
@@ -237,6 +284,10 @@ class Morfy
 
    /**
      * Get pages
+     *
+     *  <code>
+     *      $pages = Morfy::factory()->getPages(CONTENT_PATH . '/blog/');
+     *  </code>
      *
      * @param  string  $url        Url
      * @param  string  $order_by   Order by
@@ -300,6 +351,10 @@ class Morfy
     /**
      * Get page
      *
+     *  <code>
+     *      $page = Morfy::factory()->getPage('downloads');
+     *  </code>
+     *
      * @param  string $url Url
      * @return array
      */
@@ -357,9 +412,9 @@ class Morfy
      * Get list of files in directory recursive
      *
      *  <code>
-     *      $files = $this->getFiles('folder');
-     *      $files = $this->getFiles('folder', 'txt');
-     *      $files = $this->getFiles('folder', array('txt', 'log'));
+     *      $files = Morfy::factory()->getFiles('folder');
+     *      $files = Morfy::factory()->getFiles('folder', 'txt');
+     *      $files = Morfy::factory()->getFiles('folder', array('txt', 'log'));
      *  </code>
      *
      * @param  string $folder Folder
@@ -465,7 +520,7 @@ class Morfy
      *
      *  <code>
      *      // Hooks a function "newLink" on to a "footer" action.
-     *      $this->addAction('footer', 'newLink', 10);
+     *      Morfy::factory()->addAction('footer', 'newLink', 10);
      *
      *      function newLink() {
      *          echo '<a href="#">My link</a>';
@@ -493,7 +548,7 @@ class Morfy
      *
      *  <code>
      *      // Run functions hooked on a "footer" action hook.
-     *      $this->runAction('footer');
+     *      Morfy::factory()->runAction('footer');
      *  </code>
      *
      * @param  string  $action_name Action name
@@ -551,7 +606,7 @@ class Morfy
      * Apply filters
      *
      *  <code>
-     *      $this->applyFilter('content', $content);
+     *      Morfy::factory()->applyFilter('content', $content);
      *  </code>
      *
      * @param  string $filter_name The name of the filter hook.
@@ -596,7 +651,7 @@ class Morfy
      * Add filter
      *
      *  <code>
-     *      $this->addFilter('content', 'replacer');
+     *      Morfy::factory()->addFilter('content', 'replacer');
      *
      *      function replacer($content) {
      *          return preg_replace(array('/\[b\](.*?)\[\/b\]/ms'), array('<strong>\1</strong>'), $content);
@@ -639,7 +694,7 @@ class Morfy
      * Subval sort
      *
      *  <code>
-     *      $new_array = $this->subvalSort($old_array, 'sort');
+     *      $new_array = Morfy::factory()->subvalSort($old_array, 'sort');
      *  </code>
      *
      * @param  array  $a      Array
@@ -647,7 +702,7 @@ class Morfy
      * @param  string $order  Order type DESC or ASC
      * @return array
      */
-    protected function subvalSort($a, $subkey, $order = null)
+    public function subvalSort($a, $subkey, $order = null)
     {
         if (count($a) != 0 || (!empty($a))) {
             foreach ($a as $k => $v) $b[$k] = function_exists('mb_strtolower') ? mb_strtolower($v[$subkey]) : strtolower($v[$subkey]);
