@@ -289,6 +289,7 @@ class Morfy
      *      $pages = Morfy::factory()->getPages(CONTENT_PATH . '/blog/');
      *  </code>
      *
+     * @access  public
      * @param  string  $url        Url
      * @param  string  $order_by   Order by
      * @param  string  $order_type Order type
@@ -355,6 +356,7 @@ class Morfy
      *      $page = Morfy::factory()->getPage('downloads');
      *  </code>
      *
+     * @access  public
      * @param  string $url Url
      * @return array
      */
@@ -417,6 +419,7 @@ class Morfy
      *      $files = Morfy::factory()->getFiles('folder', array('txt', 'log'));
      *  </code>
      *
+     * @access  public
      * @param  string $folder Folder
      * @param  mixed  $type   Files types
      * @return array
@@ -527,6 +530,7 @@ class Morfy
      *      }
      *  </code>
      *
+     * @access  public
      * @param string  $action_name    Action name
      * @param mixed   $added_function Added function
      * @param integer $priority       Priority. Default is 10
@@ -551,6 +555,7 @@ class Morfy
      *      Morfy::factory()->runAction('footer');
      *  </code>
      *
+     * @access  public
      * @param  string  $action_name Action name
      * @param  array   $args        Arguments
      * @param  boolean $return      Return data or not. Default is false
@@ -609,11 +614,12 @@ class Morfy
      *      Morfy::factory()->applyFilter('content', $content);
      *  </code>
      *
+     * @access  public
      * @param  string $filter_name The name of the filter hook.
      * @param  mixed  $value       The value on which the filters hooked.
      * @return mixed
      */
-    public static function applyFilter($filter_name, $value)
+    public function applyFilter($filter_name, $value)
     {
         // Redefine arguments
         $filter_name = (string) $filter_name;
@@ -658,13 +664,14 @@ class Morfy
      *      }
      *  </code>
      *
+     * @access  public
      * @param  string  $filter_name     The name of the filter to hook the $function_to_add to.
      * @param  string  $function_to_add The name of the function to be called when the filter is applied.
      * @param  integer $priority        Function to add priority - default is 10.
      * @param  integer $accepted_args   The number of arguments the function accept default is 1.
      * @return boolean
      */
-    public static function addFilter($filter_name, $function_to_add, $priority = 10, $accepted_args = 1)
+    public function addFilter($filter_name, $function_to_add, $priority = 10, $accepted_args = 1)
     {
         // Redefine arguments
         $filter_name     = (string) $filter_name;
@@ -697,6 +704,7 @@ class Morfy
      *      $new_array = Morfy::factory()->subvalSort($old_array, 'sort');
      *  </code>
      *
+     * @access  public
      * @param  array  $a      Array
      * @param  string $subkey Key
      * @param  string $order  Order type DESC or ASC
