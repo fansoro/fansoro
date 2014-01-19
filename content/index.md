@@ -93,6 +93,7 @@ You can seperate index.html to header.html and footer.html on your wish and easy
         <tr><td>$config['site_title']</td><td>Site title</td></tr>
         <tr><td>$config['site_description']</td><td>Site description</td></tr>
         <tr><td>$config['site_keywords']</td><td>Site keywords</td></tr>
+        <tr><td>$config['email']</td><td>Email</td></tr>
         <tr><td>Page</td><td></td></tr>
         <tr><td>$page['title']</td><td>Page title</td></tr>
         <tr><td>$page['description']</td><td>Page description</td></tr>
