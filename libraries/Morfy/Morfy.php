@@ -676,7 +676,7 @@ class Morfy
     {
         // Redefine arguments
         $filter_name     = (string) $filter_name;
-        $function_to_add = (string) $function_to_add;
+        $function_to_add = $function_to_add;
         $priority        = (int) $priority;
         $accepted_args   = (int) $accepted_args;
 
