@@ -64,6 +64,13 @@ class Morfy
     private static $filters = array();
 
     /**
+     * Key name for security token storage
+     *
+     * @var  string
+     */
+    protected static $security_token_name = 'security_token';
+
+    /**
      * Page headers
      *
      * @var array
@@ -162,6 +169,9 @@ class Morfy
             array_walk_recursive($_COOKIE, 'stripslashesGPC');
             array_walk_recursive($_REQUEST, 'stripslashesGPC');
         }
+
+        // Start the session
+        !session_id() and @session_start();        
 
         // Load Plugins
         $this->loadPlugins();
@@ -512,11 +522,7 @@ class Morfy
      */
     protected function loadConfig($path)
     {
-        if (file_exists($path)) {
-            static::$config = require $path;
-        } else {
-            die("Oops.. Where is config file ?!");
-        }
+        if (file_exists($path)) static::$config = require $path; else die("Oops.. Where is config file ?!");
     }
 
     /**
@@ -697,6 +703,74 @@ class Morfy
         return true;
     }
 
+    /**
+     * Generate and store a unique token which can be used to help prevent
+     * [CSRF](http://wikipedia.org/wiki/Cross_Site_Request_Forgery) attacks.
+     *
+     *  <code>
+     *      $token = Morfy::factory()->generateToken();
+     *  </code>
+     *
+     * You can insert this token into your forms as a hidden field:
+     *
+     *  <code>
+     *      <input type="hidden" name="token" value="<?php echo Morfy::factory()->generateToken(); ?>">
+     *  </code>
+     *
+     * This provides a basic, but effective, method of preventing CSRF attacks.
+     *
+     * @param  boolean $new force a new token to be generated?. Default is false
+     * @return string
+     */
+    public function generateToken($new = false)
+    {
+        // Get the current token
+        if (isset($_SESSION[(string) Morfy::$security_token_name])) $token = $_SESSION[(string) Morfy::$security_token_name]; else $token = null;
+
+        // Create a new unique token
+        if ($new === true or ! $token) {
+
+            // Generate a new unique token
+            $token = sha1(uniqid(mt_rand(), true));
+
+            // Store the new token
+            $_SESSION[(string) Morfy::$security_token_name] = $token;
+        }
+
+        // Return token
+        return $token;
+    }
+
+    /**
+     * Check that the given token matches the currently stored security token.
+     *
+     *  <code>
+     *     if (Morfy::factory()->checkToken($token)) {
+     *         // Pass
+     *     }
+     *  </code>
+     *
+     * @param  string  $token token to check
+     * @return boolean
+     */
+    public function checkToken($token)
+    {
+        return Morfy::factory()->generateToken() === $token;
+    }
+
+    /**
+     * Sanitize data to prevent XSS - Cross-site scripting
+     *
+     *  <code>
+     *     $str = Morfy::factory()->cleanString($str);
+     *  </code>
+     *
+     * @param  string $str String
+     * @return string 
+     */
+    public function cleanString($str) {
+        return htmlspecialchars($str, ENT_QUOTES, 'utf-8');
+    }
 
     /**
      * Subval sort
