@@ -3,9 +3,7 @@
 <div class="container">
     <?php Morfy::factory()->runAction('theme_content_before'); ?>
       <h3><?php echo $page['title']; ?></h3>
-      <hr>
       <p>Posted on <?php echo $page['date']; ?></p>
-      <hr>			   
       <div><?php echo $page['content']; ?></div>   
       <?php Morfy::factory()->runAction('theme_content_after'); ?>
       <hr>
