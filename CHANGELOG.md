@@ -1,8 +1,9 @@
-Morfy 1.0.3, 2014-01-xx
+Morfy 1.0.3, 2014-01-24
 ------------------------
 * New method generateToken() - Generate and store a unique token which can be used to help prevent CSRF attacks.
 * New method checkToken() - Check that the given token matches the currently stored security token.
 * New method cleanString() - Sanitize data to prevent XSS (Cross-site scripting)
+* Default Theme - Improvements
 
 Morfy 1.0.2, 2014-01-21
 ------------------------
