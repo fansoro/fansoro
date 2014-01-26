@@ -1,3 +1,8 @@
+Morfy 1.0.4, 2014-01-26
+------------------------
+* Morfy fixes
+* Default Theme fixes
+
 Morfy 1.0.3, 2014-01-24
 ------------------------
 * New method generateToken() - Generate and store a unique token which can be used to help prevent CSRF attacks.
