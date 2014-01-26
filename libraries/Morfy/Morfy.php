@@ -4,7 +4,7 @@
  * Morfy Engine
  *
  *  Morfy - Content Management System.
- *  Site: www.morfy.mostra.org
+ *  Site: www.morfy.monstra.org
  *  Copyright (C) 2013 Romanenko Sergey / Awilum <awilum@msn.com>
  *
  * This source file is part of the Morfy Engine. More information,
