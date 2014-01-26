@@ -11,11 +11,12 @@
  *
  */
 
+header("Content-Type: text/xml; charset=utf-8");
+ 
 if (Morfy::factory()->getUrl() == 'sitemap.xml') {
     Morfy::factory()->addAction('before_render', function() {
 
-echo '
-<?xml version="1.0" encoding="UTF-8"?>
+echo '<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 $pages = Morfy::factory()->getPages(CONTENT_PATH, 'date', 'DESC', array('404'));
 foreach($pages as $page) {
