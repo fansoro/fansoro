@@ -1,3 +1,9 @@
+Morfy 1.0.5, 2014-02-01
+------------------------
+* Added {php}{/php} tags for inline php code
+* Default Theme Fav Icon fixes
+* Sitemap Plugin fixes
+
 Morfy 1.0.4, 2014-01-26
 ------------------------
 * Morfy fixes
