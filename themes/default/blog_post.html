@@ -2,7 +2,10 @@
 <?php include 'navbar.html' ?>
 <div class="container">
     <?php Morfy::factory()->runAction('theme_content_before'); ?>
-    <h3><?php echo $page['title']; ?></h3>
-    <?php echo $page['content']; ?>
-    <?php Morfy::factory()->runAction('theme_content_after'); ?>
+      <h3><?php echo $page['title']; ?></h3>
+      <p>Posted on <?php echo $page['date']; ?></p>
+      <div><?php echo $page['content']; ?></div>   
+      <?php Morfy::factory()->runAction('theme_content_after'); ?>
+      <hr>
 </div>
+<?php include 'footer.html' ?>

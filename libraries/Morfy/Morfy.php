@@ -4,7 +4,7 @@
  * Morfy Engine
  *
  *  Morfy - Content Management System.
- *  Site: www.morfy.mostra.org
+ *  Site: www.morfy.monstra.org
  *  Copyright (C) 2013 Romanenko Sergey / Awilum <awilum@msn.com>
  *
  * This source file is part of the Morfy Engine. More information,
@@ -26,7 +26,7 @@ class Morfy
      *
      * @var string
      */
-    const VERSION = '1.0.1';
+    const VERSION = '1.0.5';
 
     /**
      * The separator of Morfy
@@ -62,6 +62,13 @@ class Morfy
      * @var array
      */
     private static $filters = array();
+
+    /**
+     * Key name for security token storage
+     *
+     * @var  string
+     */
+    protected static $security_token_name = 'security_token';
 
     /**
      * Page headers
@@ -162,6 +169,9 @@ class Morfy
             array_walk_recursive($_COOKIE, 'stripslashesGPC');
             array_walk_recursive($_REQUEST, 'stripslashesGPC');
         }
+
+        // Start the session
+        !session_id() and @session_start();        
 
         // Load Plugins
         $this->loadPlugins();
@@ -492,6 +502,8 @@ class Morfy
             $content['content_full']  = $this->applyFilter('content', $content[0].$content[1]);                    
         }
 
+        // Parse PHP
+        $content = Morfy::evalPHP($content);
 
         // Return content
         return $content;
@@ -512,11 +524,7 @@ class Morfy
      */
     protected function loadConfig($path)
     {
-        if (file_exists($path)) {
-            static::$config = require $path;
-        } else {
-            die("Oops.. Where is config file ?!");
-        }
+        if (file_exists($path)) static::$config = require $path; else die("Oops.. Where is config file ?!");
     }
 
     /**
@@ -676,7 +684,7 @@ class Morfy
     {
         // Redefine arguments
         $filter_name     = (string) $filter_name;
-        $function_to_add = (string) $function_to_add;
+        $function_to_add = $function_to_add;
         $priority        = (int) $priority;
         $accepted_args   = (int) $accepted_args;
 
@@ -697,6 +705,74 @@ class Morfy
         return true;
     }
 
+    /**
+     * Generate and store a unique token which can be used to help prevent
+     * [CSRF](http://wikipedia.org/wiki/Cross_Site_Request_Forgery) attacks.
+     *
+     *  <code>
+     *      $token = Morfy::factory()->generateToken();
+     *  </code>
+     *
+     * You can insert this token into your forms as a hidden field:
+     *
+     *  <code>
+     *      <input type="hidden" name="token" value="<?php echo Morfy::factory()->generateToken(); ?>">
+     *  </code>
+     *
+     * This provides a basic, but effective, method of preventing CSRF attacks.
+     *
+     * @param  boolean $new force a new token to be generated?. Default is false
+     * @return string
+     */
+    public function generateToken($new = false)
+    {
+        // Get the current token
+        if (isset($_SESSION[(string) Morfy::$security_token_name])) $token = $_SESSION[(string) Morfy::$security_token_name]; else $token = null;
+
+        // Create a new unique token
+        if ($new === true or ! $token) {
+
+            // Generate a new unique token
+            $token = sha1(uniqid(mt_rand(), true));
+
+            // Store the new token
+            $_SESSION[(string) Morfy::$security_token_name] = $token;
+        }
+
+        // Return token
+        return $token;
+    }
+
+    /**
+     * Check that the given token matches the currently stored security token.
+     *
+     *  <code>
+     *     if (Morfy::factory()->checkToken($token)) {
+     *         // Pass
+     *     }
+     *  </code>
+     *
+     * @param  string  $token token to check
+     * @return boolean
+     */
+    public function checkToken($token)
+    {
+        return Morfy::factory()->generateToken() === $token;
+    }
+
+    /**
+     * Sanitize data to prevent XSS - Cross-site scripting
+     *
+     *  <code>
+     *     $str = Morfy::factory()->cleanString($str);
+     *  </code>
+     *
+     * @param  string $str String
+     * @return string 
+     */
+    public function cleanString($str) {
+        return htmlspecialchars($str, ENT_QUOTES, 'utf-8');
+    }
 
     /**
      * Subval sort
@@ -720,5 +796,25 @@ class Morfy
 
             return $c;
         }
+    }
+
+    /**
+     * obEval
+     */
+    protected static function obEval($mathes)
+    {
+        ob_start();
+        eval($mathes[1]);
+        $mathes = ob_get_contents();
+        ob_end_clean();
+
+        return $mathes;
+    }
+    
+    /**
+     * evalPHP
+     */
+    protected static function evalPHP($str) { 
+        return preg_replace_callback('/\{php\}(.*?)\{\/php\}/ms','Morfy::obEval', $str); 
     }
 }

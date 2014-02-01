@@ -1,5 +1,5 @@
 # Morfy CMS
-Simple • Fast • Flexible • No Database • Open Source
+Simple and fast file-based CMS
 
 ## System Requirements
 Operation system: Unix, Linux, Windows, Mac OS   

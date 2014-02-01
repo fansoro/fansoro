@@ -1,7 +1,0 @@
-Morfy 1.0.1, 2014-01-19
-------------------------
-- Default Theme - Improvements
-
-Morfy 1.0.0, 2014-01-18
-------------------------
-- Initial release
