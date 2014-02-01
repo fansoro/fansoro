@@ -26,7 +26,7 @@ class Morfy
      *
      * @var string
      */
-    const VERSION = '1.0.4';
+    const VERSION = '1.0.5';
 
     /**
      * The separator of Morfy
@@ -502,6 +502,8 @@ class Morfy
             $content['content_full']  = $this->applyFilter('content', $content[0].$content[1]);                    
         }
 
+        // Parse PHP
+        $content = Morfy::evalPHP($content);
 
         // Return content
         return $content;
@@ -794,5 +796,25 @@ class Morfy
 
             return $c;
         }
+    }
+
+    /**
+     * obEval
+     */
+    protected static function obEval($mathes)
+    {
+        ob_start();
+        eval($mathes[1]);
+        $mathes = ob_get_contents();
+        ob_end_clean();
+
+        return $mathes;
+    }
+    
+    /**
+     * evalPHP
+     */
+    protected static function evalPHP($str) { 
+        return preg_replace_callback('/\{php\}(.*?)\{\/php\}/ms','Morfy::obEval', $str); 
     }
 }
