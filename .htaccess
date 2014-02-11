@@ -1,5 +1,5 @@
 #
-# Morfy CMS :: php & apache settings 
+# Morfy CMS :: php & apache settings
 #
 
 # Set default charset utf-8
@@ -15,20 +15,26 @@ Options -Indexes
 	php_flag register_globals                 off
 </IfModule>
 
-
 # Setting rewrite rules.
 <IfModule mod_rewrite.c>
 	RewriteEngine on
-	
-	# Update code bellow for SEO improvements 
+
+	# Update code bellow for SEO improvements
 	# RewriteCond %{HTTP_HOST} ^www.example.org [NC]
  	# RewriteRule ^(.*)$ http://example.org/$1 [R=301,L]
-	
+
 	RewriteBase /%siteurlhere%/
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^(.*)$ index.php [QSA,L]
-	
-	# Update code bellow for SEO improvements 
+
+	# Update code bellow for SEO improvements
 	# Redirect 301 /index http://example.org/
 </IfModule>
+
+# Prevent visitors from viewing our MD and TXT files directly.
+<FilesMatch "(^#.*#|\.(md|txt)|~)$">
+	Order allow,deny
+	Deny from all
+	Satisfy All
+</FilesMatch>
