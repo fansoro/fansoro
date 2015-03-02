@@ -5,7 +5,7 @@
  *
  *  Morfy - Content Management System.
  *  Site: www.morfy.monstra.org
- *  Copyright (C) 2013 Romanenko Sergey / Awilum <awilum@msn.com>
+ *  Copyright (C) 2014 - 2015 Romanenko Sergey / Awilum <awilum@msn.com>
  *
  * This source file is part of the Morfy Engine. More information,
  * documentation and tutorials can be found at http://morfy.monstra.org
@@ -13,7 +13,7 @@
  * @package     Morfy
  *
  * @author      Romanenko Sergey / Awilum <awilum@msn.com>
- * @copyright   2013 Romanenko Sergey / Awilum <awilum@msn.com>
+ * @copyright   2014 - 2015 Romanenko Sergey / Awilum <awilum@msn.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
