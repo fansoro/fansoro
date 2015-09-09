@@ -43,7 +43,7 @@ Example:
 	Description: Some description here   
     Keywords: key, words
 	Author: Awilum  
-	Date: 2013/12/31  
+	Date: 2015-09-01 16:08 
 	Tags: tag1, tag2
     Robots: noindex,nofollow  
 	Template: index (allows you to use different templates in your theme)  
