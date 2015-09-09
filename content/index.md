@@ -8,8 +8,6 @@ Template: index
 
 Welcome to your new Morfy powered website. 
 
-Morfy is a flat file CMS, this means there is no administration backend and database to deal with.  
-You simply create .md files in the "content" folder and that becomes a page. 
 
 ### Creating Content
 
