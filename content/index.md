@@ -114,4 +114,4 @@ Example how to output variable: `<?php echo $page['title']; ?>`
 You can set your own site title, keywords, description and etc.. by editing config.php in the root Morfy directory. 
 
 ### Documentation
-For more help have a look at the Mory documentation at [http://morfy.monstra.org/documentation](http://morfy.monstra.org/documentation)
+For more help have a look at the Mory documentation at [http://morfy.org/documentation](http://morfy.org/documentation)
