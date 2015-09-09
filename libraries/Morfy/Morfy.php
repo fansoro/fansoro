@@ -4,11 +4,11 @@
  * Morfy Engine
  *
  *  Morfy - Content Management System.
- *  Site: www.morfy.monstra.org
+ *  Site: www.morfy.org
  *  Copyright (C) 2014 - 2015 Romanenko Sergey / Awilum <awilum@msn.com>
  *
  * This source file is part of the Morfy Engine. More information,
- * documentation and tutorials can be found at http://morfy.monstra.org
+ * documentation and tutorials can be found at http://morfy.org
  *
  * @package     Morfy
  *
