@@ -1,3 +1,12 @@
+Morfy 1.0.6, 2015-09-10
+------------------------
+* Prevent Visitors from Viewing our MD and TXT Files 
+* Sitemap Plugin fixes
+* Default Theme - update jQuery to v2.1.3
+* Default Theme - update Twitter Bootstrap to v3.3.5
+* Default Theme - remove IE9 Support
+* Date format for blog posts and pages - Fixed
+
 Morfy 1.0.5, 2014-02-01
 ------------------------
 * Added {php}{/php} tags for inline php code
