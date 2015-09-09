@@ -67,11 +67,11 @@ Write text file vars inside `{}` e.g. `{var}`
 
 ### Themes
 
-You can create themes for your Morfy installation and in the "themes" folder.
+You can create themes for your Morfy installation and in the `themes` folder.
 To setup your theme just update `theme` setting in config.php
 
-All themes must include an index.html file to define the HTML structure of the theme. 
-You can seperate index.html to header.html and footer.html on your wish and easy include theme:
+All themes must include an `index.html` file to define the HTML structure of the theme. 
+You can separate `index.html` to `header.html` and `footer.html` on your wish and easy include theme:
 `<?php include 'header.html' ?>` and `<?php include 'footer.html' ?>`
 
 <br>
