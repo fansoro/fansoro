@@ -8,7 +8,7 @@
     <meta name="keywords" content="<?php echo $page['keywords']; ?>">    
     <?php Morfy::factory()->runAction('theme_meta'); ?>
     <link rel="shortcut icon" href="<?php echo $config['site_url']; ?>/favicon.png">
-    <title><?php echo $page['title']; ?></title>
+    <title><?php echo $config['site_title'] ?> | <?php echo $page['title']; ?></title>
     <!-- Bootstrap core CSS -->
     <link href="<?php echo $config['site_url']; ?>/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $config['site_url']; ?>/themes/default/assets/css/default.css" rel="stylesheet">
