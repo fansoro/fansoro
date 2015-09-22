@@ -1,24 +1,29 @@
 <?php
 
 /**
+ * Define the path to the root directory (without trailing slash).
+ */
+define('ROOT_DIR', __DIR__);
+
+/**
  * Define the path to the content directory (without trailing slash).
  */
-define('CONTENT_PATH', __DIR__ .'/content');
+define('CONTENT_PATH', ROOT_DIR .'/content');
 
 /**
  * Define the path to the libraries directory (without trailing slash).
  */
-define('LIBRARIES_PATH', __DIR__ .'/libraries');
+define('LIBRARIES_PATH', ROOT_DIR .'/libraries');
 
 /**
  * Define the path to the themes directory (without trailing slash).
  */
-define('THEMES_PATH', __DIR__ .'/themes');
+define('THEMES_PATH', ROOT_DIR .'/themes');
 
 /**
  * Define the path to the plugins directory (without trailing slash).
  */
-define('PLUGINS_PATH', __DIR__ .'/plugins');
+define('PLUGINS_PATH', ROOT_DIR  .'/plugins');
 
 /**
  * Load Morfy
