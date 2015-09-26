@@ -176,6 +176,10 @@ class Morfy
         // Load Plugins
         $this->loadPlugins();
         $this->runAction('plugins_loaded');
+        
+        // Load Fenom Template Engine 
+        include LIBRARIES_PATH . '/Fenom/Fenom.php';
+        Fenom::registerAutoload();
 
         // Get page for current requested url
         $page = $this->getPage($this->getUrl());
@@ -187,11 +191,54 @@ class Morfy
 
         $page   = $page;
         $config = self::$config;
-
+        
         // Load template
         $this->runAction('before_render');
-        require THEMES_PATH .'/'. $config['site_theme'] . '/'. ($template = !empty($page['template']) ? $page['template'] : 'index') .'.html';
+        $this->loadTemplate($page, $config);
         $this->runAction('after_render');
+    }
+    
+    /**
+     * Load template
+     *
+     *  <code>
+     *      Morfy::factory()->loadTemplate($page, $config);
+     *  </code>
+     *
+     * @access public
+     * @return string
+     */
+    public function loadTemplate($page, $config)
+    {
+
+        $fenom = Fenom::factory(
+            THEMES_PATH . '/' . $config['site_theme'] . '/',
+            ROOT_DIR . '/cache/fenom/',
+            array(
+                'disable_methods'      => false,
+                'disable_native_funcs' => false,
+                'auto_reload'          => true,
+                'force_compile'        => false,
+                'disable_cache'        => false,
+                'force_include'        => true,
+                'auto_escape'          => false,
+                'force_verify'         => false,
+                'disable_php_calls'    => false,
+                'disable_statics'      => false,
+                'strip'                => true,
+            )
+        );
+
+        // Do global tag {$.config} for the template
+        $fenom->addAccessorSmart('config', 'site_config', Fenom::ACCESSOR_PROPERTY);
+        $fenom->site_config = $config;
+
+        // Display page
+        try {
+            $fenom->display(((!empty($page['template'])) ? $page['template'] : 'index') . '.tpl', $page);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     /**
@@ -315,7 +362,7 @@ class Morfy
         // Page headers
         $page_headers = $this->page_headers;
 
-        $pages = $this->getFiles($url);
+        $pages = $this->getFiles(CONTENT_PATH . $url);
 
         foreach($pages as $key => $page) {
             
@@ -333,7 +380,7 @@ class Morfy
                     }
                 }
 
-                $url = str_replace(CONTENT_PATH, Morfy::$config['site_url'], $page);
+                //$url = str_replace(CONTENT_PATH, Morfy::$config['site_url'], $page);
                 $url = str_replace('index.md', '', $url);
                 $url = str_replace('.md', '', $url);
                 $url = str_replace('\\', '/', $url);
