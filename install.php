@@ -61,7 +61,7 @@ if (isset($_POST['install_submit'])) {
     	$post_site_keywords = isset($_POST['site_keywords']) ? $_POST['site_keywords'] : '';
     	$post_email = isset($_POST['email']) ? $_POST['email'] : '';
 
-    	file_put_contents('config.php', "<?php
+    	file_put_contents('config/Morfy.php', "<?php
     return array(
         'site_url' => '{$post_site_url}',
         'site_charset' => 'UTF-8',
