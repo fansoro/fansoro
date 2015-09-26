@@ -72,7 +72,7 @@ if (isset($_POST['install_submit'])) {
         'site_keywords' => '{$post_site_keywords}',
         'email' => '{$post_email}',
         'plugins' => array(
-            'markdown',
+            'parsedown',
             'sitemap',
         ),
     );

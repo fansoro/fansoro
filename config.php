@@ -10,7 +10,7 @@
         'site_keywords' => 'site, keywords',
         'email' => 'admin@admin.com',
         'plugins' => array(
-            'markdown',
+            'parsedown',
             'sitemap',
         ),
     );
