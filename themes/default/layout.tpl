@@ -9,7 +9,7 @@
 		
 		{Morfy::factory()->runAction('theme_meta')}
 
-		<link rel="shortcut icon" href="{$.config.site_url}/favicon.png">
+		<link rel="shortcut icon" href="{$.config.site_url}/favicon.ico">
 
 		<title>{$.config.site_title} | {$title}</title>
 
