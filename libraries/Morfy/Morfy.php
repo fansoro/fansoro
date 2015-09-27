@@ -311,17 +311,16 @@ class Morfy
     {
         $url = trim($url);
         $url = rawurldecode($url);
-        $url = str_replace(array('--','&quot;','!','@','#','$','%','^','*','(',')','+','{','}','|',':','"','<','>',
-                                  '[',']','\\',';',"'",',','*','+','~','`','laquo','raquo',']>','&#8216;','&#8217;','&#8220;','&#8221;','&#8211;','&#8212;'),
-                            array('-','-','','','','','','','','','','','','','','','','','','','','','','','','','','',''),
-                            $url);
+        $url = str_replace(array('--', '&quot;', '!', '@', '#', '$', '%', '^', '*', '(', ')', '+', '{', '}', '|', ':', '"', '<', '>',
+            '[', ']', '\\', ';', "'", ',', '*', '+', '~', '`', 'laquo', 'raquo', ']>', '&#8216;', '&#8217;', '&#8220;', '&#8221;', '&#8211;', '&#8212;'),
+            array('-', '-', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+            $url);
         $url = str_replace('--', '-', $url);
         $url = rtrim($url, "-");
         $url = str_replace('..', '', $url);
         $url = str_replace('//', '', $url);
         $url = preg_replace('/^\//', '', $url);
         $url = preg_replace('/^\./', '', $url);
-
         return $url;
      }
 
@@ -837,10 +836,17 @@ class Morfy
     public function subvalSort($a, $subkey, $order = null)
     {
         if (count($a) != 0 || (!empty($a))) {
-            foreach ($a as $k => $v) $b[$k] = function_exists('mb_strtolower') ? mb_strtolower($v[$subkey]) : strtolower($v[$subkey]);
-            if ($order == null || $order == 'ASC') asort($b); else if ($order == 'DESC') arsort($b);
-            foreach ($b as $key => $val) $c[] = $a[$key];
-
+            foreach ($a as $k => $v) {
+                $b[$k] = function_exists('mb_strtolower') ? mb_strtolower($v[$subkey]) : strtolower($v[$subkey]);
+            }
+            if ($order == null || $order == 'ASC') {
+                asort($b);
+            } else if ($order == 'DESC') {
+                arsort($b);
+            }
+            foreach ($b as $key => $val) {
+                $c[] = $a[$key];
+            }
             return $c;
         }
     }
