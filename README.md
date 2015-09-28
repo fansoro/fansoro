@@ -2,9 +2,9 @@
 Simple and fast file-based CMS
 
 ## System Requirements
-Operation system: Unix, Linux, Windows, Mac OS
-Middleware: PHP 5.3.0 or higher with PHP's [Multibyte String module](http://php.net/mbstring)
-Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html) or Ngnix with [Rewrite Module](http://wiki.nginx.org/HttpRewriteModule)
+Operation system: Unix, Linux, Windows, Mac OS  
+Middleware: PHP 5.3.0 or higher with PHP's [Multibyte String module](http://php.net/mbstring)   
+Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)  
 
 ## Steps to Install
 1. [Download the latest version.](http://morfy.org/download)
