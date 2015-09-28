@@ -27,5 +27,5 @@ Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mo
 - [Documentation](http://morfy.org/documentation)
 - [Github Repository](https://github.com/Awilum/morfy-cms)
 
-
-Copyright (C) 2014-2015 Romanenko Sergey / Awilum [awilum@msn.com]
+## License
+See [LICENSE](https://github.com/Awilum/morfy-cms/blob/master/LICENSE.md)
