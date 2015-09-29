@@ -32,8 +32,8 @@ Options -Indexes
 	# Redirect 301 /index http://example.org/
 </IfModule>
 
-# Prevent visitors from viewing our MD and TXT files directly.
-<FilesMatch "(^#.*#|\.(md|txt)|~)$">
+# Prevent visitors from viewing our MD, TXT, HTML and MD files directly.
+<FilesMatch "(^#.*#|\.(md|txt|html|tpl)|~)$">
 	Order allow,deny
 	Deny from all
 	Satisfy All
