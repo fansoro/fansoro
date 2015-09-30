@@ -210,23 +210,12 @@ class Morfy
      */
     public function loadTemplate($page, $config)
     {
+        $options = $config['fenom'];
 
         $fenom = Fenom::factory(
             THEMES_PATH . '/' . $config['site_theme'] . '/',
             ROOT_DIR . '/cache/fenom/',
-            array(
-                'disable_methods'      => false,
-                'disable_native_funcs' => false,
-                'auto_reload'          => true,
-                'force_compile'        => false,
-                'disable_cache'        => false,
-                'force_include'        => true,
-                'auto_escape'          => false,
-                'force_verify'         => false,
-                'disable_php_calls'    => false,
-                'disable_statics'      => false,
-                'strip'                => true,
-            )
+            $options
         );
 
         // Do global tag {$.config} for the template
