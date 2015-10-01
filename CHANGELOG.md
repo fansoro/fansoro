@@ -1,3 +1,12 @@
+Morfy 1.1.0, 2015-10-XX
+------------------------
+* Fenom Template Engine implemented
+* Parsedown for passing markdown content implemented
+* PHP Tag removed from content parser
+* Morfy Favicon - added
+* robots.txt- added
+ 
+
 Morfy 1.0.6, 2015-09-10
 ------------------------
 * Prevent Visitors from Viewing our MD and TXT Files 
