@@ -116,34 +116,32 @@ if (isset($_POST['install_submit'])) {
     <!-- Bootstrap -->
     <link href="<?php echo $site_url; ?>/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic' type='text/css' rel='stylesheet' />
-    <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
     <script src="<?php echo $site_url; ?>/themes/default/assets/js/jquery.min.js"></script>
     <script src="<?php echo $site_url; ?>/themes/default/assets/js/bootstrap.min.js"></script>
     <style>
-        .container {
-            max-width: 600px;
-            margin-bottom: 40px;
-        }
         body {
             font-family: "Source Sans Pro","Helvetica","Arial",sans-serif;
             font-size: 16px;
             line-height: 26px;
             color: #333;
         }
-        h1 {
-            font-size: 126px;
-            font-family: 'Audiowide', cursive;
-            color: #333;
+
+        .container {
+            max-width: 600px;
+            margin-bottom: 40px;
         }
+
         .ok {
             color: #3c763d;
             background-color: #dff0d8;
         }
+
         .error {
             color: #a94442;
             background-color: #f2dede;
             border-color: #ebccd1;
         }
+
         .step-1 ul li {
             margin-bottom: 10px;
             padding: 5px 10px;
