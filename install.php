@@ -7,7 +7,7 @@
 // Get array with the names of all modules compiled and loaded
 $php_modules = get_loaded_extensions();
 
-// Get server port    
+// Get server port
 if ($_SERVER["SERVER_PORT"] == "80") $port = ""; else $port = ':'.$_SERVER["SERVER_PORT"];
 
 // Get site URL
@@ -32,7 +32,7 @@ if (version_compare(PHP_VERSION, "5.3.0", "<")) {
 if (function_exists('apache_get_modules')) {
     if ( ! in_array('mod_rewrite', apache_get_modules())) {
         $errors['mod_rewrite'] = 'error';
-    } 
+    }
 }
 
 if (!is_writable(__FILE__)) {
@@ -78,7 +78,7 @@ if (isset($_POST['install_submit'])) {
         /**
          * https://github.com/fenom-template/fenom/blob/master/docs/ru/configuration.md
          */
-        'fenom' =>  array( 
+        'fenom' =>  array(
             // 'disable_methods' => false,
             // 'disable_native_funcs' => false,
             'auto_reload' => true,
@@ -104,7 +104,7 @@ if (isset($_POST['install_submit'])) {
 
         // Installation done :)
         header("location: index.php?install=done");
-   
+
 }
 ?>
 <!DOCTYPE html>
@@ -116,7 +116,7 @@ if (isset($_POST['install_submit'])) {
     <!-- Bootstrap -->
     <link href="<?php echo $site_url; ?>/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic' type='text/css' rel='stylesheet' />
-    <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'> 
+    <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
     <script src="<?php echo $site_url; ?>/themes/default/assets/js/jquery.min.js"></script>
     <script src="<?php echo $site_url; ?>/themes/default/assets/js/bootstrap.min.js"></script>
     <style>
@@ -125,7 +125,7 @@ if (isset($_POST['install_submit'])) {
             margin-bottom: 40px;
         }
         body {
-            font-family: "Source Sans Pro","Helvetica","Arial",sans-serif;        
+            font-family: "Source Sans Pro","Helvetica","Arial",sans-serif;
             font-size: 16px;
             line-height: 26px;
             color: #333;
@@ -147,6 +147,16 @@ if (isset($_POST['install_submit'])) {
         .step-1 ul li {
             margin-bottom: 10px;
             padding: 5px 10px;
+            border-radius: 0;
+        }
+
+        .btn-primary {
+            border-radius: 0;
+        }
+
+        .form-control {
+            border-color: #CECECE;
+            border-radius: 0;
         }
     </style>
     <script>
@@ -160,7 +170,10 @@ if (isset($_POST['install_submit'])) {
   </head>
   <body>
     <div class="container">
-        <h1 class="text-center">MORFY</h1>
+
+        <div class="text-center">
+            <img src="<?php echo $site_url; ?>/themes/default/assets/img/morfy-logo.png" alt="Morfy CMS" />
+        </div>
 
         <div class="step-1">
             <ul class="list-unstyled">
@@ -230,11 +243,11 @@ if (isset($_POST['install_submit'])) {
           </div>
           <div class="form-group">
             <label for="site_url">Site Url</label>
-            <input type="text" name="site_url" class="form-control" id="site_url" placeholder="Enter Site Url" value="<?php echo $site_url; ?>" required>
+            <input type="text" name="site_url" class="form-control" id="site_url" placeholder="Enter Site Url" value="<?php echo $site_url; ?>">
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" name="email" class="form-control" id="email" placeholder="Enter Email" required>
+            <input type="text" name="email" class="form-control" id="email" placeholder="Enter Email">
           </div>
           <div class="form-group">
             <label>Time zone</label>
