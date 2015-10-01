@@ -368,7 +368,7 @@ class Morfy
                     }
                 }
 
-                $url = $page;
+                $url = str_replace(CONTENT_PATH, Morfy::$config['site_url'], $page);
                 $url = str_replace('index.md', '', $url);
                 $url = str_replace('.md', '', $url);
                 $url = str_replace('\\', '/', $url);
