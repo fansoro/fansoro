@@ -344,7 +344,7 @@ class Morfy
      * @param  int     $limit      Limit of pages
      * @return array
      */
-    public function getPages($url, $order_by = 'date', $order_type = 'DESC', $ignore = array('404'), $limit = null)
+    public function getPages($url = '', $order_by = 'date', $order_type = 'DESC', $ignore = array('404'), $limit = null)
     {
 
         // Page headers
@@ -368,7 +368,7 @@ class Morfy
                     }
                 }
 
-                //$url = str_replace(CONTENT_PATH, Morfy::$config['site_url'], $page);
+                $url = $page;
                 $url = str_replace('index.md', '', $url);
                 $url = str_replace('.md', '', $url);
                 $url = str_replace('\\', '/', $url);
