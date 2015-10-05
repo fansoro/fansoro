@@ -33,7 +33,7 @@ class Morfy
      *
      * @var string
      */
-    const SEPARATOR = '----';    
+    const SEPARATOR = '----';
 
     /**
      * Config array.
@@ -137,6 +137,16 @@ class Morfy
         // Load config file
         $this->loadConfig($path);
 
+        // Use the Force...
+        include LIBRARIES_PATH . '/Force/ClassLoader/ClassLoader.php';
+        ClassLoader::mapClasses(array(
+            'Arr'     => LIBRARIES_PATH . '/Force/Arr/Arr.php',
+            'Session' => LIBRARIES_PATH . '/Force/Session/Session.php',
+            'Token'   => LIBRARIES_PATH . '/Force/Token/Token.php',
+            'File'    => LIBRARIES_PATH . '/Force/FileSystem/File.php',
+            'Dir'     => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
+        ));
+
         // Set default timezone
         @ini_set('date.timezone', static::$config['site_timezone']);
         if (function_exists('date_default_timezone_set')) {
@@ -171,13 +181,13 @@ class Morfy
         }
 
         // Start the session
-        !session_id() and @session_start();        
+        Session::start();
 
         // Load Plugins
         $this->loadPlugins();
         $this->runAction('plugins_loaded');
-        
-        // Load Fenom Template Engine 
+
+        // Load Fenom Template Engine
         include LIBRARIES_PATH . '/Fenom/Fenom.php';
         Fenom::registerAutoload();
 
@@ -191,13 +201,13 @@ class Morfy
 
         $page   = $page;
         $config = self::$config;
-        
+
         // Load template
         $this->runAction('before_render');
         $this->loadTemplate($page, $config);
         $this->runAction('after_render');
     }
-    
+
     /**
      * Load template
      *
@@ -264,7 +274,7 @@ class Morfy
      * @access  public
      * @return array
      */
-    public function getUriSegments() 
+    public function getUriSegments()
     {
         return explode('/', $this->getUrl());
     }
@@ -279,7 +289,7 @@ class Morfy
      * @access  public
      * @return string
      */
-    public function getUriSegment($segment) 
+    public function getUriSegment($segment)
     {
         $segments = $this->getUriSegments();
         return isset($segments[$segment]) ? $segments[$segment] : null;
@@ -350,11 +360,11 @@ class Morfy
         // Page headers
         $page_headers = $this->page_headers;
 
-        $pages = $this->getFiles(CONTENT_PATH . $url);
+        $pages = File::getFiles(CONTENT_PATH . $url);
 
         foreach($pages as $key => $page) {
-            
-            if (!in_array(basename($page, '.md'), $ignore)) {            
+
+            if (!in_array(basename($page, '.md'), $ignore)) {
 
                 $content = file_get_contents($page);
 
@@ -375,7 +385,7 @@ class Morfy
                 $url = rtrim($url, '/');
                 $_pages[$key]['url'] = $url;
 
-                $_content = $this->parseContent($content);        
+                $_content = $this->parseContent($content);
                 if(is_array($_content)) {
                     $_pages[$key]['content_short'] = $_content['content_short'];
                     $_pages[$key]['content'] = $_content['content_full'];
@@ -389,7 +399,7 @@ class Morfy
             }
         }
 
-        $_pages = $this->subvalSort($_pages, $order_by, $order_type);
+        $_pages = Arr::subvalSort($_pages, $order_by, $order_type);
 
         if($limit != null) $_pages = array_slice($_pages, null, $limit);
 
@@ -432,7 +442,7 @@ class Morfy
                 $page[ $field ] = trim($match[1]);
             } else {
                 $page[ $field ] = '';
-            }            
+            }
         }
 
         $url = str_replace(CONTENT_PATH, Morfy::$config['site_url'], $file);
@@ -442,7 +452,7 @@ class Morfy
         $url = rtrim($url, '/');
         $pages['url'] = $url;
 
-        $_content = $this->parseContent($content);        
+        $_content = $this->parseContent($content);
         if(is_array($_content)) {
             $page['content_short'] = $_content['content_short'];
             $page['content'] = $_content['content_full'];
@@ -457,58 +467,13 @@ class Morfy
     }
 
     /**
-     * Get list of files in directory recursive
-     *
-     *  <code>
-     *      $files = Morfy::factory()->getFiles('folder');
-     *      $files = Morfy::factory()->getFiles('folder', 'txt');
-     *      $files = Morfy::factory()->getFiles('folder', array('txt', 'log'));
-     *  </code>
-     *
-     * @access  public
-     * @param  string $folder Folder
-     * @param  mixed  $type   Files types
-     * @return array
-     */
-    public static function getFiles($folder, $type = null)
-    {
-        $data = array();
-        if (is_dir($folder)) {
-            $iterator = new RecursiveDirectoryIterator($folder);
-            foreach (new RecursiveIteratorIterator($iterator) as $file) {
-                if ($type !== null) {
-                    if (is_array($type)) {
-                        $file_ext = substr(strrchr($file->getFilename(), '.'), 1);
-                        if (in_array($file_ext, $type)) {
-                            if (strpos($file->getFilename(), $file_ext, 1)) {
-                                $data[] = $file->getPathName();
-                            }
-                        }
-                    } else {
-                        if (strpos($file->getFilename(), $type, 1)) {
-                            $data[] = $file->getPathName();
-                        }
-                    }
-                } else {
-                    if ($file->getFilename() !== '.' && $file->getFilename() !== '..') $data[] = $file->getPathName();
-                }
-            }
-
-            return $data;
-        } else {
-            return false;
-        }
-    }
-
-
-    /**
      * Content Parser
      *
      * @param  string $content Content to parse
      * @return string $content Formatted content
      */
     protected function parseContent($content)
-    {       
+    {
         // Parse Content after Headers
         $_content = '';
         $i = 0;
@@ -534,7 +499,7 @@ class Morfy
         } else {
             $content = explode("{cut}", $content);
             $content['content_short'] = $this->applyFilter('content', $content[0]);
-            $content['content_full']  = $this->applyFilter('content', $content[0].$content[1]);                    
+            $content['content_full']  = $this->applyFilter('content', $content[0].$content[1]);
         }
 
         // Return content
@@ -612,7 +577,7 @@ class Morfy
         if (count(static::$actions) > 0) {
 
             // Sort actions by priority
-            $actions = $this->subvalSort(static::$actions, 'priority');
+            $actions = Arr::subvalSort(static::$actions, 'priority');
 
             // Loop through $actions array
             foreach ($actions as $action) {
@@ -738,61 +703,6 @@ class Morfy
     }
 
     /**
-     * Generate and store a unique token which can be used to help prevent
-     * [CSRF](http://wikipedia.org/wiki/Cross_Site_Request_Forgery) attacks.
-     *
-     *  <code>
-     *      $token = Morfy::factory()->generateToken();
-     *  </code>
-     *
-     * You can insert this token into your forms as a hidden field:
-     *
-     *  <code>
-     *      <input type="hidden" name="token" value="<?php echo Morfy::factory()->generateToken(); ?>">
-     *  </code>
-     *
-     * This provides a basic, but effective, method of preventing CSRF attacks.
-     *
-     * @param  boolean $new force a new token to be generated?. Default is false
-     * @return string
-     */
-    public function generateToken($new = false)
-    {
-        // Get the current token
-        if (isset($_SESSION[(string) Morfy::$security_token_name])) $token = $_SESSION[(string) Morfy::$security_token_name]; else $token = null;
-
-        // Create a new unique token
-        if ($new === true or ! $token) {
-
-            // Generate a new unique token
-            $token = sha1(uniqid(mt_rand(), true));
-
-            // Store the new token
-            $_SESSION[(string) Morfy::$security_token_name] = $token;
-        }
-
-        // Return token
-        return $token;
-    }
-
-    /**
-     * Check that the given token matches the currently stored security token.
-     *
-     *  <code>
-     *     if (Morfy::factory()->checkToken($token)) {
-     *         // Pass
-     *     }
-     *  </code>
-     *
-     * @param  string  $token token to check
-     * @return boolean
-     */
-    public function checkToken($token)
-    {
-        return Morfy::factory()->generateToken() === $token;
-    }
-
-    /**
      * Sanitize data to prevent XSS - Cross-site scripting
      *
      *  <code>
@@ -800,40 +710,9 @@ class Morfy
      *  </code>
      *
      * @param  string $str String
-     * @return string 
+     * @return string
      */
     public function cleanString($str) {
         return htmlspecialchars($str, ENT_QUOTES, 'utf-8');
-    }
-
-    /**
-     * Subval sort
-     *
-     *  <code>
-     *      $new_array = Morfy::factory()->subvalSort($old_array, 'sort');
-     *  </code>
-     *
-     * @access  public
-     * @param  array  $a      Array
-     * @param  string $subkey Key
-     * @param  string $order  Order type DESC or ASC
-     * @return array
-     */
-    public function subvalSort($a, $subkey, $order = null)
-    {
-        if (count($a) != 0 || (!empty($a))) {
-            foreach ($a as $k => $v) {
-                $b[$k] = function_exists('mb_strtolower') ? mb_strtolower($v[$subkey]) : strtolower($v[$subkey]);
-            }
-            if ($order == null || $order == 'ASC') {
-                asort($b);
-            } else if ($order == 'DESC') {
-                arsort($b);
-            }
-            foreach ($b as $key => $val) {
-                $c[] = $a[$key];
-            }
-            return $c;
-        }
     }
 }
