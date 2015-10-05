@@ -34,20 +34,19 @@ require LIBRARIES_PATH . '/Morfy/Morfy.php';
  * First check for installer then go
  */
 if (file_exists('install.php')) {
-    if (isset($_GET['install']) && $_GET['install'] == 'done') {        
-        
+    if (isset($_GET['install']) && $_GET['install'] == 'done') {
+
         // Try to delete install file if not DELETE MANUALLY !!!
         @unlink('install.php');
 
         // Redirect to main page
         header('location: index.php');
-
     } else {
         include 'install.php';
     }
 } else {
-	/**
-	 * Run Morfy Application with Morfy config
-	 */
-	Morfy::factory()->run('config/Morfy.php');
+    /**
+     * Run Morfy Application with Morfy config
+     */
+    Morfy::factory()->run('config/Morfy.php');
 }
