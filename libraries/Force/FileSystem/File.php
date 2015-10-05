@@ -130,12 +130,10 @@ class File
             foreach ($filename as $file) {
                 @unlink((string) $file);
             }
-
         } else {
             // Is string
             return @unlink((string) $filename);
         }
-
     }
 
     /**
@@ -156,7 +154,9 @@ class File
         $to   = (string) $to;
 
         // If file exists $to than rename it
-        if ( ! File::exists($to)) return rename($from, $to);
+        if (! File::exists($to)) {
+            return rename($from, $to);
+        }
 
         // Else return false
         return false;
@@ -180,7 +180,9 @@ class File
         $to   = (string) $to;
 
         // If file !exists $from and exists $to then return false
-        if ( ! File::exists($from) || File::exists($to)) return false;
+        if (! File::exists($from) || File::exists($to)) {
+            return false;
+        }
 
         // Else copy file
         return copy($from, $to);
@@ -257,7 +259,9 @@ class File
                         }
                     }
                 } else {
-                    if ($file->getFilename() !== '.' && $file->getFilename() !== '..') $data[] = $file->getFilename();
+                    if ($file->getFilename() !== '.' && $file->getFilename() !== '..') {
+                        $data[] = $file->getFilename();
+                    }
                 }
             }
 
@@ -307,7 +311,9 @@ class File
         $append      = (bool) $append;
 
         // File may not be created, but it doesn't exist either
-        if ( ! $create_file && File::exists($filename)) throw new RuntimeException(vsprintf("%s(): The file '{$filename}' doesn't exist", array(__METHOD__)));
+        if (! $create_file && File::exists($filename)) {
+            throw new RuntimeException(vsprintf("%s(): The file '{$filename}' doesn't exist", array(__METHOD__)));
+        }
 
         // Create directory recursively if needed
         Dir::create(dirname($filename));
@@ -316,7 +322,9 @@ class File
         $handler = ($append) ? @fopen($filename, 'a') : @fopen($filename, 'w');
 
         // Something went wrong
-        if ($handler === false) throw new RuntimeException(vsprintf("%s(): The file '{$filename}' could not be created. Check if PHP has enough permissions.", array(__METHOD__)));
+        if ($handler === false) {
+            throw new RuntimeException(vsprintf("%s(): The file '{$filename}' could not be created. Check if PHP has enough permissions.", array(__METHOD__)));
+        }
 
         // Store error reporting level
         $level = error_reporting();
@@ -328,7 +336,9 @@ class File
         $write = fwrite($handler, $content);
 
         // Validate write
-        if($write === false) throw new RuntimeException(vsprintf("%s(): The file '{$filename}' could not be created. Check if PHP has enough permissions.", array(__METHOD__)));
+        if ($write === false) {
+            throw new RuntimeException(vsprintf("%s(): The file '{$filename}' could not be created. Check if PHP has enough permissions.", array(__METHOD__)));
+        }
 
         // Close the file
         fclose($handler);
@@ -365,7 +375,6 @@ class File
 
         // Return
         return false;
-
     }
 
     /**
@@ -411,7 +420,6 @@ class File
 
         // Get mime using the file information functions
         if (function_exists('finfo_open')) {
-
             $info = finfo_open(FILEINFO_MIME_TYPE);
 
             $mime = finfo_file($info, $file);
@@ -419,12 +427,10 @@ class File
             finfo_close($info);
 
             return $mime;
-
         } else {
 
             // Just guess mime by using the file extension
             if ($guess === true) {
-
                 $mime_types = File::$mime_types;
 
                 $extension = pathinfo($file, PATHINFO_EXTENSION);
@@ -462,12 +468,18 @@ class File
         }
 
         // Empty output buffers
-        while (ob_get_level() > 0) ob_end_clean();
+        while (ob_get_level() > 0) {
+            ob_end_clean();
+        }
 
         // Send headers
-        if ($content_type === null) $content_type = File::mime($file);
+        if ($content_type === null) {
+            $content_type = File::mime($file);
+        }
 
-        if ($filename === null) $filename = basename($file);
+        if ($filename === null) {
+            $filename = basename($file);
+        }
 
         header('Content-type: ' . $content_type);
         header('Content-Disposition: attachment; filename="' . $filename . '"');
@@ -477,21 +489,18 @@ class File
         @set_time_limit(0);
 
         if ($kbps === 0) {
-
             readfile($file);
-
         } else {
-
             $handle = fopen($file, 'r');
 
-            while ( ! feof($handle) && !connection_aborted()) {
-
+            while (! feof($handle) && !connection_aborted()) {
                 $s = microtime(true);
 
                 echo fread($handle, round($kbps * 1024));
 
-                if (($wait = 1e6 - (microtime(true) - $s)) > 0) usleep($wait);
-
+                if (($wait = 1e6 - (microtime(true) - $s)) > 0) {
+                    usleep($wait);
+                }
             }
 
             fclose($handle);
@@ -524,12 +533,18 @@ class File
         }
 
         // Empty output buffers
-        while (ob_get_level() > 0) ob_end_clean();
+        while (ob_get_level() > 0) {
+            ob_end_clean();
+        }
 
         // Send headers
-        if ($content_type === null) $content_type = File::mime($file);
+        if ($content_type === null) {
+            $content_type = File::mime($file);
+        }
 
-        if($filename === null) $filename = basename($file);
+        if ($filename === null) {
+            $filename = basename($file);
+        }
 
         header('Content-type: ' . $content_type);
         header('Content-Disposition: inline; filename="' . $filename . '"');
@@ -559,13 +574,16 @@ class File
         $file = (string) $file;
 
         // Is file exists ?
-        if ( ! file_exists($file)) throw new RuntimeException(vsprintf("%s(): The file '{$file}' doesn't exist", array(__METHOD__)));
+        if (! file_exists($file)) {
+            throw new RuntimeException(vsprintf("%s(): The file '{$file}' doesn't exist", array(__METHOD__)));
+        }
 
         // Gets file permissions
         $perms = fileperms($file);
 
         // Is writable ?
-        if (is_writable($file) || ($perms & 0x0080) || ($perms & 0x0010) || ($perms & 0x0002)) return true;
+        if (is_writable($file) || ($perms & 0x0080) || ($perms & 0x0010) || ($perms & 0x0002)) {
+            return true;
+        }
     }
-
 }

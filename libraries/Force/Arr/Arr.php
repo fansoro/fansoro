@@ -41,7 +41,7 @@ class Arr
              }
              if ($order == null || $order == 'ASC') {
                  asort($b);
-             } else if ($order == 'DESC') {
+             } elseif ($order == 'DESC') {
                  arsort($b);
              }
              foreach ($b as $key => $val) {
@@ -79,7 +79,7 @@ class Arr
         foreach ($segments as $segment) {
 
             // Check
-            if ( ! is_array($array) || !isset($array[$segment])) {
+            if (! is_array($array) || !isset($array[$segment])) {
                 return $default;
             }
 
@@ -110,10 +110,9 @@ class Arr
 
         // Loop through segments
         while (count($segments) > 1) {
-
             $segment = array_shift($segments);
 
-            if ( ! isset($array[$segment]) || !is_array($array[$segment])) {
+            if (! isset($array[$segment]) || !is_array($array[$segment])) {
                 return false;
             }
 
@@ -141,8 +140,7 @@ class Arr
     public static function keyExists($array, $path)
     {
         foreach (explode('.', $path) as $segment) {
-
-            if ( ! is_array($array) or ! array_key_exists($segment, $array)) {
+            if (! is_array($array) or ! array_key_exists($segment, $array)) {
                 return false;
             }
 
@@ -184,5 +182,4 @@ class Arr
     {
         return (bool) count(array_filter(array_keys($array), 'is_string'));
     }
-
 }

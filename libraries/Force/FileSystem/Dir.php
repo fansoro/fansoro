@@ -38,7 +38,7 @@ class Dir
         $dir = (string) $dir;
 
         // Create new dir if $dir !exists
-        return ( ! Dir::exists($dir)) ? @mkdir($dir, $chmod, true) : true;
+        return (! Dir::exists($dir)) ? @mkdir($dir, $chmod, true) : true;
     }
 
     /**
@@ -59,7 +59,9 @@ class Dir
         $dir = (string) $dir;
 
         // Directory exists
-        if (file_exists($dir) && is_dir($dir)) return true;
+        if (file_exists($dir) && is_dir($dir)) {
+            return true;
+        }
 
         // Doesn't exist
         return false;
@@ -104,8 +106,20 @@ class Dir
         $dir = (string) $dir;
 
         // Delete dir
-        if (is_dir($dir)){$ob=scandir($dir);foreach ($ob as $o) {if ($o!='.'&&$o!='..') {if(filetype($dir.'/'.$o)=='dir')Dir::delete($dir.'/'.$o); else unlink($dir.'/'.$o);}}}
-        reset($ob); rmdir($dir);
+        if (is_dir($dir)) {
+            $ob=scandir($dir);
+            foreach ($ob as $o) {
+                if ($o!='.'&&$o!='..') {
+                    if (filetype($dir.'/'.$o)=='dir') {
+                        Dir::delete($dir.'/'.$o);
+                    } else {
+                        unlink($dir.'/'.$o);
+                    }
+                }
+            }
+        }
+        reset($ob);
+        rmdir($dir);
     }
 
 
@@ -124,7 +138,15 @@ class Dir
         $dir = (string) $dir;
 
         // Scan dir
-        if (is_dir($dir)&&$dh=opendir($dir)){$f=array();while ($fn=readdir($dh)) {if($fn!='.'&&$fn!='..'&&is_dir($dir.DS.$fn))$f[]=$fn;}return$f;}
+        if (is_dir($dir)&&$dh=opendir($dir)) {
+            $f=array();
+            while ($fn=readdir($dh)) {
+                if ($fn!='.'&&$fn!='..'&&is_dir($dir.DS.$fn)) {
+                    $f[]=$fn;
+                }
+            }
+            return$f;
+        }
     }
 
 
@@ -196,5 +218,4 @@ class Dir
         // Return total size
         return $total_size;
     }
-
 }
