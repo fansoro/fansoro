@@ -173,7 +173,10 @@ class Morfy
          * and kill magic quotes
          */
         if (get_magic_quotes_gpc()) {
-            function stripslashesGPC(&$value) { $value = stripslashes($value); }
+            function stripslashesGPC(&$value)
+            {
+                $value = stripslashes($value);
+            }
             array_walk_recursive($_GET, 'stripslashesGPC');
             array_walk_recursive($_POST, 'stripslashesGPC');
             array_walk_recursive($_COOKIE, 'stripslashesGPC');
@@ -258,7 +261,9 @@ class Morfy
         $script_url  = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
 
         // Get our url path and trim the / of the left and the right
-        if ($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
+        if ($request_url != $script_url) {
+            $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
+        }
         $url = preg_replace('/\?.*/', '', $url); // Strip query string
 
         return $url;
@@ -321,7 +326,7 @@ class Morfy
         $url = preg_replace('/^\//', '', $url);
         $url = preg_replace('/^\./', '', $url);
         return $url;
-     }
+    }
 
     /**
      * Sanitize URL to prevent XSS - Cross-site scripting
@@ -362,10 +367,8 @@ class Morfy
 
         $pages = File::getFiles(CONTENT_PATH . $url);
 
-        foreach($pages as $key => $page) {
-
+        foreach ($pages as $key => $page) {
             if (!in_array(basename($page, '.md'), $ignore)) {
-
                 $content = file_get_contents($page);
 
                 $_page_headers = explode(Morfy::SEPARATOR, $content);
@@ -386,7 +389,7 @@ class Morfy
                 $_pages[$key]['url'] = $url;
 
                 $_content = $this->parseContent($content);
-                if(is_array($_content)) {
+                if (is_array($_content)) {
                     $_pages[$key]['content_short'] = $_content['content_short'];
                     $_pages[$key]['content'] = $_content['content_full'];
                 } else {
@@ -395,13 +398,14 @@ class Morfy
                 }
 
                 $_pages[$key]['slug'] = basename($page, '.md');
-
             }
         }
 
         $_pages = Arr::subvalSort($_pages, $order_by, $order_type);
 
-        if($limit != null) $_pages = array_slice($_pages, null, $limit);
+        if ($limit != null) {
+            $_pages = array_slice($_pages, null, $limit);
+        }
 
         return $_pages;
     }
@@ -423,10 +427,18 @@ class Morfy
         $page_headers = $this->page_headers;
 
         // Get the file path
-        if($url) $file = CONTENT_PATH . '/' . $url; else $file = CONTENT_PATH . '/' .'index';
+        if ($url) {
+            $file = CONTENT_PATH . '/' . $url;
+        } else {
+            $file = CONTENT_PATH . '/' .'index';
+        }
 
         // Load the file
-        if(is_dir($file)) $file = CONTENT_PATH . '/' . $url .'/index.md'; else $file .= '.md';
+        if (is_dir($file)) {
+            $file = CONTENT_PATH . '/' . $url .'/index.md';
+        } else {
+            $file .= '.md';
+        }
 
         if (file_exists($file)) {
             $content = file_get_contents($file);
@@ -453,7 +465,7 @@ class Morfy
         $pages['url'] = $url;
 
         $_content = $this->parseContent($content);
-        if(is_array($_content)) {
+        if (is_array($_content)) {
             $page['content_short'] = $_content['content_short'];
             $page['content'] = $_content['content_full'];
         } else {
@@ -521,7 +533,11 @@ class Morfy
      */
     protected function loadConfig($path)
     {
-        if (file_exists($path)) static::$config = require $path; else die("Oops.. Where is config file ?!");
+        if (file_exists($path)) {
+            static::$config = require $path;
+        } else {
+            die("Oops.. Where is config file ?!");
+        }
     }
 
     /**
@@ -594,23 +610,16 @@ class Morfy
                         } else {
                             call_user_func_array($action['function'], $args);
                         }
-
                     } else {
-
                         if ($return) {
                             return call_user_func_array($action['function'], $action['args']);
                         } else {
                             call_user_func_array($action['function'], $action['args']);
                         }
-
                     }
-
                 }
-
             }
-
         }
-
     }
 
     /**
@@ -632,12 +641,12 @@ class Morfy
 
         $args = array_slice(func_get_args(), 2);
 
-        if ( ! isset(static::$filters[$filter_name])) {
+        if (! isset(static::$filters[$filter_name])) {
             return $value;
         }
 
         foreach (static::$filters[$filter_name] as $priority => $functions) {
-            if ( ! is_null($functions)) {
+            if (! is_null($functions)) {
                 foreach ($functions as $function) {
                     $all_args = array_merge(array($value), $args);
                     $function_name = $function['function'];
@@ -712,7 +721,8 @@ class Morfy
      * @param  string $str String
      * @return string
      */
-    public function cleanString($str) {
+    public function cleanString($str)
+    {
         return htmlspecialchars($str, ENT_QUOTES, 'utf-8');
     }
 }
