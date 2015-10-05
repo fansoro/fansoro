@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /libraries/
 Disallow: /plugins/
+Disallow: /config/
