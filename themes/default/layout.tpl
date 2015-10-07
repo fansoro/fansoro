@@ -9,13 +9,13 @@
 
 		{Morfy::factory()->runAction('theme_meta')}
 
-		<link rel="shortcut icon" href="{$.config.site_url}/favicon.ico">
+		<link rel="shortcut icon" href="{$.config.url}/favicon.ico">
 
-		<title>{$.config.site_title} | {$title}</title>
+		<title>{$.config.title} | {$title}</title>
 
 		{* Bootstrap core CSS *}
-		<link href="{$.config.site_url}/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
-		<link href="{$.config.site_url}/themes/default/assets/css/default.css" rel="stylesheet">
+		<link href="{$.config.url}/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{$.config.url}/themes/default/assets/css/default.css" rel="stylesheet">
 		{Morfy::factory()->runAction('theme_header')}
 
 	</head>
@@ -33,8 +33,8 @@
 		</div>
 		{* Bootstrap core JavaScript *}
 		{* Placed at the end of the document so the pages load faster *}
-		<script src="{$.config.site_url}/themes/default/assets/js/jquery.min.js"></script>
-		<script src="{$.config.site_url}/themes/default/assets/js/bootstrap.min.js"></script>
+		<script src="{$.config.url}/themes/default/assets/js/jquery.min.js"></script>
+		<script src="{$.config.url}/themes/default/assets/js/bootstrap.min.js"></script>
 		{Morfy::factory()->runAction('theme_footer')}
 	</body>
 </html>
