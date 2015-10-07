@@ -71,23 +71,6 @@
     private static $filters = array();
 
     /**
-     * Page headers
-     *
-     * @var array
-     */
-    private $page_headers = array(
-                                    'title'         => 'Title',
-                                    'description'   => 'Description',
-                                    'keywords'      => 'Keywords',
-                                    'author'        => 'Author',
-                                    'date'          => 'Date',
-                                    'robots'        => 'Robots',
-                                    'tags'          => 'Tags',
-                                    'template'      => 'Template',
-                                );
-
-
-    /**
      * Protected clone method to enforce singleton behavior.
      *
      * @access  protected
@@ -267,10 +250,6 @@
      */
     public function getPages($url = '', $order_by = 'date', $order_type = 'DESC', $ignore = array('404'), $limit = null)
     {
-
-        // Page headers
-        $page_headers = $this->page_headers;
-
         $pages = File::scan(CONTENT_PATH . $url, 'md');
 
         foreach ($pages as $key => $page) {
@@ -323,8 +302,6 @@
      */
     public function getPage($url)
     {
-        // Page headers
-        $page_headers = $this->page_headers;
 
         // Get the file path
         if ($url) {
