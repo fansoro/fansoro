@@ -19,9 +19,9 @@
  * file that was distributed with this source code.
  */
 
-class Morfy
-{
-    /**
+ class Morfy
+ {
+     /**
      * The version of Morfy
      *
      * @var string
@@ -126,6 +126,8 @@ class Morfy
      */
     public function run($path)
     {
+        // Load Yaml Parser/Dumper
+        include LIBRARIES_PATH . '/Spyc/Spyc.php';
 
         // Load config file
         $this->loadConfig($path);
@@ -160,10 +162,10 @@ class Morfy
         /**
          * Send default header and set internal encoding
          */
-        header('Content-Type: text/html; charset='.static::$config['site_charset']);
+        header('Content-Type: text/html; charset='.static::$config['charset']);
         function_exists('mb_language') and mb_language('uni');
-        function_exists('mb_regex_encoding') and mb_regex_encoding(static::$config['site_charset']);
-        function_exists('mb_internal_encoding') and mb_internal_encoding(static::$config['site_charset']);
+        function_exists('mb_regex_encoding') and mb_regex_encoding(static::$config['charset']);
+        function_exists('mb_internal_encoding') and mb_internal_encoding(static::$config['charset']);
 
         /**
          * Gets the current configuration setting of magic_quotes_gpc
@@ -199,9 +201,9 @@ class Morfy
         $page = $this->getPage(Url::getUriString());
 
         // Overload page title, keywords and description
-        empty($page['title']) and $page['title'] = static::$config['site_title'];
-        empty($page['keywords']) and $page['keywords'] = static::$config['site_keywords'];
-        empty($page['description']) and $page['description'] = static::$config['site_description'];
+        empty($page['title']) and $page['title'] = static::$config['title'];
+        empty($page['keywords']) and $page['keywords'] = static::$config['keywords'];
+        empty($page['description']) and $page['description'] = static::$config['description'];
 
         $page   = $page;
         $config = self::$config;
@@ -227,7 +229,7 @@ class Morfy
         $options = $config['fenom'];
 
         $fenom = Fenom::factory(
-            THEMES_PATH . '/' . $config['site_theme'] . '/',
+            THEMES_PATH . '/' . $config['theme'] . '/',
             ROOT_DIR . '/cache/fenom/',
             $options
         );
@@ -281,7 +283,7 @@ class Morfy
                     }
                 }
 
-                $url = str_replace(CONTENT_PATH, Morfy::$config['site_url'], $page);
+                $url = str_replace(CONTENT_PATH, Morfy::$config['url'], $page);
                 $url = str_replace('index.md', '', $url);
                 $url = str_replace('.md', '', $url);
                 $url = str_replace('\\', '/', $url);
@@ -357,7 +359,7 @@ class Morfy
             }
         }
 
-        $url = str_replace(CONTENT_PATH, Morfy::$config['site_url'], $file);
+        $url = str_replace(CONTENT_PATH, Morfy::$config['url'], $file);
         $url = str_replace('index.md', '', $url);
         $url = str_replace('.md', '', $url);
         $url = str_replace('\\', '/', $url);
@@ -396,7 +398,7 @@ class Morfy
         $content = $_content;
 
         // Parse {site_url}
-        $content = str_replace('{site_url}', static::$config['site_url'], $_content);
+        $content = str_replace('{site_url}', static::$config['url'], $_content);
 
         // Parse {morfy_separator}
         $content = str_replace('{morfy_separator}', Morfy::SEPARATOR, $content);
@@ -426,8 +428,10 @@ class Morfy
      */
     protected function loadPlugins()
     {
-        foreach (static::$config['plugins'] as $plugin) {
-            include_once PLUGINS_PATH .'/'. $plugin.'/'.$plugin.'.php';
+        if (count(static::$config['plugins']) > 0) {
+            foreach (static::$config['plugins'] as $plugin) {
+                include_once PLUGINS_PATH .'/'. $plugin.'/'.$plugin.'.php';
+            }
         }
     }
 
@@ -437,7 +441,7 @@ class Morfy
     protected function loadConfig($path)
     {
         if (file_exists($path)) {
-            static::$config = require $path;
+            static::$config = Spyc::YAMLLoad(file_get_contents(ROOT_DIR . '/config/morfy.yml'));
         } else {
             die("Oops.. Where is config file ?!");
         }
@@ -613,4 +617,4 @@ class Morfy
 
         return true;
     }
-}
+ }
