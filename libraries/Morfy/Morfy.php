@@ -141,7 +141,8 @@ class Morfy
             'File'     => LIBRARIES_PATH . '/Force/FileSystem/File.php',
             'Dir'      => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
         ));
-
+        ClassLoader::register();
+        
         // Set default timezone
         @ini_set('date.timezone', static::$config['site_timezone']);
         if (function_exists('date_default_timezone_set')) {
