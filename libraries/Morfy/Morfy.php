@@ -133,11 +133,13 @@ class Morfy
         // Use the Force...
         include LIBRARIES_PATH . '/Force/ClassLoader/ClassLoader.php';
         ClassLoader::mapClasses(array(
-            'Arr'     => LIBRARIES_PATH . '/Force/Arr/Arr.php',
-            'Session' => LIBRARIES_PATH . '/Force/Session/Session.php',
-            'Token'   => LIBRARIES_PATH . '/Force/Token/Token.php',
-            'File'    => LIBRARIES_PATH . '/Force/FileSystem/File.php',
-            'Dir'     => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
+            'Arr'      => LIBRARIES_PATH . '/Force/Arr/Arr.php',
+            'Session'  => LIBRARIES_PATH . '/Force/Session/Session.php',
+            'Token'    => LIBRARIES_PATH . '/Force/Token/Token.php',
+            'Request'  => LIBRARIES_PATH . '/Force/Http/Request.php',
+            'Response' => LIBRARIES_PATH . '/Force/Http/Response.php',
+            'File'     => LIBRARIES_PATH . '/Force/FileSystem/File.php',
+            'Dir'      => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
         ));
 
         // Set default timezone
