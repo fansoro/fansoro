@@ -121,16 +121,15 @@
      *      Morfy::factory()->run($path);
      *  </code>
      *
-     * @param string $path Config path
      * @access  public
      */
-    public function run($path)
+    public function run()
     {
         // Load Yaml Parser/Dumper
         include LIBRARIES_PATH . '/Spyc/Spyc.php';
 
         // Load config file
-        $this->loadConfig($path);
+        $this->loadConfig(ROOT_DIR . '/config/morfy.yml');
 
         // Use the Force...
         include LIBRARIES_PATH . '/Force/ClassLoader/ClassLoader.php';
@@ -441,7 +440,7 @@
     protected function loadConfig($path)
     {
         if (file_exists($path)) {
-            static::$config = Spyc::YAMLLoad(file_get_contents(ROOT_DIR . '/config/morfy.yml'));
+            static::$config = Spyc::YAMLLoad(file_get_contents($path));
         } else {
             die("Oops.. Where is config file ?!");
         }

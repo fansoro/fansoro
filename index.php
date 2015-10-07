@@ -30,6 +30,8 @@ define('PLUGINS_PATH', ROOT_DIR  .'/plugins');
  */
 require LIBRARIES_PATH . '/Morfy/Morfy.php';
 
+
+
 /**
  * First check for installer then go
  */
@@ -48,5 +50,5 @@ if (file_exists('install.php')) {
     /**
      * Run Morfy Application with Morfy config
      */
-    Morfy::factory()->run('config/Morfy.php');
+    Morfy::factory()->run();
 }
