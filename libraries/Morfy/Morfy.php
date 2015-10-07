@@ -307,8 +307,6 @@
             $_pages = array_slice($_pages, null, $limit);
         }
 
-        print_r($_pages);
-
         return $_pages;
     }
 
