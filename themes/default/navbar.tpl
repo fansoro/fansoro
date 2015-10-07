@@ -11,7 +11,7 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				{set $slug = Morfy::factory()->getUriSegment(0)}
+				{set $slug = Url::getUriSegment(0)}
 				<li {if $slug == ''} class="active" {/if}><a href="{$.config.site_url}">Home</a></li>
 				<li {if $slug == 'blog'} class="active" {/if}><a href="{$.config.site_url}/blog">Blog</a></li>
 				<li {if $slug == 'about'} class="active" {/if}><a href="{$.config.site_url}/about">About</a></li>
