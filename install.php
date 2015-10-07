@@ -8,7 +8,11 @@
 $php_modules = get_loaded_extensions();
 
 // Get server port
-if ($_SERVER["SERVER_PORT"] == "80") $port = ""; else $port = ':'.$_SERVER["SERVER_PORT"];
+if ($_SERVER["SERVER_PORT"] == "80") {
+    $port = "";
+} else {
+    $port = ':'.$_SERVER["SERVER_PORT"];
+}
 
 // Get site URL
 $site_url = 'http://'.$_SERVER["SERVER_NAME"].$port.str_replace(array("index.php", "install.php"), "", $_SERVER['PHP_SELF']);
@@ -30,7 +34,7 @@ if (version_compare(PHP_VERSION, "5.3.0", "<")) {
 }
 
 if (function_exists('apache_get_modules')) {
-    if ( ! in_array('mod_rewrite', apache_get_modules())) {
+    if (! in_array('mod_rewrite', apache_get_modules())) {
         $errors['mod_rewrite'] = 'error';
     }
 }
@@ -53,15 +57,14 @@ foreach ($dir_array as $dir) {
 
 // If pressed <Install> button then try to install
 if (isset($_POST['install_submit'])) {
+    $post_site_url = isset($_POST['site_url']) ? $_POST['site_url'] : '';
+    $post_site_timezone = isset($_POST['site_timezone']) ? $_POST['site_timezone'] : '';
+    $post_site_title = isset($_POST['site_title']) ? $_POST['site_title'] : '';
+    $post_site_description = isset($_POST['site_description']) ? $_POST['site_description'] : '';
+    $post_site_keywords = isset($_POST['site_keywords']) ? $_POST['site_keywords'] : '';
+    $post_email = isset($_POST['email']) ? $_POST['email'] : '';
 
-        $post_site_url = isset($_POST['site_url']) ? $_POST['site_url'] : '';
-        $post_site_timezone = isset($_POST['site_timezone']) ? $_POST['site_timezone'] : '';
-        $post_site_title = isset($_POST['site_title']) ? $_POST['site_title'] : '';
-        $post_site_description = isset($_POST['site_description']) ? $_POST['site_description'] : '';
-        $post_site_keywords = isset($_POST['site_keywords']) ? $_POST['site_keywords'] : '';
-        $post_email = isset($_POST['email']) ? $_POST['email'] : '';
-
-        file_put_contents('config/Morfy.php', "<?php
+    file_put_contents('config/Morfy.php', "<?php
     return array(
         'site_url' => '{$post_site_url}',
         'site_charset' => 'UTF-8',
@@ -71,10 +74,8 @@ if (isset($_POST['install_submit'])) {
         'site_description' => '{$post_site_description}',
         'site_keywords' => '{$post_site_keywords}',
         'email' => '{$post_email}',
-        'plugins' => array(
-            'parsedown',
-            'sitemap',
-        ),
+        'plugins' => array(),
+
         /**
          * https://github.com/fenom-template/fenom/blob/master/docs/ru/configuration.md
          */
@@ -96,15 +97,14 @@ if (isset($_POST['install_submit'])) {
 
         // Write .htaccess
         $htaccess = file_get_contents('.htaccess');
-        $save_htaccess_content = str_replace("/%siteurlhere%/", $rewrite_base, $htaccess);
+    $save_htaccess_content = str_replace("/%siteurlhere%/", $rewrite_base, $htaccess);
 
-        $handle = fopen ('.htaccess', "w");
-        fwrite($handle, $save_htaccess_content);
-        fclose($handle);
+    $handle = fopen('.htaccess', "w");
+    fwrite($handle, $save_htaccess_content);
+    fclose($handle);
 
         // Installation done :)
         header("location: index.php?install=done");
-
 }
 ?>
 <!DOCTYPE html>
@@ -184,7 +184,7 @@ if (isset($_POST['install_submit'])) {
                 }
 
                 if (function_exists('apache_get_modules')) {
-                    if ( ! in_array('mod_rewrite',apache_get_modules())) {
+                    if (! in_array('mod_rewrite', apache_get_modules())) {
                         echo '<li class="alert alert-danger">Apache Mod Rewrite is required</li>';
                     } else {
                         echo '<li class="alert alert-success">Module Mod Rewrite is installed</li>';
@@ -216,13 +216,16 @@ if (isset($_POST['install_submit'])) {
             </ul>
             <?php
                 if (count($errors) == 0) {
-            ?>
+                    ?>
                 <a class="btn btn-primary btn-lg btn-block continue">Continue</a>
             <?php
+
                 } else {
-            ?>
+                    ?>
             <a class="btn btn-primary btn-disabled btn-lg btn-block" disabled>Continue</a>
-            <?php } ?>
+            <?php
+
+                } ?>
         </div>
 
         <div class="step-2 hide">
