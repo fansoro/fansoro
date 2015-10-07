@@ -148,6 +148,6 @@ class Url
      */
     public function runSanitizeURL()
     {
-        $_GET = array_map(array($this, 'sanitizeURL'), $_GET);
+        $_GET = array_map('Url::sanitizeURL', $_GET);
     }
 }
