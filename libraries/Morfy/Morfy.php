@@ -186,6 +186,10 @@ class Morfy
         // Start the session
         Session::start();
 
+        // Include parsedown
+        include LIBRARIES_PATH . '/Parsedown/Parsedown.php';
+        include LIBRARIES_PATH . '/Parsedown/ParsedownExtra.php';
+
         // Load Plugins
         $this->loadPlugins();
         $this->runAction('plugins_loaded');
@@ -503,6 +507,9 @@ class Morfy
 
         // Parse {morfy_version}
         $content = str_replace('{morfy_version}', Morfy::VERSION, $content);
+
+        $ParsedownExtra = new ParsedownExtra();
+        $content = $ParsedownExtra->text($content);
 
         // Parse {cut}
         $pos = strpos($content, "{cut}");
