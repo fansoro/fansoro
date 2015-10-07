@@ -235,11 +235,12 @@ class File
      *      $files = File::scan('folder', array('txt', 'log'));
      *  </code>
      *
-     * @param  string $folder Folder
-     * @param  mixed  $type   Files types
+     * @param  string $folder      Folder
+     * @param  mixed  $type        Files types
+     * @param  mixed  $file_path   Files path
      * @return array
      */
-    public static function scan($folder, $type = null)
+    public static function scan($folder, $type = null, $file_path = true)
     {
         $data = array();
         if (is_dir($folder)) {
@@ -250,17 +251,29 @@ class File
                         $file_ext = substr(strrchr($file->getFilename(), '.'), 1);
                         if (in_array($file_ext, $type)) {
                             if (strpos($file->getFilename(), $file_ext, 1)) {
-                                $data[] = $file->getFilename();
+                                if ($file_path) {
+                                    $data[] = $file->getPathName();
+                                } else {
+                                    $data[] = $file->getFilename();
+                                }
                             }
                         }
                     } else {
                         if (strpos($file->getFilename(), $type, 1)) {
-                            $data[] = $file->getFilename();
+                            if ($file_path) {
+                                $data[] = $file->getPathName();
+                            } else {
+                                $data[] = $file->getFilename();
+                            }
                         }
                     }
                 } else {
                     if ($file->getFilename() !== '.' && $file->getFilename() !== '..') {
-                        $data[] = $file->getFilename();
+                        if ($file_path) {
+                            $data[] = $file->getPathName();
+                        } else {
+                            $data[] = $file->getFilename();
+                        }
                     }
                 }
             }

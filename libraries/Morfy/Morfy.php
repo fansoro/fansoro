@@ -142,7 +142,7 @@ class Morfy
             'Dir'      => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
         ));
         ClassLoader::register();
-        
+
         // Set default timezone
         @ini_set('date.timezone', static::$config['site_timezone']);
         if (function_exists('date_default_timezone_set')) {
@@ -365,8 +365,8 @@ class Morfy
         // Page headers
         $page_headers = $this->page_headers;
 
-        $pages = File::getFiles(CONTENT_PATH . $url);
-
+        $pages = File::scan(CONTENT_PATH . $url, 'md');
+        
         foreach ($pages as $key => $page) {
             if (!in_array(basename($page, '.md'), $ignore)) {
                 $content = file_get_contents($page);
