@@ -36,11 +36,18 @@
     const SEPARATOR = '----';
 
     /**
-     * Config array.
+     * Site Config array.
      *
      * @var array
      */
-    public static $config;
+    public static $site;
+
+    /**
+     * Fenom Config array.
+     *
+     * @var array
+     */
+    public static $fenom;
 
     /**
      * Plugins
@@ -118,7 +125,7 @@
      * Run Morfy Application
      *
      *  <code>
-     *      Morfy::factory()->run($path);
+     *      Morfy::factory()->run();
      *  </code>
      *
      * @access  public
@@ -129,7 +136,7 @@
         include LIBRARIES_PATH . '/Spyc/Spyc.php';
 
         // Load config file
-        $this->loadConfig(ROOT_DIR . '/config/morfy.yml');
+        $this->loadConfig();
 
         // Use the Force...
         include LIBRARIES_PATH . '/Force/ClassLoader/ClassLoader.php';
@@ -146,11 +153,11 @@
         ClassLoader::register();
 
         // Set default timezone
-        @ini_set('date.timezone', static::$config['site_timezone']);
+        @ini_set('date.timezone', static::$site['site_timezone']);
         if (function_exists('date_default_timezone_set')) {
-            date_default_timezone_set(static::$config['site_timezone']);
+            date_default_timezone_set(static::$site['site_timezone']);
         } else {
-            putenv('TZ='.static::$config['site_timezone']);
+            putenv('TZ='.static::$site['site_timezone']);
         }
 
         /**
@@ -161,10 +168,10 @@
         /**
          * Send default header and set internal encoding
          */
-        header('Content-Type: text/html; charset='.static::$config['charset']);
+        header('Content-Type: text/html; charset='.static::$site['charset']);
         function_exists('mb_language') and mb_language('uni');
-        function_exists('mb_regex_encoding') and mb_regex_encoding(static::$config['charset']);
-        function_exists('mb_internal_encoding') and mb_internal_encoding(static::$config['charset']);
+        function_exists('mb_regex_encoding') and mb_regex_encoding(static::$site['charset']);
+        function_exists('mb_internal_encoding') and mb_internal_encoding(static::$site['charset']);
 
         /**
          * Gets the current configuration setting of magic_quotes_gpc
@@ -200,16 +207,16 @@
         $page = $this->getPage(Url::getUriString());
 
         // Overload page title, keywords and description
-        empty($page['title']) and $page['title'] = static::$config['title'];
-        empty($page['keywords']) and $page['keywords'] = static::$config['keywords'];
-        empty($page['description']) and $page['description'] = static::$config['description'];
+        empty($page['title']) and $page['title'] = static::$site['title'];
+        empty($page['keywords']) and $page['keywords'] = static::$site['keywords'];
+        empty($page['description']) and $page['description'] = static::$site['description'];
 
         $page   = $page;
-        $config = self::$config;
+        $site   = self::$site;
 
         // Load template
         $this->runAction('before_render');
-        $this->loadTemplate($page, $config);
+        $this->loadTemplate($page, $site);
         $this->runAction('after_render');
     }
 
@@ -217,25 +224,23 @@
      * Load template
      *
      *  <code>
-     *      Morfy::factory()->loadTemplate($page, $config);
+     *      Morfy::factory()->loadTemplate($page, $site);
      *  </code>
      *
      * @access public
      * @return string
      */
-    public function loadTemplate($page, $config)
+    public function loadTemplate($page, $site)
     {
-        $options = $config['fenom'];
-
         $fenom = Fenom::factory(
-            THEMES_PATH . '/' . $config['theme'] . '/',
+            THEMES_PATH . '/' . $site['theme'] . '/',
             ROOT_DIR . '/cache/fenom/',
-            $options
+            self::$fenom
         );
 
-        // Do global tag {$.config} for the template
-        $fenom->addAccessorSmart('config', 'site_config', Fenom::ACCESSOR_PROPERTY);
-        $fenom->site_config = $config;
+        // Do global tag {$.site} for the template
+        $fenom->addAccessorSmart('site', 'site_config', Fenom::ACCESSOR_PROPERTY);
+        $fenom->site_config = $site;
 
         // Display page
         try {
@@ -282,7 +287,7 @@
                     }
                 }
 
-                $url = str_replace(CONTENT_PATH, Morfy::$config['url'], $page);
+                $url = str_replace(CONTENT_PATH, Morfy::$site['url'], $page);
                 $url = str_replace('index.md', '', $url);
                 $url = str_replace('.md', '', $url);
                 $url = str_replace('\\', '/', $url);
@@ -358,7 +363,7 @@
             }
         }
 
-        $url = str_replace(CONTENT_PATH, Morfy::$config['url'], $file);
+        $url = str_replace(CONTENT_PATH, Morfy::$site['url'], $file);
         $url = str_replace('index.md', '', $url);
         $url = str_replace('.md', '', $url);
         $url = str_replace('\\', '/', $url);
@@ -397,7 +402,7 @@
         $content = $_content;
 
         // Parse {site_url}
-        $content = str_replace('{site_url}', static::$config['url'], $_content);
+        $content = str_replace('{site_url}', static::$site['url'], $_content);
 
         // Parse {morfy_separator}
         $content = str_replace('{morfy_separator}', Morfy::SEPARATOR, $content);
@@ -427,8 +432,8 @@
      */
     protected function loadPlugins()
     {
-        if (count(static::$config['plugins']) > 0) {
-            foreach (static::$config['plugins'] as $plugin) {
+        if (count(static::$site['plugins']) > 0) {
+            foreach (static::$site['plugins'] as $plugin) {
                 include_once PLUGINS_PATH .'/'. $plugin.'/'.$plugin.'.php';
             }
         }
@@ -437,10 +442,14 @@
     /**
      * Load Config
      */
-    protected function loadConfig($path)
+    protected function loadConfig()
     {
-        if (file_exists($path)) {
-            static::$config = Spyc::YAMLLoad(file_get_contents($path));
+        $site_config_path  = ROOT_DIR . '/config/site.yml';
+        $fenom_config_path = ROOT_DIR . '/config/fenom.yml';
+
+        if (file_exists($site_config_path) && file_exists($fenom_config_path)) {
+            static::$site = Spyc::YAMLLoad(file_get_contents($site_config_path));
+            static::$fenom = Spyc::YAMLLoad(file_get_contents($fenom_config_path));
         } else {
             die("Oops.. Where is config file ?!");
         }
