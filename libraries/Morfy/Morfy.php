@@ -64,13 +64,6 @@ class Morfy
     private static $filters = array();
 
     /**
-     * Key name for security token storage
-     *
-     * @var  string
-     */
-    protected static $security_token_name = 'security_token';
-
-    /**
      * Page headers
      *
      * @var array
