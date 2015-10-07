@@ -1,7 +1,7 @@
 # Morfy 
 Simple and fast file-based CMS
 
-## System Requirements
+## Requirements
 Operation system: Unix, Linux, Windows, Mac OS  
 Middleware: PHP 5.3.6 or higher with PHP's [Multibyte String module](http://php.net/mbstring)   
 Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)  
