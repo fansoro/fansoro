@@ -10,7 +10,7 @@
         'site_keywords' => 'site, keywords',
         'email' => 'admin@admin.com',
         'plugins' => array(
-            'parsedown',
+            'parsedown'
         ),
            /**
        	 * https://github.com/fenom-template/fenom/blob/master/docs/ru/configuration.md
