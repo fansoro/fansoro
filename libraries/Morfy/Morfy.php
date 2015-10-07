@@ -138,6 +138,7 @@ class Morfy
             'Token'    => LIBRARIES_PATH . '/Force/Token/Token.php',
             'Request'  => LIBRARIES_PATH . '/Force/Http/Request.php',
             'Response' => LIBRARIES_PATH . '/Force/Http/Response.php',
+            'Url'      => LIBRARIES_PATH . '/Force/Url/Url.php',
             'File'     => LIBRARIES_PATH . '/Force/FileSystem/File.php',
             'Dir'      => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
         ));
@@ -154,7 +155,7 @@ class Morfy
         /**
          * Sanitize URL to prevent XSS - Cross-site scripting
          */
-        $this->runSanitizeURL();
+        Url::runSanitizeURL();
 
         /**
          * Send default header and set internal encoding
@@ -195,7 +196,7 @@ class Morfy
         Fenom::registerAutoload();
 
         // Get page for current requested url
-        $page = $this->getPage($this->getUrl());
+        $page = $this->getPage(Url::getUriString());
 
         // Overload page title, keywords and description
         empty($page['title']) and $page['title'] = static::$config['site_title'];
@@ -243,107 +244,6 @@ class Morfy
         }
     }
 
-    /**
-     * Get Url
-     *
-     *  <code>
-     *      $url = Morfy::factory()->getUrl();
-     *  </code>
-     *
-     * @access  public
-     * @return string
-     */
-    public function getUrl()
-    {
-        // Get request url and script url
-        $url = '';
-        $request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
-        $script_url  = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
-
-        // Get our url path and trim the / of the left and the right
-        if ($request_url != $script_url) {
-            $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
-        }
-        $url = preg_replace('/\?.*/', '', $url); // Strip query string
-
-        return $url;
-    }
-
-    /**
-     * Get Uri Segments
-     *
-     *  <code>
-     *      $uri_segments = Morfy::factory()->getUriSegments();
-     *  </code>
-     *
-     * @access  public
-     * @return array
-     */
-    public function getUriSegments()
-    {
-        return explode('/', $this->getUrl());
-    }
-
-    /**
-     * Get Uri Segment
-     *
-     *  <code>
-     *      $uri_segment = Morfy::factory()->getUriSegment(1);
-     *  </code>
-     *
-     * @access  public
-     * @return string
-     */
-    public function getUriSegment($segment)
-    {
-        $segments = $this->getUriSegments();
-        return isset($segments[$segment]) ? $segments[$segment] : null;
-    }
-
-    /**
-     * Create safe url.
-     *
-     *  <code>
-     *      $url = Morfy::factory()->sanitizeURL($url);
-     *  </code>
-     *
-     * @access  public
-     * @param  string $url Url to sanitize
-     * @return string
-     */
-    public function sanitizeURL($url)
-    {
-        $url = trim($url);
-        $url = rawurldecode($url);
-        $url = str_replace(array('--', '&quot;', '!', '@', '#', '$', '%', '^', '*', '(', ')', '+', '{', '}', '|', ':', '"', '<', '>',
-            '[', ']', '\\', ';', "'", ',', '*', '+', '~', '`', 'laquo', 'raquo', ']>', '&#8216;', '&#8217;', '&#8220;', '&#8221;', '&#8211;', '&#8212;'),
-            array('-', '-', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-            $url);
-        $url = str_replace('--', '-', $url);
-        $url = rtrim($url, "-");
-        $url = str_replace('..', '', $url);
-        $url = str_replace('//', '', $url);
-        $url = preg_replace('/^\//', '', $url);
-        $url = preg_replace('/^\./', '', $url);
-        return $url;
-    }
-
-    /**
-     * Sanitize URL to prevent XSS - Cross-site scripting
-     *
-     *  <code>
-     *      Morfy::factory()->runSanitizeURL();
-     *  </code>
-     *
-     * @access  public
-     * @return void
-     */
-    public function runSanitizeURL()
-    {
-        $_GET = array_map(array($this, 'sanitizeURL'), $_GET);
-    }
-
-
    /**
      * Get pages
      *
@@ -366,7 +266,7 @@ class Morfy
         $page_headers = $this->page_headers;
 
         $pages = File::scan(CONTENT_PATH . $url, 'md');
-        
+
         foreach ($pages as $key => $page) {
             if (!in_array(basename($page, '.md'), $ignore)) {
                 $content = file_get_contents($page);
@@ -712,20 +612,5 @@ class Morfy
         ksort(static::$filters[$filter_name]["$priority"]);
 
         return true;
-    }
-
-    /**
-     * Sanitize data to prevent XSS - Cross-site scripting
-     *
-     *  <code>
-     *     $str = Morfy::factory()->cleanString($str);
-     *  </code>
-     *
-     * @param  string $str String
-     * @return string
-     */
-    public function cleanString($str)
-    {
-        return htmlspecialchars($str, ENT_QUOTES, 'utf-8');
     }
 }
