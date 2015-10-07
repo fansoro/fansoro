@@ -11,12 +11,11 @@
         'email' => 'admin@admin.com',
         'plugins' => array(
             'parsedown',
-            'sitemap',
         ),
-       	/**
+           /**
        	 * https://github.com/fenom-template/fenom/blob/master/docs/ru/configuration.md
        	 */
-        'fenom' =>  array( 
+        'fenom' =>  array(
             // 'disable_methods' => false,
             // 'disable_native_funcs' => false,
             'auto_reload' => true,
