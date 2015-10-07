@@ -355,20 +355,14 @@
 
         $_page_headers = explode(Morfy::SEPARATOR, $content);
 
-        foreach ($page_headers as $field => $regex) {
-            if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $_page_headers[0], $match) && $match[1]) {
-                $page[ $field ] = trim($match[1]);
-            } else {
-                $page[ $field ] = '';
-            }
-        }
+        $page = Spyc::YAMLLoad($_page_headers[0]);
 
         $url = str_replace(CONTENT_PATH, Morfy::$site['url'], $file);
         $url = str_replace('index.md', '', $url);
         $url = str_replace('.md', '', $url);
         $url = str_replace('\\', '/', $url);
         $url = rtrim($url, '/');
-        $pages['url'] = $url;
+        $page['url'] = $url;
 
         $_content = $this->parseContent($content);
         if (is_array($_content)) {
