@@ -1,5 +1,5 @@
-Title: Contact  
-Description: Morfy is a simple and light-weighted Content Management System  
+title: Contact  
+description: Morfy is a simple and light-weighted Content Management System  
 
 ----
 

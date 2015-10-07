@@ -1,12 +1,12 @@
-Title: Welcome  
-Description: Morfy is a simple and light-weighted Content Management System  
-Template: index  
+title: Welcome  
+description: Morfy is a simple and light-weighted Content Management System  
+template: index  
 
 ----
 
 ## Welcome to Morfy
 
-Welcome to your new Morfy powered website. 
+Welcome to your new Morfy powered website.
 
 
 ### Creating Content
@@ -36,12 +36,12 @@ Text files are marked up using Markdown Plugin. They can also contain regular HT
 At the top of text files you can place a block comment and specify certain attributes of the page.
 
 Example:
-	
+
 	Title: Welcome  
 	Description: Some description here   
     Keywords: key, words
 	Author: Awilum  
-	Date: 2015-09-01 16:08 
+	Date: 2015-09-01 16:08
 	Tags: tag1, tag2
     Robots: noindex,nofollow  
 	Template: index (allows you to use different templates in your theme)  
@@ -70,7 +70,7 @@ Write text file vars inside `{}` e.g. `{var}`
 You can create themes for your Morfy installation and in the `themes` folder.
 To setup your theme just update `theme` setting in config.php
 
-All themes must include an `index.html` file to define the HTML structure of the theme. 
+All themes must include an `index.html` file to define the HTML structure of the theme.
 You can separate `index.html` to `header.html` and `footer.html` on your wish and easy include theme:
 `<?php include 'header.html' ?>` and `<?php include 'footer.html' ?>`
 
@@ -109,7 +109,7 @@ Example how to output variable: `<?php echo $page['title']; ?>`
 
 
 ### Config
-You can set your own site title, keywords, description and etc.. by editing config.php in the root Morfy directory. 
+You can set your own site title, keywords, description and etc.. by editing config.php in the root Morfy directory.
 
 ### Documentation
 For more help have a look at the Mory documentation at [http://morfy.org/documentation](http://morfy.org/documentation)

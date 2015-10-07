@@ -1,5 +1,5 @@
-Title: About  
-Description: Morfy is a simple and light-weighted Content Management System  
+title: About  
+description: Morfy is a simple and light-weighted Content Management System  
 
 ----
 
