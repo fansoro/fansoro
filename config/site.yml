@@ -1,0 +1,14 @@
+title: 'Morfy'
+description: 'description here'
+keywords: 'ket, test'
+
+url: 'http://127.0.0.1/morfy'
+
+email: 'awilum@msn.com'
+
+charset: 'UTF-8'
+timezone: 'UTC'
+
+theme: 'default'
+
+#plugins:
