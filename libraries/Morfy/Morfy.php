@@ -33,7 +33,7 @@
      *
      * @var string
      */
-    const SEPARATOR = '----';
+    const SEPARATOR = '---';
 
     /**
      * Site Config array.
@@ -258,7 +258,7 @@
 
                 $_page_headers = explode(Morfy::SEPARATOR, $content);
 
-                $_pages[$key] = Spyc::YAMLLoad($_page_headers[0]);
+                $_pages[$key] = Spyc::YAMLLoad($_page_headers[1]);
 
                 $url = str_replace(CONTENT_PATH, Morfy::$site['url'], $page);
                 $url = str_replace('index.md', '', $url);
@@ -267,7 +267,7 @@
                 $url = rtrim($url, '/');
                 $_pages[$key]['url'] = $url;
 
-                $_content = $this->parseContent($content);
+                $_content = $this->parseContent($_page_headers[2]);
                 if (is_array($_content)) {
                     $_pages[$key]['content_short'] = $_content['content_short'];
                     $_pages[$key]['content'] = $_content['content_full'];
@@ -326,7 +326,7 @@
 
         $_page_headers = explode(Morfy::SEPARATOR, $content);
 
-        $page = Spyc::YAMLLoad($_page_headers[0]);
+        $page = Spyc::YAMLLoad($_page_headers[1]);
 
         $url = str_replace(CONTENT_PATH, Morfy::$site['url'], $file);
         $url = str_replace('index.md', '', $url);
@@ -335,7 +335,7 @@
         $url = rtrim($url, '/');
         $page['url'] = $url;
 
-        $_content = $this->parseContent($content);
+        $_content = $this->parseContent($_page_headers[2]);
         if (is_array($_content)) {
             $page['content_short'] = $_content['content_short'];
             $page['content'] = $_content['content_full'];
@@ -357,17 +357,9 @@
      */
     protected function parseContent($content)
     {
-        // Parse Content after Headers
-        $_content = '';
-        $i = 0;
-        foreach (explode(Morfy::SEPARATOR, $content) as $c) {
-            ($i++!=0) and $_content .= $c;
-        }
-
-        $content = $_content;
 
         // Parse {site_url}
-        $content = str_replace('{site_url}', static::$site['url'], $_content);
+        $content = str_replace('{site_url}', static::$site['url'], $content);
 
         // Parse {morfy_separator}
         $content = str_replace('{morfy_separator}', Morfy::SEPARATOR, $content);
@@ -378,12 +370,12 @@
         $ParsedownExtra = new ParsedownExtra();
         $content = $ParsedownExtra->text($content);
 
-        // Parse {cut}
-        $pos = strpos($content, "{cut}");
+        // Parse <!--more-->
+        $pos = strpos($content, "<!--more-->");
         if ($pos === false) {
             $content = $this->applyFilter('content', $content);
         } else {
-            $content = explode("{cut}", $content);
+            $content = explode("<!--more-->", $content);
             $content['content_short'] = $this->applyFilter('content', $content[0]);
             $content['content_full']  = $this->applyFilter('content', $content[0].$content[1]);
         }
