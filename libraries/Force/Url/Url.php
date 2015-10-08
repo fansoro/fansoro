@@ -146,7 +146,7 @@ class Url
      * @access  public
      * @return void
      */
-    public function runSanitizeURL()
+    public static function runSanitizeURL()
     {
         $_GET = array_map('Url::sanitizeURL', $_GET);
     }
