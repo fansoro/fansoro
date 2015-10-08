@@ -64,16 +64,16 @@ if (isset($_POST['install_submit'])) {
     $post_site_keywords = isset($_POST['site_keywords']) ? $_POST['site_keywords'] : '';
     $post_email = isset($_POST['email']) ? $_POST['email'] : '';
 
-    file_put_contents('config/Morfy.php', trim("
-            title: '{$post_site_title}'
-            description: '{$post_site_description}'
-            keywords: '{$post_site_keywords}'
-            url: '{$post_site_url}'
-            email: '{$post_email}'
-            charset: 'UTF-8'
-            timezone: '{$post_site_timezone}'
-            theme: 'default'
-            #plugins:"));
+    file_put_contents('config/site.yml',
+trim("title: '{$post_site_title}'
+description: '{$post_site_description}'
+keywords: '{$post_site_keywords}'
+url: '{$post_site_url}'
+email: '{$post_email}'
+charset: 'UTF-8'
+timezone: '{$post_site_timezone}'
+theme: 'default'
+#plugins:"));
 
     // Write .htaccess
     $htaccess = file_get_contents('.htaccess');
