@@ -1,8 +1,8 @@
+---
 title: Welcome  
 description: Morfy is a simple and light-weighted Content Management System  
 template: index  
-
-----
+---
 
 ## Welcome to Morfy
 
