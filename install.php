@@ -64,39 +64,19 @@ if (isset($_POST['install_submit'])) {
     $post_site_keywords = isset($_POST['site_keywords']) ? $_POST['site_keywords'] : '';
     $post_email = isset($_POST['email']) ? $_POST['email'] : '';
 
-    file_put_contents('config/Morfy.php', "<?php
-    return array(
-        'site_url' => '{$post_site_url}',
-        'site_charset' => 'UTF-8',
-        'site_timezone' => '{$post_site_timezone}',
-        'site_theme' => 'default',
-        'site_title' => '{$post_site_title}',
-        'site_description' => '{$post_site_description}',
-        'site_keywords' => '{$post_site_keywords}',
-        'email' => '{$post_email}',
-        'plugins' => array(),
+    file_put_contents('config/Morfy.php', trim("
+            title: '{$post_site_title}'
+            description: '{$post_site_description}'
+            keywords: '{$post_site_keywords}'
+            url: '{$post_site_url}'
+            email: '{$post_email}'
+            charset: 'UTF-8'
+            timezone: '{$post_site_timezone}'
+            theme: 'default'
+            #plugins:"));
 
-        /**
-         * https://github.com/fenom-template/fenom/blob/master/docs/ru/configuration.md
-         */
-        'fenom' =>  array(
-            // 'disable_methods' => false,
-            // 'disable_native_funcs' => false,
-            'auto_reload' => true,
-            // 'force_compile' => false,
-            // 'disable_cache' => false,
-            'force_include' => true,
-            // 'auto_escape' => false,
-            // 'force_verify' => false,
-            // 'disable_php_calls' => false,
-            // 'disable_statics' => false,
-            'strip' => true,
-        )
-    );
-        ");
-
-        // Write .htaccess
-        $htaccess = file_get_contents('.htaccess');
+    // Write .htaccess
+    $htaccess = file_get_contents('.htaccess');
     $save_htaccess_content = str_replace("/%siteurlhere%/", $rewrite_base, $htaccess);
 
     $handle = fopen('.htaccess', "w");
