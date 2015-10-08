@@ -1,6 +1,13 @@
 <?php
 
 /**
+ *  Morfy requires PHP 5.3.6 or greater
+ */
+if (version_compare(PHP_VERSION, "5.3.6", "<")) {
+    exit("Morfy requires PHP 5.3.6 or greater.");
+}
+
+/**
  * Define the path to the root directory (without trailing slash).
  */
 define('ROOT_DIR', __DIR__);
@@ -30,8 +37,6 @@ define('PLUGINS_PATH', ROOT_DIR  .'/plugins');
  */
 require LIBRARIES_PATH . '/Morfy/Morfy.php';
 
-
-
 /**
  * First check for installer then go
  */
@@ -48,7 +53,7 @@ if (file_exists('install.php')) {
     }
 } else {
     /**
-     * Run Morfy Application with Morfy config
+     * Run Morfy Application
      */
     Morfy::factory()->run();
 }
