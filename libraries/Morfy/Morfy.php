@@ -29,13 +29,6 @@
     const VERSION = '1.0.6';
 
     /**
-     * The separator of Morfy
-     *
-     * @var string
-     */
-    const SEPARATOR = '---';
-
-    /**
      * Site Config array.
      *
      * @var array
@@ -256,7 +249,7 @@
             if (!in_array(basename($page, '.md'), $ignore)) {
                 $content = file_get_contents($page);
 
-                $_page_headers = explode(Morfy::SEPARATOR, $content);
+                $_page_headers = explode('---', $content);
 
                 $_pages[$key] = Spyc::YAMLLoad($_page_headers[1]);
 
@@ -324,7 +317,7 @@
             header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
         }
 
-        $_page_headers = explode(Morfy::SEPARATOR, $content);
+        $_page_headers = explode('---', $content);
 
         $page = Spyc::YAMLLoad($_page_headers[1]);
 
@@ -360,12 +353,6 @@
 
         // Parse {site_url}
         $content = str_replace('{site_url}', static::$site['url'], $content);
-
-        // Parse {morfy_separator}
-        $content = str_replace('{morfy_separator}', Morfy::SEPARATOR, $content);
-
-        // Parse {morfy_version}
-        $content = str_replace('{morfy_version}', Morfy::VERSION, $content);
 
         $ParsedownExtra = new ParsedownExtra();
         $content = $ParsedownExtra->text($content);
