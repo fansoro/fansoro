@@ -1,14 +1,9 @@
 title: 'Morfy'
-description: 'description here'
-keywords: 'ket, test'
-
-url: 'http://127.0.0.1/morfy'
-
-email: 'awilum@msn.com'
-
+description: 'Simple and fast file-based CMS'
+keywords: 'morfy, cms, php, filesystem'
+url: ''
+email: ''
 charset: 'UTF-8'
 timezone: 'UTC'
-
 theme: 'default'
-
 #plugins:
