@@ -136,23 +136,16 @@
             putenv('TZ='.static::$site['site_timezone']);
         }
 
-        /**
-         * Sanitize URL to prevent XSS - Cross-site scripting
-         */
+        // Sanitize URL to prevent XSS - Cross-site scripting
         Url::runSanitizeURL();
 
-        /**
-         * Send default header and set internal encoding
-         */
+        // Send default header and set internal encoding
         header('Content-Type: text/html; charset='.static::$site['charset']);
         function_exists('mb_language') and mb_language('uni');
         function_exists('mb_regex_encoding') and mb_regex_encoding(static::$site['charset']);
         function_exists('mb_internal_encoding') and mb_internal_encoding(static::$site['charset']);
 
-        /**
-         * Gets the current configuration setting of magic_quotes_gpc
-         * and kill magic quotes
-         */
+        // Gets the current configuration setting of magic_quotes_gpc and kill magic quotes
         if (get_magic_quotes_gpc()) {
             function stripslashesGPC(&$value)
             {
@@ -182,17 +175,14 @@
         // Get page for current requested url
         $page = $this->getPage(Url::getUriString());
 
-        // Overload page title, keywords and description
+        // Overload page title, keywords and description if needed
         empty($page['title']) and $page['title'] = static::$site['title'];
         empty($page['keywords']) and $page['keywords'] = static::$site['keywords'];
         empty($page['description']) and $page['description'] = static::$site['description'];
 
-        $page   = $page;
-        $site   = self::$site;
-
         // Load template
         $this->runAction('before_render');
-        $this->loadTemplate($page, $site);
+        $this->loadTemplate($page, self::$site);
         $this->runAction('after_render');
     }
 
@@ -230,7 +220,7 @@
      * Get pages
      *
      *  <code>
-     *      $pages = Morfy::factory()->getPages(CONTENT_PATH . '/blog/');
+     *      $pages = Morfy::factory()->getPages('/blog/');
      *  </code>
      *
      * @access  public
