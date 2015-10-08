@@ -29,7 +29,7 @@ $errors = array();
 // Directories to check
 $dir_array = array('content', 'themes');
 
-if (version_compare(PHP_VERSION, "5.3.0", "<")) {
+if (version_compare(PHP_VERSION, "5.3.6", "<")) {
     $errors['php'] = 'error';
 }
 
