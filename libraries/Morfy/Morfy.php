@@ -130,11 +130,11 @@
         $this->loadConfig();
 
         // Set default timezone
-        @ini_set('date.timezone', static::$site['site_timezone']);
+        @ini_set('date.timezone', static::$site['timezone']);
         if (function_exists('date_default_timezone_set')) {
-            date_default_timezone_set(static::$site['site_timezone']);
+            date_default_timezone_set(static::$site['timezone']);
         } else {
-            putenv('TZ='.static::$site['site_timezone']);
+            putenv('TZ='.static::$site['timezone']);
         }
 
         // Sanitize URL to prevent XSS - Cross-site scripting
@@ -378,7 +378,7 @@
      */
     protected function loadPlugins()
     {
-        if (count(static::$site['plugins']) > 0) {
+        if (is_array(static::$site['plugins']) && count(static::$site['plugins']) > 0) {
             foreach (static::$site['plugins'] as $plugin) {
                 include_once PLUGINS_PATH .'/'. $plugin.'/'.$plugin.'.php';
             }
