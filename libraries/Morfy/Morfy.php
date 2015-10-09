@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Morfy Engine
+ * Morfy
  *
- *  Morfy - Content Management System.
- *  Site: www.morfy.org
- *  Copyright (C) 2014 - 2015 Romanenko Sergey / Awilum <awilum@msn.com>
+ * Morfy - Content Management System.
+ * Site: www.morfy.org
+ * Copyright (C) 2014 - 2015 Romanenko Sergey / Awilum <awilum@msn.com>
  *
  * This source file is part of the Morfy Engine. More information,
  * documentation and tutorials can be found at http://morfy.org
@@ -108,15 +108,14 @@
      */
     public function run()
     {
-        // Load Yaml Parser/Dumper
-        include LIBRARIES_PATH . '/Spyc/Spyc.php';
-
-        // Load config file
-        $this->loadConfig();
 
         // Use the Force...
         include LIBRARIES_PATH . '/Force/ClassLoader/ClassLoader.php';
         ClassLoader::mapClasses(array(
+            // Yaml Parser/Dumper
+            'Spyc'     => LIBRARIES_PATH . '/Spyc/Spyc.php',
+
+            // Force Components
             'Arr'      => LIBRARIES_PATH . '/Force/Arr/Arr.php',
             'Session'  => LIBRARIES_PATH . '/Force/Session/Session.php',
             'Token'    => LIBRARIES_PATH . '/Force/Token/Token.php',
@@ -125,8 +124,18 @@
             'Url'      => LIBRARIES_PATH . '/Force/Url/Url.php',
             'File'     => LIBRARIES_PATH . '/Force/FileSystem/File.php',
             'Dir'      => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
+
+            // Parsedown
+            'Parsedown'      => LIBRARIES_PATH . '/Parsedown/Parsedown.php',
+            'ParsedownExtra' => LIBRARIES_PATH . '/Parsedown/ParsedownExtra.php',
+
+            // Fenom Template Engine
+            'Fenom'          => LIBRARIES_PATH . '/Fenom/Fenom.php',
         ));
         ClassLoader::register();
+
+        // Load config file
+        $this->loadConfig();
 
         // Set default timezone
         @ini_set('date.timezone', static::$site['site_timezone']);
@@ -160,17 +169,12 @@
         // Start the session
         Session::start();
 
-        // Include parsedown
-        include LIBRARIES_PATH . '/Parsedown/Parsedown.php';
-        include LIBRARIES_PATH . '/Parsedown/ParsedownExtra.php';
+        // Register Fenom Autoload
+        Fenom::registerAutoload();
 
         // Load Plugins
         $this->loadPlugins();
         $this->runAction('plugins_loaded');
-
-        // Load Fenom Template Engine
-        include LIBRARIES_PATH . '/Fenom/Fenom.php';
-        Fenom::registerAutoload();
 
         // Get page for current requested url
         $page = $this->getPage(Url::getUriString());
@@ -194,6 +198,8 @@
      *  </code>
      *
      * @access public
+     * @param  array $page Page array
+     * @param  array $site Site Config array
      * @return string
      */
     public function loadTemplate($page, $site)
