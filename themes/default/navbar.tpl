@@ -15,6 +15,7 @@
 				<li {if $slug == ''} class="active" {/if}><a href="{$.site.url}">Home</a></li>
 				<li {if $slug == 'blog'} class="active" {/if}><a href="{$.site.url}/blog">Blog</a></li>
 				<li {if $slug == 'about'} class="active" {/if}><a href="{$.site.url}/about">About</a></li>
+				<li {if $slug == 'contact'} class="active" {/if}><a href="{$.site.url}/contact">Contact</a></li>
 			</ul>
 		</div>
 	</div>
