@@ -38,6 +38,11 @@ define('PLUGINS_PATH', ROOT_DIR  .'/plugins');
 define('CACHE_PATH', ROOT_DIR  .'/cache');
 
 /**
+ * Define the path to the config directory (without trailing slash).
+ */
+define('CONFIG_PATH', ROOT_DIR  .'/config');
+
+/**
  * Load Morfy
  */
 require LIBRARIES_PATH . '/Morfy/Morfy.php';

@@ -368,6 +368,20 @@
     }
 
     /**
+     * Load Config
+     */
+    protected function loadConfig()
+    {
+        if (file_exists($site_config_path  = CONFIG_PATH . '/site.yml') &&
+            file_exists($fenom_config_path = CONFIG_PATH . '/fenom.yml')) {
+            static::$site  = Spyc::YAMLLoad(file_get_contents($site_config_path));
+            static::$fenom = Spyc::YAMLLoad(file_get_contents($fenom_config_path));
+        } else {
+            die("Oops.. Where is config file ?!");
+        }
+    }
+
+    /**
      * Load Plugins
      */
     protected function loadPlugins()
@@ -376,22 +390,6 @@
             foreach (static::$site['plugins'] as $plugin) {
                 include_once PLUGINS_PATH .'/'. $plugin.'/'.$plugin.'.php';
             }
-        }
-    }
-
-    /**
-     * Load Config
-     */
-    protected function loadConfig()
-    {
-        $site_config_path  = ROOT_DIR . '/config/site.yml';
-        $fenom_config_path = ROOT_DIR . '/config/fenom.yml';
-
-        if (file_exists($site_config_path) && file_exists($fenom_config_path)) {
-            static::$site = Spyc::YAMLLoad(file_get_contents($site_config_path));
-            static::$fenom = Spyc::YAMLLoad(file_get_contents($fenom_config_path));
-        } else {
-            die("Oops.. Where is config file ?!");
         }
     }
 
