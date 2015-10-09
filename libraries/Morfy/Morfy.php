@@ -311,7 +311,7 @@
             $content = file_get_contents($file);
         } else {
             $content = file_get_contents(CONTENT_PATH . '/' . '404.md');
-            header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
+            Response::status(404);
         }
 
         $_page_headers = explode('---', $content);
