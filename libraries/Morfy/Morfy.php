@@ -257,11 +257,12 @@
                 $_pages[$key]['url'] = $url;
 
                 $_content = $this->parseContent($_page_headers[2]);
+
                 if (is_array($_content)) {
-                    $_pages[$key]['content_short'] = $_content['content_short'];
-                    $_pages[$key]['content'] = $_content['content_full'];
+                    $_pages[$key]['summary'] = $_content['summary'];
+                    $_pages[$key]['content'] = $_content['content'];
                 } else {
-                    $_pages[$key]['content_short'] = $_content;
+                    $_pages[$key]['summary'] = $_content;
                     $_pages[$key]['content'] = $_content;
                 }
 
@@ -325,11 +326,11 @@
         $page['url'] = $url;
 
         $_content = $this->parseContent($_page_headers[2]);
+
         if (is_array($_content)) {
-            $page['content_short'] = $_content['content_short'];
-            $page['content'] = $_content['content_full'];
+            $page['summary'] = $_content['summary'];
+            $page['content'] = $_content['content'];
         } else {
-            $page['content_short'] = $_content;
             $page['content'] = $_content;
         }
 
@@ -354,13 +355,12 @@
         $content = $ParsedownExtra->text($content);
 
         // Parse <!--more-->
-        $pos = strpos($content, "<!--more-->");
-        if ($pos === false) {
+        if (($pos = strpos($content, "<!--more-->")) === false) {
             $content = $this->applyFilter('content', $content);
         } else {
             $content = explode("<!--more-->", $content);
-            $content['content_short'] = $this->applyFilter('content', $content[0]);
-            $content['content_full']  = $this->applyFilter('content', $content[0].$content[1]);
+            $content['summary']  = $this->applyFilter('content', $content[0]);
+            $content['content']  = $this->applyFilter('content', $content[0].$content[1]);
         }
 
         // Return content
