@@ -1,15 +1,17 @@
 Morfy 1.1.0, 2015-10-XX
 ------------------------
 * Fenom Template Engine implemented
+* Morfy now use Force Components
+* Morfy configuration improved, now we are using YAML for configuration.
 * Parsedown for passing markdown content implemented
-* PHP Tag removed from content parser
+* PHP Tag {php}{/php} removed from content parser for security reasons.
 * Morfy Favicon - added
 * robots.txt- added
- 
+
 
 Morfy 1.0.6, 2015-09-10
 ------------------------
-* Prevent Visitors from Viewing our MD and TXT Files 
+* Prevent Visitors from Viewing our MD and TXT Files
 * Sitemap Plugin fixes
 * Default Theme - update jQuery to v2.1.3
 * Default Theme - update Twitter Bootstrap to v3.3.5
