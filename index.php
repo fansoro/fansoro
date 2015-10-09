@@ -33,6 +33,11 @@ define('THEMES_PATH', ROOT_DIR .'/themes');
 define('PLUGINS_PATH', ROOT_DIR  .'/plugins');
 
 /**
+ * Define the path to the cache directory (without trailing slash).
+ */
+define('CACHE_PATH', ROOT_DIR  .'/cache');
+
+/**
  * Load Morfy
  */
 require LIBRARIES_PATH . '/Morfy/Morfy.php';

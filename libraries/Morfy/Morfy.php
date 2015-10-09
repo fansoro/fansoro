@@ -206,7 +206,7 @@
     {
         $fenom = Fenom::factory(
             THEMES_PATH . '/' . $site['theme'] . '/',
-            ROOT_DIR . '/cache/fenom/',
+            CACHE_PATH . '/fenom/',
             self::$fenom
         );
 
