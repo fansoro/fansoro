@@ -1,23 +1,15 @@
 <?php
 
-/**
- * Morfy
- *
- * Morfy - Content Management System.
- * Site: www.morfy.org
- * Copyright (C) 2014 - 2015 Romanenko Sergey / Awilum <awilum@msn.com>
- *
- * This source file is part of the Morfy Engine. More information,
- * documentation and tutorials can be found at http://morfy.org
- *
- * @package     Morfy
- *
- * @author      Romanenko Sergey / Awilum <awilum@msn.com>
- * @copyright   2014 - 2015 Romanenko Sergey / Awilum <awilum@msn.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+ /**
+  * Morfy
+  *
+  * @package Morfy
+  * @author Romanenko Sergey / Awilum <awilum@msn.com>
+  * @link http://morfy.org
+  *
+  * For the full copyright and license information, please view the LICENSE
+  * file that was distributed with this source code.
+  */
 
  class Morfy
  {
