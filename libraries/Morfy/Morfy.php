@@ -218,7 +218,7 @@
      * Get pages
      *
      *  <code>
-     *      $pages = Morfy::factory()->getPages('/blog/');
+     *      $pages = Morfy::factory()->getPages('blog');
      *  </code>
      *
      * @access  public
@@ -231,7 +231,7 @@
      */
     public function getPages($url = '', $order_by = 'date', $order_type = 'DESC', $ignore = array('404'), $limit = null)
     {
-        $pages = File::scan(CONTENT_PATH . $url, 'md');
+        $pages = File::scan(CONTENT_PATH . '/' . $url, 'md');
 
         foreach ($pages as $key => $page) {
             if (!in_array(basename($page, '.md'), $ignore)) {
@@ -346,7 +346,7 @@
         $ParsedownExtra = new ParsedownExtra();
         $content = $ParsedownExtra->text($content);
 
-        // Parse <!--more-->
+        // Parse page for summary <!--more-->
         if (($pos = strpos($content, "<!--more-->")) === false) {
             $content = $this->applyFilter('content', $content);
         } else {
