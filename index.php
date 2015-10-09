@@ -1,10 +1,10 @@
 <?php
 
 /**
- *  Morfy requires PHP 5.3.6 or greater
+ *  Morfy requires PHP 5.3.0 or greater
  */
-if (version_compare(PHP_VERSION, "5.3.6", "<")) {
-    exit("Morfy requires PHP 5.3.6 or greater.");
+if (version_compare(PHP_VERSION, "5.3.0", "<")) {
+    exit("Morfy requires PHP 5.3.0 or greater.");
 }
 
 /**
