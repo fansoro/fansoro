@@ -14,8 +14,8 @@
 		<title>{$.site.title} | {$title}</title>
 
 		{* Bootstrap core CSS *}
-		<link href="{$.site.url}/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
-		<link href="{$.site.url}/themes/default/assets/css/default.css" rel="stylesheet">
+		<link href="{$.site.url}/themes/{$.site.theme}/assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{$.site.url}/themes/{$.site.theme}/assets/css/default.css" rel="stylesheet">
 		{Morfy::factory()->runAction('theme_header')}
 
 	</head>
@@ -33,8 +33,8 @@
 		</div>
 		{* Bootstrap core JavaScript *}
 		{* Placed at the end of the document so the pages load faster *}
-		<script src="{$.site.url}/themes/default/assets/js/jquery.min.js"></script>
-		<script src="{$.site.url}/themes/default/assets/js/bootstrap.min.js"></script>
+		<script src="{$.site.url}/themes/{$.site.theme}/assets/js/jquery.min.js"></script>
+		<script src="{$.site.url}/themes/{$.site.theme}/assets/js/bootstrap.min.js"></script>
 		{Morfy::factory()->runAction('theme_footer')}
 	</body>
 </html>
