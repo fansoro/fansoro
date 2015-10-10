@@ -237,7 +237,7 @@
             if (!in_array(basename($page, '.md'), $ignore)) {
                 $content = file_get_contents($page);
 
-                $_page_headers = explode('---', $content);
+                $_page_headers = explode('---', $content, 3);
 
                 $_pages[$key] = Spyc::YAMLLoad($_page_headers[1]);
 
@@ -306,7 +306,7 @@
             Response::status(404);
         }
 
-        $_page_headers = explode('---', $content);
+        $_page_headers = explode('---', $content, 3);
 
         $page = Spyc::YAMLLoad($_page_headers[1]);
 
