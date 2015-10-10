@@ -332,6 +332,23 @@
     }
 
     /**
+     * Parsedown
+     *
+     *  <code>
+     *      $content = Morfy::factory()->parsedown($content);
+     *  </code>
+     *
+     * @access  public
+     * @param  string $content Content to parse
+     * @return string $content Formatted content
+     */
+     public function parsedown($content)
+     {
+         $ParsedownExtra = new ParsedownExtra();
+         return $ParsedownExtra->text($content);
+     }
+
+    /**
      * Content Parser
      *
      * @param  string $content Content to parse
@@ -343,8 +360,8 @@
         // Parse {site_url}
         $content = str_replace('{site_url}', static::$site['url'], $content);
 
-        $ParsedownExtra = new ParsedownExtra();
-        $content = $ParsedownExtra->text($content);
+        // Parsedown
+        $content = $this->parsedown($content);
 
         // Parse page for summary <!--more-->
         if (($pos = strpos($content, "<!--more-->")) === false) {
