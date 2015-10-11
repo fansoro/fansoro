@@ -252,18 +252,18 @@ class Morfy
             if (!in_array(basename($page, '.md'), $ignore)) {
                 $content = file_get_contents($page);
 
-                $_page_headers = explode('---', $content, 3);
+                $_page = explode('---', $content, 3);
 
-                $_pages[$key] = Spyc::YAMLLoad($_page_headers[1]);
+                $_pages[$key] = Spyc::YAMLLoad($_page[1]);
 
-                $url = str_replace(CONTENT_PATH, Morfy::$site['url'], $page);
+                $url = str_replace(CONTENT_PATH, static::$site['url'], $page);
                 $url = str_replace('index.md', '', $url);
                 $url = str_replace('.md', '', $url);
                 $url = str_replace('\\', '/', $url);
                 $url = rtrim($url, '/');
                 $_pages[$key]['url'] = $url;
 
-                $_content = $this->parseContent($_page_headers[2]);
+                $_content = $this->parseContent($_page[2]);
 
                 if (is_array($_content)) {
                     $_pages[$key]['summary'] = $_content['summary'];
@@ -321,18 +321,18 @@ class Morfy
             Response::status(404);
         }
 
-        $_page_headers = explode('---', $content, 3);
+        $_page = explode('---', $content, 3);
 
-        $page = Spyc::YAMLLoad($_page_headers[1]);
+        $page = Spyc::YAMLLoad($_page[1]);
 
-        $url = str_replace(CONTENT_PATH, Morfy::$site['url'], $file);
+        $url = str_replace(CONTENT_PATH, static::$site['url'], $file);
         $url = str_replace('index.md', '', $url);
         $url = str_replace('.md', '', $url);
         $url = str_replace('\\', '/', $url);
         $url = rtrim($url, '/');
         $page['url'] = $url;
 
-        $_content = $this->parseContent($_page_headers[2]);
+        $_content = $this->parseContent($_page[2]);
 
         if (is_array($_content)) {
             $page['summary'] = $_content['summary'];
