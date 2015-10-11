@@ -398,7 +398,10 @@ class Morfy
     {
         if (is_array(static::$site['plugins']) && count(static::$site['plugins']) > 0) {
             foreach (static::$site['plugins'] as $plugin) {
-                include_once PLUGINS_PATH .'/'. $plugin.'/'.$plugin.'.php';
+                static::$plugins[$plugin] = Spyc::YAMLLoad(file_get_contents(PLUGINS_PATH .'/'. $plugin.'/'.$plugin.'.yml'));
+                if (static::$plugins[$plugin]['enabled']) {
+                    include_once PLUGINS_PATH .'/'. $plugin.'/'.$plugin.'.php';
+                }
             }
         }
     }
