@@ -11,9 +11,9 @@
   * file that was distributed with this source code.
   */
 
- class Morfy
- {
-     /**
+class Morfy
+{
+    /**
      * The version of Morfy
      *
      * @var string
@@ -103,6 +103,8 @@
 
         // Use the Force...
         include LIBRARIES_PATH . '/Force/ClassLoader/ClassLoader.php';
+
+        // Map Classes
         ClassLoader::mapClasses(array(
             // Yaml Parser/Dumper
             'Spyc'     => LIBRARIES_PATH . '/Spyc/Spyc.php',
@@ -119,11 +121,13 @@
 
             // Parsedown
             'Parsedown'      => LIBRARIES_PATH . '/Parsedown/Parsedown.php',
-            'ParsedownExtra' => LIBRARIES_PATH . '/Parsedown/ParsedownExtra.php',
-
-            // Fenom Template Engine
-            'Fenom'          => LIBRARIES_PATH . '/Fenom/Fenom.php',
+            'ParsedownExtra' => LIBRARIES_PATH . '/Parsedown/ParsedownExtra.php'
         ));
+
+        // Map Fenom Template Engine folder
+        ClassLoader::directory(LIBRARIES_PATH . '/Fenom/');
+
+        // Register the ClassLoader to the SPL autoload stack.
         ClassLoader::register();
 
         // Load config file
@@ -160,9 +164,6 @@
 
         // Start the session
         Session::start();
-
-        // Register Fenom Autoload
-        Fenom::registerAutoload();
 
         // Load Plugins
         $this->loadPlugins();
@@ -344,8 +345,8 @@
      */
      public function parsedown($content)
      {
-         $ParsedownExtra = new ParsedownExtra();
-         return $ParsedownExtra->text($content);
+         $parsedown_extra = new ParsedownExtra();
+         return $parsedown_extra->text($content);
      }
 
     /**
@@ -386,7 +387,7 @@
             static::$site  = Spyc::YAMLLoad(file_get_contents($site_config_path));
             static::$fenom = Spyc::YAMLLoad(file_get_contents($fenom_config_path));
         } else {
-            die("Oops.. Where is config file ?!");
+            die("Oops.. Where is config files ?!");
         }
     }
 
@@ -572,4 +573,4 @@
 
         return true;
     }
- }
+}
