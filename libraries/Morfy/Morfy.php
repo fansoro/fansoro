@@ -21,18 +21,25 @@ class Morfy
     const VERSION = '1.0.6';
 
     /**
-     * Site Config array.
+     * Site Config array (/config/site.yml).
      *
      * @var array
      */
     public static $site;
 
     /**
-     * Fenom Config array.
+     * Fenom Config array (/config/fenom.yml).
      *
      * @var array
      */
     public static $fenom;
+
+    /**
+     * Current Site Theme config (/themes/%theme%/%theme%.yml).
+     *
+     * @var array
+     */
+    public static $theme;
 
     /**
      * Plugins
@@ -179,33 +186,40 @@ class Morfy
 
         // Load template
         $this->runAction('before_render');
-        $this->loadTemplate($page, self::$site);
+        $this->loadPageTemplate($page);
         $this->runAction('after_render');
     }
 
     /**
-     * Load template
+     * Load Page template
      *
      *  <code>
-     *      Morfy::factory()->loadTemplate($page, $site);
+     *      Morfy::factory()->loadPageTemplate($page);
      *  </code>
      *
      * @access public
      * @param  array $page Page array
-     * @param  array $site Site Config array
      * @return string
      */
-    public function loadTemplate($page, $site)
+    public function loadPageTemplate($page)
     {
         $fenom = Fenom::factory(
-            THEMES_PATH . '/' . $site['theme'] . '/',
+            THEMES_PATH . '/' . static::$site['theme'] . '/',
             CACHE_PATH . '/fenom/',
             self::$fenom
         );
 
+        if (file_exists($theme_config_path = THEMES_PATH . '/' . static::$site['theme'] . '/'. static::$site['theme'] .'.yml')) {
+            static::$theme = Spyc::YAMLLoad(file_get_contents($theme_config_path));
+
+            // Do global tag {$.theme} for the template
+            $fenom->addAccessorSmart('theme', 'theme_config', Fenom::ACCESSOR_PROPERTY);
+            $fenom->theme_config = static::$theme;
+        }
+
         // Do global tag {$.site} for the template
         $fenom->addAccessorSmart('site', 'site_config', Fenom::ACCESSOR_PROPERTY);
-        $fenom->site_config = $site;
+        $fenom->site_config = static::$site;
 
         // Display page
         try {
