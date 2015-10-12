@@ -355,17 +355,25 @@ class Morfy
      *
      * @access  public
      * @param  string $content Content to parse
-     * @return string $content Formatted content
+     * @return string Formatted content
      */
-     public function parsedown($content)
-     {
-         $parsedown_extra = new ParsedownExtra();
-         return $parsedown_extra->text($content);
-     }
+    public function parsedown($content)
+    {
+        $parsedown_extra = new ParsedownExtra();
+        return $parsedown_extra->text($content);
+    }
 
-     /**
-      * getBlock
-      */
+    /**
+     * Get Page Block
+     *
+     *  <code>
+     *      $content = Morfy::factory()->getBlock($content);
+     *  </code>
+     *
+     * @access  public
+     * @param  string $name Block name
+     * @return string Formatted Block content
+     */
     public function getBlock($name)
     {
         return $this->parseContent(file_get_contents(CONTENT_PATH . '/blocks/' . $name . '.md'));
