@@ -26,4 +26,4 @@ Creating a new page is very simple in Morfy.
 
 That is it!  
 
-Check Morfy documentation for more details: http://morfy.org/documentation
+{block=morfy-docs}
