@@ -246,7 +246,7 @@ class Morfy
      */
     public function getPages($url = '', $order_by = 'date', $order_type = 'DESC', $ignore = array('404'), $limit = null)
     {
-        $pages = File::scan(CONTENT_PATH . '/pages/' . $url, 'md');
+        $pages = File::scan(PAGES_PATH . '/' . $url, 'md');
 
         foreach ($pages as $key => $page) {
             if (!in_array(basename($page, '.md'), $ignore)) {
@@ -256,7 +256,7 @@ class Morfy
 
                 $_pages[$key] = Spyc::YAMLLoad($_page[1]);
 
-                $url = str_replace(CONTENT_PATH . '/pages', static::$site['url'], $page);
+                $url = str_replace(PAGES_PATH . '/', static::$site['url'], $page);
                 $url = str_replace('index.md', '', $url);
                 $url = str_replace('.md', '', $url);
                 $url = str_replace('\\', '/', $url);
@@ -302,14 +302,14 @@ class Morfy
 
         // Get the file path
         if ($url) {
-            $file = CONTENT_PATH . '/pages/' . $url;
+            $file = PAGES_PATH . '/' . $url;
         } else {
-            $file = CONTENT_PATH . '/pages/' .'index';
+            $file = PAGES_PATH . '/' .'index';
         }
 
         // Load the file
         if (is_dir($file)) {
-            $file = CONTENT_PATH . '/pages/' . $url .'/index.md';
+            $file = PAGES_PATH . '/' . $url .'/index.md';
         } else {
             $file .= '.md';
         }
@@ -317,7 +317,7 @@ class Morfy
         if (file_exists($file)) {
             $content = file_get_contents($file);
         } else {
-            $content = file_get_contents(CONTENT_PATH . '/pages/' . '404.md');
+            $content = file_get_contents(PAGES_PATH . '/' . '404.md');
             Response::status(404);
         }
 
@@ -325,7 +325,7 @@ class Morfy
 
         $page = Spyc::YAMLLoad($_page[1]);
 
-        $url = str_replace(CONTENT_PATH . '/pages', static::$site['url'], $file);
+        $url = str_replace(PAGES_PATH . '/', static::$site['url'], $file);
         $url = str_replace('index.md', '', $url);
         $url = str_replace('.md', '', $url);
         $url = str_replace('\\', '/', $url);
@@ -376,7 +376,7 @@ class Morfy
      */
     public function getBlock($name)
     {
-        return $this->parseContent(file_get_contents(CONTENT_PATH . '/blocks/' . $name . '.md'));
+        return $this->parseContent(file_get_contents(BLOCKS_PATH . '/' . $name . '.md'));
     }
 
     /**
@@ -393,7 +393,7 @@ class Morfy
 
         // Parse {block=block-name}
         $content = preg_replace_callback('/\{block=(.+?)\}/', function ($matches) {
-            return file_get_contents(CONTENT_PATH . '/blocks/' . $matches[1] . '.md');
+            return file_get_contents(BLOCKS_PATH . '/' . $matches[1] . '.md');
         }, $content);
 
         // Parsedown

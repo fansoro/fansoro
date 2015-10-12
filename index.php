@@ -18,6 +18,16 @@ define('ROOT_DIR', __DIR__);
 define('CONTENT_PATH', ROOT_DIR .'/content');
 
 /**
+ * Define the path to the blocks directory (without trailing slash).
+ */
+define('BLOCKS_PATH', CONTENT_PATH .'/blocks');
+
+/**
+ * Define the path to the pages directory (without trailing slash).
+ */
+define('PAGES_PATH', CONTENT_PATH .'/pages');
+
+/**
  * Define the path to the libraries directory (without trailing slash).
  */
 define('LIBRARIES_PATH', ROOT_DIR .'/libraries');
