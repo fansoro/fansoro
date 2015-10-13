@@ -46,7 +46,7 @@ class Morfy
      *
      * @var array
      */
-    private static $plugins = array();
+    public static $plugins = array();
 
     /**
      * Actions
