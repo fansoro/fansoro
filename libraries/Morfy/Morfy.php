@@ -256,7 +256,7 @@ class Morfy
 
                 $_pages[$key] = Spyc::YAMLLoad($_page[1]);
 
-                $url = str_replace(PAGES_PATH . '/', static::$site['url'], $page);
+                $url = str_replace(PAGES_PATH, static::$site['url'], $page);
                 $url = str_replace('index.md', '', $url);
                 $url = str_replace('.md', '', $url);
                 $url = str_replace('\\', '/', $url);
@@ -325,7 +325,7 @@ class Morfy
 
         $page = Spyc::YAMLLoad($_page[1]);
 
-        $url = str_replace(PAGES_PATH . '/', static::$site['url'], $file);
+        $url = str_replace(PAGES_PATH, static::$site['url'], $file);
         $url = str_replace('index.md', '', $url);
         $url = str_replace('.md', '', $url);
         $url = str_replace('\\', '/', $url);
