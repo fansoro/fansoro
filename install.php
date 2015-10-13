@@ -4,6 +4,31 @@
  * Morfy :: Installator
  */
 
+define('ROOT_DIR', __DIR__);
+
+include ROOT_DIR . '/libraries/Force/Url/Url.php';
+
+// Sanitize URL to prevent XSS - Cross-site scripting
+Url::runSanitizeURL();
+
+// Send default header and set internal encoding
+header('Content-Type: text/html; charset=UTF-8');
+function_exists('mb_language') and mb_language('uni');
+function_exists('mb_regex_encoding') and mb_regex_encoding('UTF-8');
+function_exists('mb_internal_encoding') and mb_internal_encoding('UTF-8');
+
+// Gets the current configuration setting of magic_quotes_gpc and kill magic quotes
+if (get_magic_quotes_gpc()) {
+    function stripslashesGPC(&$value)
+    {
+        $value = stripslashes($value);
+    }
+    array_walk_recursive($_GET, 'stripslashesGPC');
+    array_walk_recursive($_POST, 'stripslashesGPC');
+    array_walk_recursive($_COOKIE, 'stripslashesGPC');
+    array_walk_recursive($_REQUEST, 'stripslashesGPC');
+}
+
 // Get array with the names of all modules compiled and loaded
 $php_modules = get_loaded_extensions();
 
@@ -29,7 +54,7 @@ $errors = array();
 // Directories to check
 $dir_array = array('content', 'themes', 'cache');
 
-if (version_compare(PHP_VERSION, "5.3.6", "<")) {
+if (version_compare(PHP_VERSION, "5.3.0", "<")) {
     $errors['php'] = 'error';
 }
 
@@ -57,23 +82,26 @@ foreach ($dir_array as $dir) {
 
 // If pressed <Install> button then try to install
 if (isset($_POST['install_submit'])) {
-    $post_site_url = isset($_POST['site_url']) ? $_POST['site_url'] : '';
-    $post_site_timezone = isset($_POST['site_timezone']) ? $_POST['site_timezone'] : '';
-    $post_site_title = isset($_POST['site_title']) ? $_POST['site_title'] : '';
-    $post_site_description = isset($_POST['site_description']) ? $_POST['site_description'] : '';
-    $post_site_keywords = isset($_POST['site_keywords']) ? $_POST['site_keywords'] : '';
-    $post_email = isset($_POST['email']) ? $_POST['email'] : '';
+    $post_site_url = isset($_POST['site_url']) ? trim($_POST['site_url']) : '';
+    $post_site_timezone = isset($_POST['site_timezone']) ? trim($_POST['site_timezone']) : '';
+    $post_site_title = isset($_POST['site_title']) ? trim($_POST['site_title']) : '';
+    $post_site_description = isset($_POST['site_description']) ? trim($_POST['site_description']) : '';
+    $post_site_keywords = isset($_POST['site_keywords']) ? trim($_POST['site_keywords']) : '';
+    $post_email = isset($_POST['email']) ? trim($_POST['email']) : '';
 
     file_put_contents('config/site.yml',
 trim("title: '{$post_site_title}'
 description: '{$post_site_description}'
 keywords: '{$post_site_keywords}'
 url: '{$post_site_url}'
-email: '{$post_email}'
+autor:
+  email: '{$post_email}'
 charset: 'UTF-8'
 timezone: '{$post_site_timezone}'
 theme: 'default'
-#plugins:"));
+
+# Site Plugins
+plugins:"));
 
     // Write .htaccess
     $htaccess = file_get_contents('.htaccess');
@@ -125,16 +153,23 @@ theme: 'default'
         .step-1 ul li {
             margin-bottom: 10px;
             padding: 5px 10px;
-            border-radius: 0;
+            border-radius: 4px;
         }
 
         .btn-primary {
-            border-radius: 0;
+            border-radius: 4px;
         }
 
         .form-control {
             border-color: #CECECE;
-            border-radius: 0;
+            border-radius: 4px;
+        }
+
+        .morfy-logo {
+            width: 280px;
+            height: 145px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
     </style>
     <script>
@@ -150,7 +185,7 @@ theme: 'default'
     <div class="container">
 
         <div class="text-center">
-            <img src="<?php echo $site_url; ?>/themes/default/assets/img/morfy-logo.png" alt="Morfy CMS" />
+            <img class="morfy-logo" src="<?php echo $site_url; ?>/themes/default/assets/img/morfy-logo.png" alt="Morfy CMS" />
         </div>
 
         <div class="step-1">
@@ -202,7 +237,6 @@ theme: 'default'
 
                 } else {
                     ?>
-            <a class="btn btn-primary btn-disabled btn-lg btn-block" disabled>Continue</a>
             <?php
 
                 } ?>
