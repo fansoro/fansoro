@@ -4,8 +4,6 @@
  * Morfy :: Installator
  */
 
-define('ROOT_DIR', __DIR__);
-
 include ROOT_DIR . '/libraries/Force/Url/Url.php';
 
 // Sanitize URL to prevent XSS - Cross-site scripting
