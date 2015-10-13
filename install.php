@@ -89,7 +89,7 @@ if (isset($_POST['install_submit'])) {
     $post_site_keywords = isset($_POST['site_keywords']) ? trim($_POST['site_keywords']) : '';
     $post_email = isset($_POST['email']) ? trim($_POST['email']) : '';
 
-    file_put_contents('config/site.yml',
+    file_put_contents(ROOT_DIR . '/config/site.yml',
 trim("title: '{$post_site_title}'
 description: '{$post_site_description}'
 keywords: '{$post_site_keywords}'
