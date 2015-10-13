@@ -33,7 +33,7 @@ class Arr
      * @param  string $order  Order type DESC or ASC
      * @return array
      */
-     public function subvalSort($a, $subkey, $order = null)
+     public static function subvalSort($a, $subkey, $order = null)
      {
          if (count($a) != 0 || (!empty($a))) {
              foreach ($a as $k => $v) {
