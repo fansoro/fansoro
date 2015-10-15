@@ -42,6 +42,13 @@ class Morfy
     public static $theme;
 
     /**
+     * Current page.
+     *
+     * @var array
+     */
+    public static $page;
+
+    /**
      * Plugins
      *
      * @var array
@@ -177,16 +184,11 @@ class Morfy
         $this->runAction('plugins_loaded');
 
         // Get page for current requested url
-        $page = $this->getPage(Url::getUriString());
-
-        // Overload page title, keywords and description if needed
-        empty($page['title']) and $page['title'] = static::$site['title'];
-        empty($page['keywords']) and $page['keywords'] = static::$site['keywords'];
-        empty($page['description']) and $page['description'] = static::$site['description'];
+        Morfy::$page = $this->getPage(Url::getUriString());
 
         // Load template
         $this->runAction('before_render');
-        $this->loadPageTemplate($page);
+        $this->loadPageTemplate(Morfy::$page);
         $this->runAction('after_render');
     }
 
@@ -342,6 +344,11 @@ class Morfy
         }
 
         $page['slug'] = basename($file, '.md');
+
+        // Overload page title, keywords and description if needed
+        empty($page['title']) and $page['title'] = static::$site['title'];
+        empty($page['keywords']) and $page['keywords'] = static::$site['keywords'];
+        empty($page['description']) and $page['description'] = static::$site['description'];
 
         return $page;
     }
