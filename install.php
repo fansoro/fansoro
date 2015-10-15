@@ -50,7 +50,7 @@ $rewrite_base = str_replace(array("index.php", "install.php"), "", $_SERVER['PHP
 $errors = array();
 
 // Directories to check
-$dir_array = array('content', 'themes', 'cache');
+$dir_array = array('content', 'themes', 'cache', 'config');
 
 if (version_compare(PHP_VERSION, "5.3.0", "<")) {
     $errors['php'] = 'error';
