@@ -1,0 +1,12 @@
+title: 'Morfy'
+description: 'Simple and fast file-based CMS'
+keywords: 'morfy, cms, php, filesystem'
+url: ''
+author:
+  email: ''
+charset: 'UTF-8'
+timezone: 'UTC'
+theme: 'default'
+
+# Site Plugins
+plugins:

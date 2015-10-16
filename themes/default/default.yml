@@ -1,0 +1,13 @@
+name: Default
+version: 1.0.0
+description: Default Morfy theme
+author:
+  name: Sergey Romanenko
+  email: awilum@msn.com
+  url: http://morfy.org
+homepage: https://github.com/morfy-cms/morfy
+bugs: https://github.com/morfy-cms/morfy/issues
+license: MIT
+
+# Theme settings
+enabled: true

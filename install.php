@@ -4,11 +4,38 @@
  * Morfy :: Installator
  */
 
+include ROOT_DIR . '/libraries/Force/Url/Url.php';
+
+// Sanitize URL to prevent XSS - Cross-site scripting
+Url::runSanitizeURL();
+
+// Send default header and set internal encoding
+header('Content-Type: text/html; charset=UTF-8');
+function_exists('mb_language') and mb_language('uni');
+function_exists('mb_regex_encoding') and mb_regex_encoding('UTF-8');
+function_exists('mb_internal_encoding') and mb_internal_encoding('UTF-8');
+
+// Gets the current configuration setting of magic_quotes_gpc and kill magic quotes
+if (get_magic_quotes_gpc()) {
+    function stripslashesGPC(&$value)
+    {
+        $value = stripslashes($value);
+    }
+    array_walk_recursive($_GET, 'stripslashesGPC');
+    array_walk_recursive($_POST, 'stripslashesGPC');
+    array_walk_recursive($_COOKIE, 'stripslashesGPC');
+    array_walk_recursive($_REQUEST, 'stripslashesGPC');
+}
+
 // Get array with the names of all modules compiled and loaded
 $php_modules = get_loaded_extensions();
 
-// Get server port    
-if ($_SERVER["SERVER_PORT"] == "80") $port = ""; else $port = ':'.$_SERVER["SERVER_PORT"];
+// Get server port
+if ($_SERVER["SERVER_PORT"] == "80") {
+    $port = "";
+} else {
+    $port = ':'.$_SERVER["SERVER_PORT"];
+}
 
 // Get site URL
 $site_url = 'http://'.$_SERVER["SERVER_NAME"].$port.str_replace(array("index.php", "install.php"), "", $_SERVER['PHP_SELF']);
@@ -23,16 +50,16 @@ $rewrite_base = str_replace(array("index.php", "install.php"), "", $_SERVER['PHP
 $errors = array();
 
 // Directories to check
-$dir_array = array('content', 'themes');
+$dir_array = array('content', 'themes', 'cache', 'config');
 
 if (version_compare(PHP_VERSION, "5.3.0", "<")) {
     $errors['php'] = 'error';
 }
 
 if (function_exists('apache_get_modules')) {
-    if ( ! in_array('mod_rewrite', apache_get_modules())) {
+    if (! in_array('mod_rewrite', apache_get_modules())) {
         $errors['mod_rewrite'] = 'error';
-    } 
+    }
 }
 
 if (!is_writable(__FILE__)) {
@@ -53,42 +80,37 @@ foreach ($dir_array as $dir) {
 
 // If pressed <Install> button then try to install
 if (isset($_POST['install_submit'])) {
+    $post_site_url = isset($_POST['site_url']) ? trim($_POST['site_url']) : '';
+    $post_site_timezone = isset($_POST['site_timezone']) ? trim($_POST['site_timezone']) : '';
+    $post_site_title = isset($_POST['site_title']) ? trim($_POST['site_title']) : '';
+    $post_site_description = isset($_POST['site_description']) ? trim($_POST['site_description']) : '';
+    $post_site_keywords = isset($_POST['site_keywords']) ? trim($_POST['site_keywords']) : '';
+    $post_email = isset($_POST['email']) ? trim($_POST['email']) : '';
 
-    	$post_site_url = isset($_POST['site_url']) ? $_POST['site_url'] : '';
-    	$post_site_timezone = isset($_POST['site_timezone']) ? $_POST['site_timezone'] : '';
-    	$post_site_title = isset($_POST['site_title']) ? $_POST['site_title'] : '';
-    	$post_site_description = isset($_POST['site_description']) ? $_POST['site_description'] : '';
-    	$post_site_keywords = isset($_POST['site_keywords']) ? $_POST['site_keywords'] : '';
-    	$post_email = isset($_POST['email']) ? $_POST['email'] : '';
+    file_put_contents(ROOT_DIR . '/config/site.yml',
+trim("title: '{$post_site_title}'
+description: '{$post_site_description}'
+keywords: '{$post_site_keywords}'
+url: '{$post_site_url}'
+autor:
+  email: '{$post_email}'
+charset: 'UTF-8'
+timezone: '{$post_site_timezone}'
+theme: 'default'
 
-    	file_put_contents('config.php', "<?php
-    return array(
-        'site_url' => '{$post_site_url}',
-        'site_charset' => 'UTF-8',
-        'site_timezone' => '{$post_site_timezone}',
-        'site_theme' => 'default',
-        'site_title' => '{$post_site_title}',
-        'site_description' => '{$post_site_description}',
-        'site_keywords' => '{$post_site_keywords}',
-        'email' => '{$post_email}',
-        'plugins' => array(
-            'markdown',
-            'sitemap',
-        ),
-    );
-  		");
+# Site Plugins
+plugins:"));
 
-      	// Write .htaccess
-        $htaccess = file_get_contents('.htaccess');
-        $save_htaccess_content = str_replace("/%siteurlhere%/", $rewrite_base, $htaccess);
+    // Write .htaccess
+    $htaccess = file_get_contents('.htaccess');
+    $save_htaccess_content = str_replace("/%siteurlhere%/", $rewrite_base, $htaccess);
 
-        $handle = fopen ('.htaccess', "w");
-        fwrite($handle, $save_htaccess_content);
-        fclose($handle);
+    $handle = fopen('.htaccess', "w");
+    fwrite($handle, $save_htaccess_content);
+    fclose($handle);
 
         // Installation done :)
         header("location: index.php?install=done");
-   
 }
 ?>
 <!DOCTYPE html>
@@ -100,136 +122,147 @@ if (isset($_POST['install_submit'])) {
     <!-- Bootstrap -->
     <link href="<?php echo $site_url; ?>/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic' type='text/css' rel='stylesheet' />
-    <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>	
     <script src="<?php echo $site_url; ?>/themes/default/assets/js/jquery.min.js"></script>
     <script src="<?php echo $site_url; ?>/themes/default/assets/js/bootstrap.min.js"></script>
-	<style>
-		.container {
-			max-width: 600px;
-			margin-bottom: 40px;
-		}
-		body {
-	        font-family: "Source Sans Pro","Helvetica","Arial",sans-serif;        
-	        font-size: 16px;
-	        line-height: 26px;
-	        color: #333;
-	    }
-		h1 {
-			font-size: 126px;
-			font-family: 'Audiowide', cursive;
-			color: #333;
-		}
-		.ok {
-			color: #3c763d;
-			background-color: #dff0d8;
-		}
-		.error {
-			color: #a94442;
-			background-color: #f2dede;
-			border-color: #ebccd1;
-		}
-		.step-1 ul li {
-		    -webkit-font-smoothing: subpixel-antialiased;
-		    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
-		            box-shadow: 0 1px 3px rgba(0,0,0,.13);
-		    margin-bottom: 10px;
-		    padding: 5px;
-		}
-	</style>
-	<script>
-		$(document).ready(function() {
-			$('.continue').click(function() {
-				$('.step-1').addClass('hide');
-				$('.step-2').removeClass('hide');
-			});
-		});
-	</script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+    <style>
+        body {
+            font-family: "Source Sans Pro","Helvetica","Arial",sans-serif;
+            font-size: 16px;
+            line-height: 26px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .ok {
+            color: #3c763d;
+            background-color: #dff0d8;
+        }
+
+        .error {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .step-1 ul li {
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            border-radius: 4px;
+        }
+
+        .form-control {
+            border-color: #CECECE;
+            border-radius: 4px;
+        }
+
+        .morfy-logo {
+            width: 280px;
+            height: 145px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            $('.continue').click(function() {
+                $('.step-1').addClass('hide');
+                $('.step-2').removeClass('hide');
+            });
+        });
+    </script>
   </head>
   <body>
     <div class="container">
-		<h1 class="text-center">MORFY</h1>
 
-		<div class="step-1">
- 			<ul class="list-unstyled">
+        <div class="text-center">
+            <img class="morfy-logo" src="<?php echo $site_url; ?>/themes/default/assets/img/morfy-logo.png" alt="Morfy CMS" />
+        </div>
+
+        <div class="step-1">
+            <ul class="list-unstyled">
             <?php
 
                 if (version_compare(PHP_VERSION, "5.3.0", "<")) {
-                    echo '<li class="error">PHP 5.3 or greater is required</li>';
+                    echo '<li class="alert alert-danger">PHP 5.3 or greater is required</li>';
                 } else {
-                    echo '<li class="ok">PHP Version '.PHP_VERSION.'</li>';
+                    echo '<li class="alert alert-success">PHP Version '.PHP_VERSION.'</li>';
                 }
 
                 if (function_exists('apache_get_modules')) {
-                    if ( ! in_array('mod_rewrite',apache_get_modules())) {
-                        echo '<li class="error">Apache Mod Rewrite is required</li>';
+                    if (! in_array('mod_rewrite', apache_get_modules())) {
+                        echo '<li class="alert alert-danger">Apache Mod Rewrite is required</li>';
                     } else {
-                        echo '<li class="ok">Module Mod Rewrite is installed</li>';
+                        echo '<li class="alert alert-success">Module Mod Rewrite is installed</li>';
                     }
                 } else {
-                    echo '<li class="ok">Module Mod Rewrite is installed</li>';
+                    echo '<li class="alert alert-success">Module Mod Rewrite is installed</li>';
                 }
 
                 foreach ($dir_array as $dir) {
                     if (is_writable($dir.'/')) {
-                        echo '<li class="ok">Directory: <b> '.$dir.' </b> writable</li>';
+                        echo '<li class="alert alert-success">Directory: <b> '.$dir.' </b> writable</li>';
                     } else {
-                        echo '<li class="error">Directory: <b> '.$dir.' </b> not writable</li>';
+                        echo '<li class="alert alert-danger">Directory: <b> '.$dir.' </b> not writable</li>';
                     }
                 }
 
                 if (is_writable(__FILE__)) {
-                    echo '<li class="ok">Install script writable</li>';
+                    echo '<li class="alert alert-success">Install script writable</li>';
                 } else {
-                    echo '<li class="error">Install script not writable</li>';
+                    echo '<li class="alert alert-danger">Install script not writable</li>';
                 }
 
                 if (is_writable('.htaccess')) {
-                    echo '<li class="ok">Main .htaccess file writable.</li>';
+                    echo '<li class="alert alert-success">Main .htaccess file writable.</li>';
                 } else {
-                    echo '<li class="error">Main .htaccess file not writable.</li>';
+                    echo '<li class="alert alert-danger">Main .htaccess file not writable.</li>';
                 }
             ?>
             </ul>
             <?php
-				if (count($errors) == 0) {
-			?>
-				<a class="btn btn-primary continue form-control">Continue</a>
-			<?php
-				} else {
-            ?>
-            <a class="btn btn-disabled form-control" disabled>Continue</a>
-            <?php } ?>
-		</div>
+                if (count($errors) == 0) {
+                    ?>
+                <a class="btn btn-primary btn-lg btn-block continue">Continue</a>
+            <?php
 
-		<div class="step-2 hide">
-		<form role="form" method="post">
-		  <div class="form-group">
-		    <label for="site_title">Site Name</label>
-		    <input type="text" name="site_title" class="form-control" id="site_title" placeholder="Enter Site Name" required>
-		  </div>
-		  <div class="form-group">
-		    <label for="site_description">Site Description</label>
-		    <input type="text" name="site_description" class="form-control" id="site_description" placeholder="Enter Site Description">
-		  </div>
-		  <div class="form-group">
-		    <label for="site_keywords">Site Keywords</label>
-		    <input type="text" name="site_keywords" class="form-control" id="site_keywords" placeholder="Enter Site Keywords">
-		  </div>
-		  <div class="form-group">
-		    <label for="site_url">Site Url</label>
-		    <input type="text" name="site_url" class="form-control" id="site_url" placeholder="Enter Site Url" value="<?php echo $site_url; ?>" required>
-		  </div>
-		  <div class="form-group">
-		    <label for="email">Email</label>
-		    <input type="text" name="email" class="form-control" id="email" placeholder="Enter Email" required>
-		  </div>
-	      <div class="form-group">
+                } else {
+                    ?>
+            <?php
+
+                } ?>
+        </div>
+
+        <div class="step-2 hide">
+        <form role="form" method="post">
+          <div class="form-group">
+            <label for="site_title">Site Name</label>
+            <input type="text" name="site_title" class="form-control" id="site_title" placeholder="Enter Site Name" required>
+          </div>
+          <div class="form-group">
+            <label for="site_description">Site Description</label>
+            <input type="text" name="site_description" class="form-control" id="site_description" placeholder="Enter Site Description">
+          </div>
+          <div class="form-group">
+            <label for="site_keywords">Site Keywords</label>
+            <input type="text" name="site_keywords" class="form-control" id="site_keywords" placeholder="Enter Site Keywords">
+          </div>
+          <div class="form-group">
+            <label for="site_url">Site Url</label>
+            <input type="text" name="site_url" class="form-control" id="site_url" placeholder="Enter Site Url" value="<?php echo $site_url; ?>">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" class="form-control" id="email" placeholder="Enter Email">
+          </div>
+          <div class="form-group">
             <label>Time zone</label>
             <select class="form-control" name="site_timezone">
                 <option value="Kwajalein">(GMT-12:00) International Date Line West</option>
@@ -319,10 +352,10 @@ if (isset($_POST['install_submit'])) {
                 <option value="Pacific/Auckland">(GMT+12:00) Auckland, Wellington</option>
                 <option value="Pacific/Tongatapu">(GMT+13:00) Nukualofa</option>
             </select>
-	       </div>
-		  <input type="submit" name="install_submit" class="btn btn-primary form-control" value="Install">
-		</form>
-		</div>
+           </div>
+          <input type="submit" name="install_submit" class="btn btn-primary btn-lg btn-block" value="Install">
+        </form>
+        </div>
     </div>
   </body>
 </html>
