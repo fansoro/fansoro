@@ -1,4 +1,4 @@
-# v1.1.0, 2015-10-XX
+# v1.1.0, 2015-10-16
 * Added Morfy MIT LICENSE instead of GNU GPL v3
 * Added Fenom Template Engine
 * Added Force Components (Arr, ClassLoader, FileSystem, Http, Session, Token, Url)
