@@ -15,7 +15,7 @@
 
 		{* Bootstrap core CSS *}
 		<link href="{$.site.url}/themes/{$.site.theme}/assets/css/bootstrap.min.css" rel="stylesheet">
-		<link href="{$.site.url}/themes/{$.site.theme}/assets/css/default.css" rel="stylesheet">
+		<link href="{$.site.url}/themes/{$.site.theme}/assets/css/theme.css" rel="stylesheet">
 		{Morfy::factory()->runAction('theme_header')}
 
 	</head>
