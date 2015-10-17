@@ -73,7 +73,7 @@ if (file_exists('install.php')) {
     }
 } else {
     /**
-     * Run Morfy Application
+     * Initialize Morfy Application
      */
-    Morfy::factory()->run();
+    Morfy::init();
 }
