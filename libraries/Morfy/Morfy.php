@@ -124,14 +124,15 @@ class Morfy
             'Spyc'     => LIBRARIES_PATH . '/Spyc/Spyc.php',
 
             // Force Components
-            'Arr'      => LIBRARIES_PATH . '/Force/Arr/Arr.php',
-            'Session'  => LIBRARIES_PATH . '/Force/Session/Session.php',
-            'Token'    => LIBRARIES_PATH . '/Force/Token/Token.php',
-            'Request'  => LIBRARIES_PATH . '/Force/Http/Request.php',
-            'Response' => LIBRARIES_PATH . '/Force/Http/Response.php',
-            'Url'      => LIBRARIES_PATH . '/Force/Url/Url.php',
-            'File'     => LIBRARIES_PATH . '/Force/FileSystem/File.php',
-            'Dir'      => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
+            'Arr'        => LIBRARIES_PATH . '/Force/Arr/Arr.php',
+            'Session'    => LIBRARIES_PATH . '/Force/Session/Session.php',
+            'Token'      => LIBRARIES_PATH . '/Force/Token/Token.php',
+            'Request'    => LIBRARIES_PATH . '/Force/Http/Request.php',
+            'Response'   => LIBRARIES_PATH . '/Force/Http/Response.php',
+            'Url'        => LIBRARIES_PATH . '/Force/Url/Url.php',
+            'File'       => LIBRARIES_PATH . '/Force/FileSystem/File.php',
+            'Dir'        => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
+            'Shortcode'  => LIBRARIES_PATH . '/Force/Shortcode/Shortcode.php',
 
             // Parsedown
             'Parsedown'      => LIBRARIES_PATH . '/Parsedown/Parsedown.php',
@@ -394,14 +395,25 @@ class Morfy
      */
     protected function parseContent($content)
     {
+        // Add {site_url} shortcode
+        Shortcode::add('site_url', function () {
+            return static::$site['url'];
+        });
 
-        // Parse {site_url}
-        $content = str_replace('{site_url}', static::$site['url'], $content);
+        // Add {block name=block-name} shortcode
+        Shortcode::add('block', function ($attributes) {
+            if (isset($attributes['name'])) {
+                $block_file = BLOCKS_PATH . '/' . $attributes['name'] . '.md';
+                if (File::exists($block_file)) {
+                    return file_get_contents($block_file);
+                } else {
+                    return 'Block ' . $attributes['name'] . ' is not found!';
+                }
+            }
+        });
 
-        // Parse {block=block-name}
-        $content = preg_replace_callback('/\{block=(.+?)\}/', function ($matches) {
-            return file_get_contents(BLOCKS_PATH . '/' . $matches[1] . '.md');
-        }, $content);
+        // Parse Shortcodes
+        $content = Shortcode::parse($content);
 
         // Parsedown
         $content = $this->parsedown($content);
