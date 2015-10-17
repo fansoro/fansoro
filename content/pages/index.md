@@ -26,4 +26,4 @@ Creating a new page is very simple in Morfy.
 
 That is it!  
 
-{block=morfy-docs}
+{block name=morfy-docs}
