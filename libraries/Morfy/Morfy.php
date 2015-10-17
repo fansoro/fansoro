@@ -403,8 +403,7 @@ class Morfy
         // Add {block name=block-name} shortcode
         Shortcode::add('block', function ($attributes) {
             if (isset($attributes['name'])) {
-                $block_file = BLOCKS_PATH . '/' . $attributes['name'] . '.md';
-                if (File::exists($block_file)) {
+                if (File::exists($block_file = BLOCKS_PATH . '/' . $attributes['name'] . '.md')) {
                     return file_get_contents($block_file);
                 } else {
                     return 'Block ' . $attributes['name'] . ' is not found!';
