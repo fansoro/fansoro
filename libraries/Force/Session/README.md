@@ -38,3 +38,7 @@ Store a variable in the session.
 ```php
 Session::set('user', 'Awilum');
 ```
+
+
+## License
+See [LICENSE](https://github.com/force-components/Session/blob/master/LICENSE)

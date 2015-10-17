@@ -41,3 +41,7 @@ if (Arr::isAssoc($array)) {
     // Do something...
 }
 ```
+
+
+## License
+See [LICENSE](https://github.com/force-components/Arr/blob/master/LICENSE)

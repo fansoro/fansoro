@@ -11,7 +11,6 @@
 
 class ClassLoader
 {
-
     /**
      * Mapping from class names to paths.
      *
@@ -176,7 +175,6 @@ class ClassLoader
      */
     public static function load($className)
     {
-
         $className = ltrim($className, '\\');
 
         /**
@@ -226,5 +224,4 @@ class ClassLoader
     {
         spl_autoload_register('ClassLoader::load', true);
     }
-
 }
