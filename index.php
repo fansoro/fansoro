@@ -15,7 +15,7 @@ define('ROOT_DIR', __DIR__);
 /**
  * Define the path to the storage directory (without trailing slash).
  */
-define('STORAGE_PATH', ROOT_DIR .'/content');
+define('STORAGE_PATH', ROOT_DIR .'/storage');
 
 /**
  * Define the path to the blocks directory (without trailing slash).
