@@ -17,3 +17,7 @@ if (Token::check($token)) {
     // Pass
 }
 ```
+
+
+## License
+See [LICENSE](https://github.com/force-components/Token/blob/master/LICENSE)

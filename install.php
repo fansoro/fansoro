@@ -50,7 +50,7 @@ $rewrite_base = str_replace(array("index.php", "install.php"), "", $_SERVER['PHP
 $errors = array();
 
 // Directories to check
-$dir_array = array('content', 'themes', 'cache', 'config');
+$dir_array = array('storage', 'themes', 'cache', 'config');
 
 if (version_compare(PHP_VERSION, "5.3.0", "<")) {
     $errors['php'] = 'error';
@@ -71,7 +71,7 @@ if (!is_writable('.htaccess')) {
     $errors['htaccess'] = 'error';
 }
 
-// Dirs 'public', 'storage', 'backups', 'tmp'
+// Dirs
 foreach ($dir_array as $dir) {
     if (!is_writable($dir.'/')) {
         $errors[$dir] = 'error';

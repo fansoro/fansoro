@@ -14,11 +14,18 @@
 class Morfy
 {
     /**
+     * An instance of the Morfy class
+     *
+     * @var object
+     */
+    protected static $instance = null;
+
+    /**
      * The version of Morfy
      *
      * @var string
      */
-    const VERSION = '1.1.0';
+    const VERSION = '1.1.1';
 
     /**
      * Site Config array (/config/site.yml).
@@ -60,14 +67,14 @@ class Morfy
      *
      * @var array
      */
-    private static $actions = array();
+    public static $actions = array();
 
     /**
      * Filters
      *
      * @var array
      */
-    private static $filters = array();
+    public static $filters = array();
 
     /**
      * Protected clone method to enforce singleton behavior.
@@ -82,39 +89,10 @@ class Morfy
     /**
      * Constructor.
      *
-     * @access  public
+     * @access  protected
      */
     protected function __construct()
     {
-        // Nothing here
-    }
-
-    /**
-     * Factory method making method chaining possible right off the bat.
-     *
-     *  <code>
-     *      $morfy = Morfy::factory();
-     *  </code>
-     *
-     * @access  public
-     */
-    public static function factory()
-    {
-        return new static();
-    }
-
-    /**
-     * Run Morfy Application
-     *
-     *  <code>
-     *      Morfy::factory()->run();
-     *  </code>
-     *
-     * @access  public
-     */
-    public function run()
-    {
-
         // Use the Force...
         include LIBRARIES_PATH . '/Force/ClassLoader/ClassLoader.php';
 
@@ -124,14 +102,15 @@ class Morfy
             'Spyc'     => LIBRARIES_PATH . '/Spyc/Spyc.php',
 
             // Force Components
-            'Arr'      => LIBRARIES_PATH . '/Force/Arr/Arr.php',
-            'Session'  => LIBRARIES_PATH . '/Force/Session/Session.php',
-            'Token'    => LIBRARIES_PATH . '/Force/Token/Token.php',
-            'Request'  => LIBRARIES_PATH . '/Force/Http/Request.php',
-            'Response' => LIBRARIES_PATH . '/Force/Http/Response.php',
-            'Url'      => LIBRARIES_PATH . '/Force/Url/Url.php',
-            'File'     => LIBRARIES_PATH . '/Force/FileSystem/File.php',
-            'Dir'      => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
+            'Arr'        => LIBRARIES_PATH . '/Force/Arr/Arr.php',
+            'Session'    => LIBRARIES_PATH . '/Force/Session/Session.php',
+            'Token'      => LIBRARIES_PATH . '/Force/Token/Token.php',
+            'Request'    => LIBRARIES_PATH . '/Force/Http/Request.php',
+            'Response'   => LIBRARIES_PATH . '/Force/Http/Response.php',
+            'Url'        => LIBRARIES_PATH . '/Force/Url/Url.php',
+            'File'       => LIBRARIES_PATH . '/Force/FileSystem/File.php',
+            'Dir'        => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
+            'Shortcode'  => LIBRARIES_PATH . '/Force/Shortcode/Shortcode.php',
 
             // Parsedown
             'Parsedown'      => LIBRARIES_PATH . '/Parsedown/Parsedown.php',
@@ -145,7 +124,7 @@ class Morfy
         ClassLoader::register();
 
         // Load config file
-        $this->loadConfig();
+        static::loadConfig();
 
         // Set default timezone
         @ini_set('date.timezone', static::$site['timezone']);
@@ -180,35 +159,35 @@ class Morfy
         Session::start();
 
         // Load Plugins
-        $this->loadPlugins();
-        $this->runAction('plugins_loaded');
+        static::loadPlugins();
+        static::runAction('plugins_loaded');
 
         // Get page for current requested url
-        Morfy::$page = $this->getPage(Url::getUriString());
+        Morfy::$page = static::getPage(Url::getUriString());
 
         // Load template
-        $this->runAction('before_render');
-        $this->loadPageTemplate(Morfy::$page);
-        $this->runAction('after_render');
+        static::runAction('before_render');
+        static::loadPageTemplate(Morfy::$page);
+        static::runAction('after_render');
     }
 
     /**
      * Load Page template
      *
      *  <code>
-     *      Morfy::factory()->loadPageTemplate($page);
+     *      Morfy::loadPageTemplate($page);
      *  </code>
      *
      * @access public
      * @param  array $page Page array
      * @return string
      */
-    public function loadPageTemplate($page)
+    public static function loadPageTemplate($page)
     {
         $fenom = Fenom::factory(
             THEMES_PATH . '/' . static::$site['theme'] . '/',
             CACHE_PATH . '/fenom/',
-            self::$fenom
+            static::$fenom
         );
 
         if (file_exists($theme_config_path = THEMES_PATH . '/' . static::$site['theme'] . '/'. static::$site['theme'] .'.yml')) {
@@ -235,7 +214,7 @@ class Morfy
      * Get pages
      *
      *  <code>
-     *      $pages = Morfy::factory()->getPages('blog');
+     *      $pages = Morfy::getPages('blog');
      *  </code>
      *
      * @access  public
@@ -246,7 +225,7 @@ class Morfy
      * @param  int     $limit      Limit of pages
      * @return array
      */
-    public function getPages($url = '', $order_by = 'date', $order_type = 'DESC', $ignore = array('404'), $limit = null)
+    public static function getPages($url = '', $order_by = 'date', $order_type = 'DESC', $ignore = array('404'), $limit = null)
     {
         $pages = File::scan(PAGES_PATH . '/' . $url, 'md');
 
@@ -265,7 +244,7 @@ class Morfy
                 $url = rtrim($url, '/');
                 $_pages[$key]['url'] = $url;
 
-                $_content = $this->parseContent($_page[2]);
+                $_content = static::parseContent($_page[2]);
 
                 if (is_array($_content)) {
                     $_pages[$key]['summary'] = $_content['summary'];
@@ -292,14 +271,14 @@ class Morfy
      * Get page
      *
      *  <code>
-     *      $page = Morfy::factory()->getPage('downloads');
+     *      $page = Morfy::getPage('downloads');
      *  </code>
      *
      * @access  public
      * @param  string $url Url
      * @return array
      */
-    public function getPage($url)
+    public static function getPage($url)
     {
 
         // Get the file path
@@ -334,7 +313,7 @@ class Morfy
         $url = rtrim($url, '/');
         $page['url'] = $url;
 
-        $_content = $this->parseContent($_page[2]);
+        $_content = static::parseContent($_page[2]);
 
         if (is_array($_content)) {
             $page['summary'] = $_content['summary'];
@@ -357,14 +336,14 @@ class Morfy
      * Parsedown
      *
      *  <code>
-     *      $content = Morfy::factory()->parsedown($content);
+     *      $content = Morfy::parsedown($content);
      *  </code>
      *
      * @access  public
      * @param  string $content Content to parse
      * @return string Formatted content
      */
-    public function parsedown($content)
+    public static function parsedown($content)
     {
         $parsedown_extra = new ParsedownExtra();
         return $parsedown_extra->text($content);
@@ -374,16 +353,16 @@ class Morfy
      * Get Page Block
      *
      *  <code>
-     *      $content = Morfy::factory()->getBlock($content);
+     *      $content = Morfy::getBlock($content);
      *  </code>
      *
      * @access  public
      * @param  string $name Block name
      * @return string Formatted Block content
      */
-    public function getBlock($name)
+    public static function getBlock($name)
     {
-        return $this->parseContent(file_get_contents(BLOCKS_PATH . '/' . $name . '.md'));
+        return static::parseContent(file_get_contents(BLOCKS_PATH . '/' . $name . '.md'));
     }
 
     /**
@@ -392,27 +371,37 @@ class Morfy
      * @param  string $content Content to parse
      * @return string $content Formatted content
      */
-    protected function parseContent($content)
+    protected static function parseContent($content)
     {
+        // Add {site_url} shortcode
+        Shortcode::add('site_url', function () {
+            return static::$site['url'];
+        });
 
-        // Parse {site_url}
-        $content = str_replace('{site_url}', static::$site['url'], $content);
+        // Add {block name=block-name} shortcode
+        Shortcode::add('block', function ($attributes) {
+            if (isset($attributes['name'])) {
+                if (File::exists($block_file = BLOCKS_PATH . '/' . $attributes['name'] . '.md')) {
+                    return file_get_contents($block_file);
+                } else {
+                    return 'Block ' . $attributes['name'] . ' is not found!';
+                }
+            }
+        });
 
-        // Parse {block=block-name}
-        $content = preg_replace_callback('/\{block=(.+?)\}/', function ($matches) {
-            return file_get_contents(BLOCKS_PATH . '/' . $matches[1] . '.md');
-        }, $content);
+        // Parse Shortcodes
+        $content = Shortcode::parse($content);
 
         // Parsedown
-        $content = $this->parsedown($content);
+        $content = static::parsedown($content);
 
         // Parse page for summary <!--more-->
         if (($pos = strpos($content, "<!--more-->")) === false) {
-            $content = $this->applyFilter('content', $content);
+            $content = static::applyFilter('content', $content);
         } else {
             $content = explode("<!--more-->", $content);
-            $content['summary']  = $this->applyFilter('content', $content[0]);
-            $content['content']  = $this->applyFilter('content', $content[0].$content[1]);
+            $content['summary']  = static::applyFilter('content', $content[0]);
+            $content['content']  = static::applyFilter('content', $content[0].$content[1]);
         }
 
         // Return content
@@ -422,7 +411,7 @@ class Morfy
     /**
      * Load Config
      */
-    protected function loadConfig()
+    protected static function loadConfig()
     {
         if (file_exists($site_config_path  = CONFIG_PATH . '/site.yml') &&
             file_exists($fenom_config_path = CONFIG_PATH . '/fenom.yml')) {
@@ -436,7 +425,7 @@ class Morfy
     /**
      * Load Plugins
      */
-    protected function loadPlugins()
+    protected static function loadPlugins()
     {
         if (is_array(static::$site['plugins']) && count(static::$site['plugins']) > 0) {
             foreach (static::$site['plugins'] as $plugin) {
@@ -453,7 +442,7 @@ class Morfy
      *
      *  <code>
      *      // Hooks a function "newLink" on to a "footer" action.
-     *      Morfy::factory()->addAction('footer', 'newLink', 10);
+     *      Morfy::addAction('footer', 'newLink', 10);
      *
      *      function newLink() {
      *          echo '<a href="#">My link</a>';
@@ -466,7 +455,7 @@ class Morfy
      * @param integer $priority       Priority. Default is 10
      * @param array   $args           Arguments
      */
-    public function addAction($action_name, $added_function, $priority = 10, array $args = null)
+    public static function addAction($action_name, $added_function, $priority = 10, array $args = null)
     {
         // Hooks a function on to a specific action.
         static::$actions[] = array(
@@ -482,7 +471,7 @@ class Morfy
      *
      *  <code>
      *      // Run functions hooked on a "footer" action hook.
-     *      Morfy::factory()->runAction('footer');
+     *      Morfy::runAction('footer');
      *  </code>
      *
      * @access  public
@@ -491,7 +480,7 @@ class Morfy
      * @param  boolean $return      Return data or not. Default is false
      * @return mixed
      */
-    public function runAction($action_name, $args = array(), $return = false)
+    public static function runAction($action_name, $args = array(), $return = false)
     {
         // Redefine arguments
         $action_name = (string) $action_name;
@@ -534,7 +523,7 @@ class Morfy
      * Apply filters
      *
      *  <code>
-     *      Morfy::factory()->applyFilter('content', $content);
+     *      Morfy::applyFilter('content', $content);
      *  </code>
      *
      * @access  public
@@ -542,7 +531,7 @@ class Morfy
      * @param  mixed  $value       The value on which the filters hooked.
      * @return mixed
      */
-    public function applyFilter($filter_name, $value)
+    public static function applyFilter($filter_name, $value)
     {
         // Redefine arguments
         $filter_name = (string) $filter_name;
@@ -580,7 +569,7 @@ class Morfy
      * Add filter
      *
      *  <code>
-     *      Morfy::factory()->addFilter('content', 'replacer');
+     *      Morfy::addFilter('content', 'replacer');
      *
      *      function replacer($content) {
      *          return preg_replace(array('/\[b\](.*?)\[\/b\]/ms'), array('<strong>\1</strong>'), $content);
@@ -594,7 +583,7 @@ class Morfy
      * @param  integer $accepted_args   The number of arguments the function accept default is 1.
      * @return boolean
      */
-    public function addFilter($filter_name, $function_to_add, $priority = 10, $accepted_args = 1)
+    public static function addFilter($filter_name, $function_to_add, $priority = 10, $accepted_args = 1)
     {
         // Redefine arguments
         $filter_name     = (string) $filter_name;
@@ -617,5 +606,22 @@ class Morfy
         ksort(static::$filters[$filter_name]["$priority"]);
 
         return true;
+    }
+
+    /**
+     * Initialize Morfy Application
+     *
+     *  <code>
+     *      Morfy::init();
+     *  </code>
+     *
+     * @access  public
+     */
+    public static function init()
+    {
+        if (! isset(self::$instance)) {
+            self::$instance = new Morfy();
+        }
+        return self::$instance;
     }
 }

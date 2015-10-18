@@ -22,7 +22,7 @@ class Session
     public static function start()
     {
         // Is session already started?
-        if ( ! session_id()) {
+        if (! session_id()) {
 
             // Start the session
             return @session_start();
@@ -78,7 +78,6 @@ class Session
             session_destroy();
             $_SESSION = array();
         }
-
     }
 
     /**
@@ -95,7 +94,9 @@ class Session
     public static function exists()
     {
         // Start session if needed
-        if ( ! session_id()) Session::start();
+        if (! session_id()) {
+            Session::start();
+        }
 
         // Loop all arguments
         foreach (func_get_args() as $argument) {
@@ -107,12 +108,16 @@ class Session
                 foreach ($argument as $key) {
 
                     // Does NOT exist
-                    if ( ! isset($_SESSION[(string) $key])) return false;
+                    if (! isset($_SESSION[(string) $key])) {
+                        return false;
+                    }
                 }
             } else {
 
                 // Does NOT exist
-                if ( ! isset($_SESSION[(string) $argument])) return false;
+                if (! isset($_SESSION[(string) $argument])) {
+                    return false;
+                }
             }
         }
 
@@ -132,13 +137,17 @@ class Session
     public static function get($key)
     {
         // Start session if needed
-        if ( ! session_id()) self::start();
+        if (! session_id()) {
+            self::start();
+        }
 
         // Redefine key
         $key = (string) $key;
 
         // Fetch key
-        if (Session::exists((string) $key)) return $_SESSION[(string) $key];
+        if (Session::exists((string) $key)) {
+            return $_SESSION[(string) $key];
+        }
 
         // Key doesn't exist
         return null;
@@ -156,7 +165,9 @@ class Session
      */
     public static function getSessionId()
     {
-        if ( ! session_id()) Session::start();
+        if (! session_id()) {
+            Session::start();
+        }
         return session_id();
     }
 
@@ -174,10 +185,11 @@ class Session
     public static function set($key, $value)
     {
         // Start session if needed
-        if ( ! session_id()) self::start();
+        if (! session_id()) {
+            self::start();
+        }
 
         // Set key
         $_SESSION[(string) $key] = $value;
     }
-
 }
