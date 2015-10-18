@@ -1,3 +1,13 @@
+# v1.1.1, 2015-10-18
+* Added Force Shortcode class
+* Added STORAGE_PATH constant
+* Added `storage` folder
+* Updated Force Components 1.0.1
+* Updated Morfy Class with static methods.
+* Removed Morfy `factory()->` and chaining.
+* Removed `content` folder
+* Removed CONTENT_PATH constant
+
 # v1.1.0, 2015-10-16
 * Added Morfy MIT LICENSE instead of GNU GPL v3
 * Added Fenom Template Engine
