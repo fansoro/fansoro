@@ -375,7 +375,7 @@ class Morfy
     {
         // Add {site_url} shortcode
         Shortcode::add('site_url', function () {
-            return static::$site['url'];
+            return Morfy::$site['url'];
         });
 
         // Add {block name=block-name} shortcode
