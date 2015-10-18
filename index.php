@@ -13,19 +13,19 @@ if (version_compare(PHP_VERSION, "5.3.0", "<")) {
 define('ROOT_DIR', __DIR__);
 
 /**
- * Define the path to the content directory (without trailing slash).
+ * Define the path to the storage directory (without trailing slash).
  */
-define('CONTENT_PATH', ROOT_DIR .'/content');
+define('STORAGE_PATH', ROOT_DIR .'/content');
 
 /**
  * Define the path to the blocks directory (without trailing slash).
  */
-define('BLOCKS_PATH', CONTENT_PATH .'/blocks');
+define('BLOCKS_PATH', STORAGE_PATH .'/blocks');
 
 /**
  * Define the path to the pages directory (without trailing slash).
  */
-define('PAGES_PATH', CONTENT_PATH .'/pages');
+define('PAGES_PATH', STORAGE_PATH .'/pages');
 
 /**
  * Define the path to the libraries directory (without trailing slash).
