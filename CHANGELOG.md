@@ -1,3 +1,6 @@
+# v1.1.2, 2015-10-19
+* Fixed Bug in {site_url} shortcode
+
 # v1.1.1, 2015-10-18
 * Added Force Shortcode class
 * Added STORAGE_PATH constant
