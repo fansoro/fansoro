@@ -1,3 +1,8 @@
+# v1.1.3, 2015-10-25
+* Default Theme: change layout.tpl to base.tpl
+* Fixed welcome page bug. Change content to storage
+* Fixed Prevent visitors from viewing yml, yaml files directly.
+
 # v1.1.2, 2015-10-19
 * Fixed Bug in {site_url} shortcode
 
