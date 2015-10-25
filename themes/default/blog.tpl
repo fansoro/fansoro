@@ -1,4 +1,4 @@
-{extends 'layout.tpl'}
+{extends 'base.tpl'}
 {block 'content'}
 	<div class="container">
 		{set $posts = Morfy::getPages('blog', 'date', 'DESC', ['404','index'])}
