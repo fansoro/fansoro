@@ -33,7 +33,7 @@ Options -Indexes
 </IfModule>
 
 # Prevent visitors from viewing our MD, TXT, HTML and MD files directly.
-<FilesMatch "(^#.*#|\.(md|txt|html|tpl)|~)$">
+<FilesMatch "(^#.*#|\.(md|txt|html|tpl|yml|yaml)|~)$">
 	Order allow,deny
 	Deny from all
 	Satisfy All
