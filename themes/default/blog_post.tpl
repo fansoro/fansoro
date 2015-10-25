@@ -1,4 +1,4 @@
-{extends 'layout.tpl'}
+{extends 'base.tpl'}
 {block 'content'}
 	<div class="container">
 		<h1>{$title}</h1>
