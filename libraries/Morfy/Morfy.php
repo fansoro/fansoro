@@ -93,7 +93,7 @@ class Morfy
      */
     protected function __construct()
     {
-        
+
         // Load config file
         static::loadConfig();
 
@@ -155,11 +155,17 @@ class Morfy
      */
     public static function loadPageTemplate($page)
     {
+        // Create fenom cache directory if its not exists
+        if (!Dir::exists(CACHE_PATH . '/fenom/')) {
+            Dir::create(CACHE_PATH . '/fenom/');
+        }
+
         $fenom = Fenom::factory(
             THEMES_PATH . '/' . static::$site['theme'] . '/',
             CACHE_PATH . '/fenom/',
             static::$fenom
         );
+
 
         if (file_exists($theme_config_path = THEMES_PATH . '/' . static::$site['theme'] . '/'. static::$site['theme'] .'.yml')) {
             static::$theme = Spyc::YAMLLoad(file_get_contents($theme_config_path));
