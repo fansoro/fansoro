@@ -93,36 +93,7 @@ class Morfy
      */
     protected function __construct()
     {
-        // Use the Force...
-        include LIBRARIES_PATH . '/Force/ClassLoader/ClassLoader.php';
-
-        // Map Classes
-        ClassLoader::mapClasses(array(
-            // Yaml Parser/Dumper
-            'Spyc'     => LIBRARIES_PATH . '/Spyc/Spyc.php',
-
-            // Force Components
-            'Arr'        => LIBRARIES_PATH . '/Force/Arr/Arr.php',
-            'Session'    => LIBRARIES_PATH . '/Force/Session/Session.php',
-            'Token'      => LIBRARIES_PATH . '/Force/Token/Token.php',
-            'Request'    => LIBRARIES_PATH . '/Force/Http/Request.php',
-            'Response'   => LIBRARIES_PATH . '/Force/Http/Response.php',
-            'Url'        => LIBRARIES_PATH . '/Force/Url/Url.php',
-            'File'       => LIBRARIES_PATH . '/Force/FileSystem/File.php',
-            'Dir'        => LIBRARIES_PATH . '/Force/FileSystem/Dir.php',
-            'Shortcode'  => LIBRARIES_PATH . '/Force/Shortcode/Shortcode.php',
-
-            // Parsedown
-            'Parsedown'      => LIBRARIES_PATH . '/Parsedown/Parsedown.php',
-            'ParsedownExtra' => LIBRARIES_PATH . '/Parsedown/ParsedownExtra.php'
-        ));
-
-        // Map Fenom Template Engine folder
-        ClassLoader::directory(LIBRARIES_PATH . '/Fenom/');
-
-        // Register the ClassLoader to the SPL autoload stack.
-        ClassLoader::register();
-
+        
         // Load config file
         static::loadConfig();
 
