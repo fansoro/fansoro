@@ -1,3 +1,6 @@
+# v1.2.0, 2015-XX-XX
+* Added Composer Support
+
 # v1.1.3, 2015-10-25
 * Default Theme: change layout.tpl to base.tpl
 * Fixed welcome page bug. Change content to storage
