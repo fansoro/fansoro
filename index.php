@@ -53,9 +53,9 @@ define('CACHE_PATH', ROOT_DIR  .'/cache');
 define('CONFIG_PATH', ROOT_DIR  .'/config');
 
 /**
- * Load Morfy
+ * Register the auto-loader.
  */
-require LIBRARIES_PATH . '/Morfy/Morfy.php';
+require_once ROOT_DIR . '/vendor/autoload.php';
 
 /**
  * First check for installer then go
