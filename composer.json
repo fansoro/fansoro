@@ -30,8 +30,12 @@
         "force/url" : "*"
     },
     "autoload": {
-        "psr-0": {
-            "Morfy": "libraries/Morfy/"
-        }
+        "classmap": [
+            "libraries/Morfy/"
+        ],
+        "files": [
+            "libraries/Morfy/boot/init.php",
+            "libraries/Morfy/boot/defines.php"
+        ]
     }
 }
