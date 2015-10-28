@@ -7,24 +7,24 @@
 		<meta name="description" content="{$description}>">
 		<meta name="keywords" content="{$keywords}">
 
-		{Morfy::runAction('theme_meta')}
+		{Actions::runAction('theme_meta')}
 
 		<link rel="shortcut icon" href="{$.site.url}/favicon.ico">
 
 		<title>{$.site.title} | {$title}</title>
 
 		{* Bootstrap core CSS *}
-		<link href="{$.site.url}/themes/{$.site.theme}/assets/css/bootstrap.min.css" rel="stylesheet">
-		<link href="{$.site.url}/themes/{$.site.theme}/assets/css/theme.css" rel="stylesheet">
-		{Morfy::runAction('theme_header')}
+		<link href="{$.site.url}/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{$.site.url}/themes/default/assets/css/theme.css" rel="stylesheet">
+		{Actions::runAction('theme_header')}
 
 	</head>
 	<body>
 		<div id="wrap">
 			{include 'navbar.tpl'}
-			{Morfy::runAction('theme_content_before')}
+			{Actions::runAction('theme_content_before')}
 			{block 'content'}{/block}
-			{Morfy::runAction('theme_content_after')}
+			{Actions::runAction('theme_content_after')}
 		</div>
 		<div id="footer">
 			<div class="container">
@@ -35,6 +35,6 @@
 		{* Placed at the end of the document so the pages load faster *}
 		<script src="{$.site.url}/themes/{$.site.theme}/assets/js/jquery.min.js"></script>
 		<script src="{$.site.url}/themes/{$.site.theme}/assets/js/bootstrap.min.js"></script>
-		{Morfy::runAction('theme_footer')}
+		{Actions::runAction('theme_footer')}
 	</body>
 </html>
