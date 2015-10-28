@@ -1,7 +1,12 @@
-# v1.2.0, 2015-XX-XX
-* Added Composer Support
-* Added doctrine cache
-
+# v2.0.0, 2015-XX-XX
+* Improved Morfy Architecture.
+* Added /libraries/morfy/boot/ directory with defines.php and init.php
+* Added Composer Support.
+* Added New Config File system.yml with plugins, themes and fenom settings
+* Added New Action before_page_rendered and after_page_rendered
+* Removed force, fenom, parsedown and spyc from libraries directory.
+* Removed Fenom Config file fenom.yml
+* Removed Actions before_render and after_render
 
 # v1.1.3, 2015-10-25
 * Default Theme: change layout.tpl to base.tpl
