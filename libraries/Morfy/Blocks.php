@@ -15,14 +15,14 @@ class Blocks
      * Get Page Block
      *
      *  <code>
-     *      $content = Blocks::getBlock('my-block');
+     *      $content = Blocks::get('my-block');
      *  </code>
      *
      * @access  public
      * @param  string $name Block name
      * @return string Formatted Block content
      */
-    public static function getBlock($name)
+    public static function get($name)
     {
         if (File::exists($block_path = BLOCKS_PATH . '/' . $name . '.md')) {
             return Pages::parseContent(file_get_contents($block_path));

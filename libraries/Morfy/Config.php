@@ -59,7 +59,7 @@ class Config
      *  </code>
      *
      * @access  public
-     * @param  string $key   Key
+     * @param  string $key Key
      */
     public static function get($key)
     {

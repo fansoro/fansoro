@@ -18,6 +18,15 @@ class Pages
      */
     public static $currentPage;
 
+    /**
+     * Initialize Pages
+     *
+     *  <code>
+     *      Pages::init();
+     *  </code>
+     *
+     * @access  public
+     */
     public static function init()
     {
         // Get page for current requested url
@@ -33,7 +42,7 @@ class Pages
      * Get pages
      *
      *  <code>
-     *      $pages = Morfy::getPages('blog');
+     *      $pages = Pages::getPages('blog');
      *  </code>
      *
      * @access  public
@@ -90,7 +99,7 @@ class Pages
      * Get page
      *
      *  <code>
-     *      $page = Morfy::getPage('downloads');
+     *      $page = Pages::getPage('downloads');
      *  </code>
      *
      * @access  public
@@ -155,7 +164,7 @@ class Pages
      * Parsedown
      *
      *  <code>
-     *      $content = Morfy::parsedown($content);
+     *      $content = Pages::parsedown($content);
      *  </code>
      *
      * @access  public
@@ -215,7 +224,7 @@ class Pages
      * Load Page template
      *
      *  <code>
-     *      Morfy::loadPageTemplate($page);
+     *      Pages::loadPageTemplate($page);
      *  </code>
      *
      * @access public
