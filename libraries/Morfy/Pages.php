@@ -24,9 +24,9 @@ class Pages
         static::$currentPage = static::getPage(Url::getUriString());
 
         // Load template
-        Actions::runAction('before_page_rendered');
+        Actions::run('before_page_rendered');
         static::loadPageTemplate(static::$currentPage);
-        Actions::runAction('after_page_rendered');
+        Actions::run('after_page_rendered');
     }
 
     /**
@@ -200,11 +200,11 @@ class Pages
 
         // Parse page for summary <!--more-->
         if (($pos = strpos($content, "<!--more-->")) === false) {
-            $content = Filters::applyFilter('content', $content);
+            $content = Filters::apply('content', $content);
         } else {
             $content = explode("<!--more-->", $content);
-            $content['summary']  = Filters::applyFilter('content', $content[0]);
-            $content['content']  = Filters::applyFilter('content', $content[0].$content[1]);
+            $content['summary']  = Filters::apply('content', $content[0]);
+            $content['content']  = Filters::apply('content', $content[0].$content[1]);
         }
 
         // Return content

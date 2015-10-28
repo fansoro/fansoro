@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
- 
+
 class Filters
 {
     /**
@@ -32,7 +32,7 @@ class Filters
      * Apply filters
      *
      *  <code>
-     *      Morfy::applyFilter('content', $content);
+     *      Filtes::apply('content', $content);
      *  </code>
      *
      * @access  public
@@ -40,7 +40,7 @@ class Filters
      * @param  mixed  $value       The value on which the filters hooked.
      * @return mixed
      */
-    public static function applyFilter($filter_name, $value)
+    public static function apply($filter_name, $value)
     {
         // Redefine arguments
         $filter_name = (string) $filter_name;
@@ -78,7 +78,7 @@ class Filters
      * Add filter
      *
      *  <code>
-     *      Morfy::addFilter('content', 'replacer');
+     *      Filters::add('content', 'replacer');
      *
      *      function replacer($content) {
      *          return preg_replace(array('/\[b\](.*?)\[\/b\]/ms'), array('<strong>\1</strong>'), $content);
@@ -92,7 +92,7 @@ class Filters
      * @param  integer $accepted_args   The number of arguments the function accept default is 1.
      * @return boolean
      */
-    public static function addFilter($filter_name, $function_to_add, $priority = 10, $accepted_args = 1)
+    public static function add($filter_name, $function_to_add, $priority = 10, $accepted_args = 1)
     {
         // Redefine arguments
         $filter_name     = (string) $filter_name;

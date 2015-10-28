@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
- 
+
 class Actions
 {
     /**
@@ -33,7 +33,7 @@ class Actions
      *
      *  <code>
      *      // Hooks a function "newLink" on to a "footer" action.
-     *      Morfy::addAction('footer', 'newLink', 10);
+     *      Actions::add('footer', 'newLink', 10);
      *
      *      function newLink() {
      *          echo '<a href="#">My link</a>';
@@ -46,7 +46,7 @@ class Actions
      * @param integer $priority       Priority. Default is 10
      * @param array   $args           Arguments
      */
-    public static function addAction($action_name, $added_function, $priority = 10, array $args = null)
+    public static function add($action_name, $added_function, $priority = 10, array $args = null)
     {
         // Hooks a function on to a specific action.
         static::$actions[] = array(
@@ -62,7 +62,7 @@ class Actions
      *
      *  <code>
      *      // Run functions hooked on a "footer" action hook.
-     *      Morfy::runAction('footer');
+     *      Actions::run('footer');
      *  </code>
      *
      * @access  public
@@ -71,7 +71,7 @@ class Actions
      * @param  boolean $return      Return data or not. Default is false
      * @return mixed
      */
-    public static function runAction($action_name, $args = array(), $return = false)
+    public static function run($action_name, $args = array(), $return = false)
     {
         // Redefine arguments
         $action_name = (string) $action_name;
