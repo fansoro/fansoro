@@ -7,7 +7,7 @@
 		<meta name="description" content="{$description}>">
 		<meta name="keywords" content="{$keywords}">
 
-		{Actions::runAction('theme_meta')}
+		{Actions::run('theme_meta')}
 
 		<link rel="shortcut icon" href="{$.site.url}/favicon.ico">
 
@@ -16,15 +16,15 @@
 		{* Bootstrap core CSS *}
 		<link href="{$.site.url}/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
 		<link href="{$.site.url}/themes/default/assets/css/theme.css" rel="stylesheet">
-		{Actions::runAction('theme_header')}
+		{Actions::run('theme_header')}
 
 	</head>
 	<body>
 		<div id="wrap">
 			{include 'navbar.tpl'}
-			{Actions::runAction('theme_content_before')}
+			{Actions::run('theme_content_before')}
 			{block 'content'}{/block}
-			{Actions::runAction('theme_content_after')}
+			{Actions::run('theme_content_after')}
 		</div>
 		<div id="footer">
 			<div class="container">
@@ -35,6 +35,6 @@
 		{* Placed at the end of the document so the pages load faster *}
 		<script src="{$.site.url}/themes/{$.site.theme}/assets/js/jquery.min.js"></script>
 		<script src="{$.site.url}/themes/{$.site.theme}/assets/js/bootstrap.min.js"></script>
-		{Actions::runAction('theme_footer')}
+		{Actions::run('theme_footer')}
 	</body>
 </html>
