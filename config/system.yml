@@ -16,3 +16,8 @@ fenom:
   disable_php_calls: false
   disable_statics: false
   strip: true
+
+cache:
+  enabled: true
+  driver: auto
+    lifetime: 31556926
