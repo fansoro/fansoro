@@ -43,7 +43,7 @@ class Plugins
                 }
             }
         }
-        Actions::runAction('plugins_loaded');
+        Actions::run('plugins_loaded');
     }
 
     /**
