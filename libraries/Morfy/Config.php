@@ -36,10 +36,10 @@ class Config
     }
 
     /**
-     * Set new config variable
+     * Set new or update existing config variable
      *
      *  <code>
-     *      Config::set('key', 'value');
+     *      Config::set('site.title', 'value');
      *  </code>
      *
      * @access  public
@@ -48,14 +48,15 @@ class Config
      */
     public static function set($key, $value)
     {
-        return Arr::set(static::$config, $key, $value);
+        Arr::set(static::$config, $key, $value);
     }
 
     /**
      * Get config variable
      *
      *  <code>
-     *      Config::set('key');
+     *      Config::get('site');
+     *      Config::get('site.title');
      *  </code>
      *
      * @access  public

@@ -39,7 +39,7 @@ class Plugins
             foreach (Config::get('system.plugins') as $plugin) {
                 Config::set('plugins.'.$plugin, Spyc::YAMLLoad(file_get_contents(PLUGINS_PATH .'/'. $plugin . '/' . $plugin.'.yml')));
                 if (Config::get('plugins.'.$plugin.'.enabled')) {
-                    include_once PLUGINS_PATH .'/'. $plugin.'/'.$plugin.'.php';
+                    include_once PLUGINS_PATH .'/'. $plugin .'/'. $plugin . '.php';
                 }
             }
         }
