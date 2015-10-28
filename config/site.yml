@@ -1,12 +1,8 @@
-title: 'Morfy'
-description: 'Simple and fast file-based CMS'
-keywords: 'morfy, cms, php, filesystem'
-url: ''
-author:
-  email: ''
-charset: 'UTF-8'
-timezone: 'UTC'
-theme: 'default'
+# Site configuration
 
-# Site Plugins
-plugins:
+title: 'Test'
+description: 'test desc'
+keywords: 'test, test, test'
+url: 'http://127.0.0.1/morfy'
+autor:
+  email: 'awilum@msn.com'
