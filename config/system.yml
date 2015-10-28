@@ -3,8 +3,6 @@
 theme: 'default'
 
 plugins:
-  charts
-  charts2
 
 fenom:
   disable_methods: false

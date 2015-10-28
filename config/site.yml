@@ -1,8 +1,8 @@
 # Site configuration
 
-title: 'Test'
-description: 'test desc'
-keywords: 'test, test, test'
+title: 'Morfy'
+description: 'Simple and fast file-based CMS'
+keywords: 'morfy, cms, php, flat-file'
 url: 'http://127.0.0.1/morfy'
 autor:
-  email: 'awilum@msn.com'
+  email: ''
