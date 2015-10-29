@@ -49,10 +49,10 @@ class Morfy
         Config::setFile(CONFIG_PATH . '/system.yml');
 
         // Start the session
-        Config::get('system.session.enabled') and Session::start();
+        Session::start();
 
         // Init Cache
-        Config::get('system.cache.enabled') and Cache::init();
+        Cache::init();
 
         // Sanitize URL to prevent XSS - Cross-site scripting
         Url::runSanitizeURL();

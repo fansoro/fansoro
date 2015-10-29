@@ -24,10 +24,16 @@ class Blocks
      */
     public static function get($name)
     {
-        if (File::exists($block_path = BLOCKS_PATH . '/' . $name . '.md')) {
-            return Pages::parseContent(file_get_contents($block_path));
+        if (Cache::driver()->contains('block.'.$name)) {
+            return Cache::driver()->fetch('block.'.$name);
         } else {
-            return 'Block '.$name.' is not found!';
+            if (File::exists($block_path = BLOCKS_PATH . '/' . $name . '.md')) {
+                $block = Pages::parseContent(file_get_contents($block_path));
+                Cache::driver()->save('block.'.$name, $block);
+                return $block;
+            } else {
+                return 'Block '.$name.' is not found!';
+            }
         }
     }
 }
