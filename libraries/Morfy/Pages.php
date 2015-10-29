@@ -244,19 +244,13 @@ class Pages
             Config::get('system.fenom')
         );
 
-
-        if (file_exists($theme_config_path = THEMES_PATH . '/' . Config::get('system.theme') . '/'. Config::get('system.theme') .'.yml')) {
-            $conf = Spyc::YAMLLoad(file_get_contents($theme_config_path));
-            Config::set('theme', $conf);
-
-            // Do global tag {$.theme} for the template
-            $fenom->addAccessorSmart('theme', 'theme_config', Fenom::ACCESSOR_PROPERTY);
-            $fenom->theme_config = Config::get('theme');
+        if (File::exists($theme_config_path = THEMES_PATH . '/' . Config::get('system.theme') . '/'. Config::get('system.theme') .'.yml')) {
+            Config::set('theme', Spyc::YAMLLoad(file_get_contents($theme_config_path)));
         }
 
-        // Do global tag {$.site} for the template
-        $fenom->addAccessorSmart('site', 'site_config', Fenom::ACCESSOR_PROPERTY);
-        $fenom->site_config = Config::get('site');
+        // Do global tag {$.config} for the template
+        $fenom->addAccessorSmart('config', 'config', Fenom::ACCESSOR_PROPERTY);
+        $fenom->config = Config::$config;
 
         // Display page
         try {
