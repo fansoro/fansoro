@@ -19,8 +19,9 @@ fenom:
 
 cache:
   enabled: true
+  prefix: 'morfy'
   driver: auto
-    lifetime: 31556926
+  lifetime: 604800
 
 session:
   enabled: true
