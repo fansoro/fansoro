@@ -21,3 +21,6 @@ cache:
   enabled: true
   driver: auto
     lifetime: 31556926
+
+session:
+  enabled: true
