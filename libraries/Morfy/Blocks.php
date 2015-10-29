@@ -18,7 +18,7 @@ class Blocks
      *      $content = Blocks::get('my-block');
      *  </code>
      *
-     * @access  public
+     * @access public
      * @param  string $name Block name
      * @return string Formatted Block content
      */

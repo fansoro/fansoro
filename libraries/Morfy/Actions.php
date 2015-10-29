@@ -21,7 +21,7 @@ class Actions
     /**
      * Protected constructor since this is a static class.
      *
-     * @access  protected
+     * @access protected
      */
     protected function __construct()
     {
@@ -40,7 +40,7 @@ class Actions
      *      }
      *  </code>
      *
-     * @access  public
+     * @access public
      * @param string  $action_name    Action name
      * @param mixed   $added_function Added function
      * @param integer $priority       Priority. Default is 10
@@ -65,10 +65,10 @@ class Actions
      *      Actions::run('footer');
      *  </code>
      *
-     * @access  public
-     * @param  string  $action_name Action name
-     * @param  array   $args        Arguments
-     * @param  boolean $return      Return data or not. Default is false
+     * @access public
+     * @param string  $action_name Action name
+     * @param array   $args        Arguments
+     * @param boolean $return      Return data or not. Default is false
      * @return mixed
      */
     public static function run($action_name, $args = array(), $return = false)

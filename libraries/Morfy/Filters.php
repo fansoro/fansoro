@@ -21,7 +21,7 @@ class Filters
     /**
      * Protected constructor since this is a static class.
      *
-     * @access  protected
+     * @access protected
      */
     protected function __construct()
     {

@@ -30,7 +30,7 @@ class Morfy
     /**
      * Protected clone method to enforce singleton behavior.
      *
-     * @access  protected
+     * @access protected
      */
     protected function __clone()
     {
@@ -40,7 +40,7 @@ class Morfy
     /**
      * Constructor.
      *
-     * @access  protected
+     * @access protected
      */
     protected function __construct()
     {
@@ -71,7 +71,7 @@ class Morfy
      *      Morfy::init();
      *  </code>
      *
-     * @access  public
+     * @access public
      */
     public static function init()
     {

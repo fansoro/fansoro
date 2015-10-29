@@ -25,8 +25,8 @@ class Config
      *      Config::setFile('path_to_config_file');
      *  </code>
      *
-     * @access  public
-     * @param  string $path Path to config file
+     * @access public
+     * @param string $path Path to config file
      */
     public static function setFile($path)
     {
@@ -42,9 +42,9 @@ class Config
      *      Config::set('site.title', 'value');
      *  </code>
      *
-     * @access  public
-     * @param  string $key   Key
-     * @param  mixed  $value Value
+     * @access public
+     * @param string $key   Key
+     * @param mixed  $value Value
      */
     public static function set($key, $value)
     {
