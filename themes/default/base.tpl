@@ -9,13 +9,13 @@
 
 		{Actions::run('theme_meta')}
 
-		<link rel="shortcut icon" href="{$.site.url}/favicon.ico">
+		<link rel="shortcut icon" href="{$.config.site.url}/favicon.ico">
 
-		<title>{$.site.title} | {$title}</title>
+		<title>{$.config.site.title} | {$title}</title>
 
 		{* Bootstrap core CSS *}
-		<link href="{$.site.url}/themes/default/assets/css/bootstrap.min.css" rel="stylesheet">
-		<link href="{$.site.url}/themes/default/assets/css/theme.css" rel="stylesheet">
+		<link href="{$.config.site.url}/themes/{$.config.system.theme}/assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{$.config.site.url}/themes/{$.config.system.theme}/assets/css/theme.css" rel="stylesheet">
 		{Actions::run('theme_header')}
 
 	</head>
@@ -33,8 +33,8 @@
 		</div>
 		{* Bootstrap core JavaScript *}
 		{* Placed at the end of the document so the pages load faster *}
-		<script src="{$.site.url}/themes/{$.site.theme}/assets/js/jquery.min.js"></script>
-		<script src="{$.site.url}/themes/{$.site.theme}/assets/js/bootstrap.min.js"></script>
+		<script src="{$.config.site.url}/themes/{$.config.site.theme}/assets/js/jquery.min.js"></script>
+		<script src="{$.config.site.url}/themes/{$.config.site.theme}/assets/js/bootstrap.min.js"></script>
 		{Actions::run('theme_footer')}
 	</body>
 </html>
