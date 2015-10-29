@@ -51,6 +51,9 @@ class Morfy
         // Start the session
         Session::start();
 
+        // Init Cache
+        Cache::init();
+
         // Sanitize URL to prevent XSS - Cross-site scripting
         Url::runSanitizeURL();
 

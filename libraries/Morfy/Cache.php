@@ -12,9 +12,11 @@
 class Cache
 {
     /**
+     * Cache Driver
+     *
      * @var DoctrineCache
      */
-    protected $driver;
+    protected static $driver;
 
     /**
      * An instance of the Cache class
@@ -40,10 +42,20 @@ class Cache
      */
     protected function __construct()
     {
+        Cache::$driver = new \Doctrine\Common\Cache\FilesystemCache(CACHE_PATH);
+    }
+
+
+    /**
+     * Get driver
+     */
+    public static function driver()
+    {
+        return Cache::$driver;
     }
 
     /**
-     * Initialize Morfy Plugins
+     * Initialize Morfy Cache
      *
      *  <code>
      *      Cache::init();
