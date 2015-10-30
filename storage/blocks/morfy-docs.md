@@ -1,1 +1,1 @@
-Check Morfy documentation for more details: http://morfy.org/documentation
+Check **Morfy** documentation for more details: http://morfy.org/documentation
