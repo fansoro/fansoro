@@ -10,6 +10,13 @@
 # Set default charset utf-8
 AddDefaultCharset UTF-8
 
+# PHP 5, Apache 1 and 2.
+<IfModule mod_php5.c>
+	php_flag magic_quotes_gpc                 off
+	php_flag magic_quotes_sybase              off
+	php_flag register_globals                 off
+</IfModule>
+
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 
@@ -31,7 +38,7 @@ AddDefaultCharset UTF-8
 	## End - Rewrite rules to block out some common exploits.
 
 	## Begin - Rewrite rules for Morfy
-	RewriteBase /%siteurlhere%/
+	RewriteBase /morfy/
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^(.*)$ index.php [QSA,L]
@@ -45,7 +52,7 @@ AddDefaultCharset UTF-8
 
 </IfModule>
 
-# Prevent visitors from viewing our MD, TXT, HTML and MD files directly.
+# Prevent visitors from viewing files directly.
 <FilesMatch "(^#.*#|\.(md|txt|html|tpl|yml|yaml)|~)$">
 	Order allow,deny
 	Deny from all
