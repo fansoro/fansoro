@@ -85,7 +85,7 @@ class Pages
 
                 $_pages[$key] = Spyc::YAMLLoad($_page[1]);
 
-                $url = str_replace(PAGES_PATH, Config::get('site.url'), $page);
+                $url = str_replace(PAGES_PATH, Url::getBase(), $page);
                 $url = str_replace('index.md', '', $url);
                 $url = str_replace('.md', '', $url);
                 $url = str_replace('\\', '/', $url);
@@ -154,7 +154,7 @@ class Pages
 
         $page = Spyc::YAMLLoad($_page[1]);
 
-        $url = str_replace(PAGES_PATH, Config::get('site.url'), $file);
+        $url = str_replace(PAGES_PATH, Url::getBase(), $file);
         $url = str_replace('index.md', '', $url);
         $url = str_replace('.md', '', $url);
         $url = str_replace('\\', '/', $url);
@@ -210,7 +210,7 @@ class Pages
     {
         // Add {site_url} shortcode
         Shortcode::add('site_url', function () {
-            return Config::get('site.url');
+            return Url::getBase();
         });
 
         // Add {block name=block-name} shortcode
