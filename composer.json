@@ -34,7 +34,6 @@
             "libraries/Morfy/"
         ],
         "files": [
-            "libraries/Morfy/boot/init.php",
             "libraries/Morfy/boot/defines.php"
         ]
     }
