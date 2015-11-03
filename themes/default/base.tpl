@@ -5,7 +5,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="{$description}>">
-		<meta name="keywords" content="{$keywords}">
 
 		{Actions::run('theme_meta')}
 
@@ -14,8 +13,8 @@
 		<title>{$.config.site.title} | {$title}</title>
 
 		{* Bootstrap core CSS *}
-		<link href="{$.config.site.url}/themes/{$.config.system.theme}/assets/css/bootstrap.min.css" rel="stylesheet">
-		<link href="{$.config.site.url}/themes/{$.config.system.theme}/assets/css/theme.css" rel="stylesheet">
+		<link href="{Url::getBase()}/themes/{$.config.system.theme}/assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{Url::getBase()}/themes/{$.config.system.theme}/assets/css/theme.css" rel="stylesheet">
 		{Actions::run('theme_header')}
 
 	</head>
@@ -33,8 +32,8 @@
 		</div>
 		{* Bootstrap core JavaScript *}
 		{* Placed at the end of the document so the pages load faster *}
-		<script src="{$.config.site.url}/themes/{$.config.site.theme}/assets/js/jquery.min.js"></script>
-		<script src="{$.config.site.url}/themes/{$.config.site.theme}/assets/js/bootstrap.min.js"></script>
+		<script src="{Url::getBase()}/themes/{$.config.site.theme}/assets/js/jquery.min.js"></script>
+		<script src="{Url::getBase()}/themes/{$.config.site.theme}/assets/js/bootstrap.min.js"></script>
 		{Actions::run('theme_footer')}
 	</body>
 </html>
