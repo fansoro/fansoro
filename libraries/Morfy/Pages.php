@@ -12,6 +12,13 @@
 class Pages
 {
     /**
+     * An instance of the Plugins class
+     *
+     * @var object
+     */
+    protected static $instance = null;
+
+    /**
      * Current page.
      *
      * @var array
@@ -19,15 +26,21 @@ class Pages
     public static $currentPage;
 
     /**
-     * Initialize Pages
+     * Protected clone method to enforce singleton behavior.
      *
-     *  <code>
-     *      Pages::init();
-     *  </code>
-     *
-     * @access  public
+     * @access  protected
      */
-    public static function init()
+    protected function __clone()
+    {
+        // Nothing here.
+    }
+
+    /**
+     * Constructor.
+     *
+     * @access  protected
+     */
+    protected function __construct()
     {
         // Get page for current requested url
         static::$currentPage = static::getPage(Url::getUriString());
@@ -258,5 +271,22 @@ class Pages
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+    }
+
+    /**
+     * Initialize Morfy Pages
+     *
+     *  <code>
+     *      Pages::init();
+     *  </code>
+     *
+     * @access  public
+     */
+    public static function init()
+    {
+        if (! isset(self::$instance)) {
+            self::$instance = new Pages();
+        }
+        return self::$instance;
     }
 }
