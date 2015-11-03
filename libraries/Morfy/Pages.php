@@ -12,7 +12,7 @@
 class Pages
 {
     /**
-     * An instance of the Plugins class
+     * An instance of the Pages class
      *
      * @var object
      */
