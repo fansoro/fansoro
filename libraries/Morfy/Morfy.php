@@ -48,6 +48,20 @@ class Morfy
         Config::setFile(CONFIG_PATH . '/site.yml');
         Config::setFile(CONFIG_PATH . '/system.yml');
 
+        // Send default header and set internal encoding
+        header('Content-Type: text/html; charset='.Config::get('system.charset'));
+        function_exists('mb_language') and mb_language('uni');
+        function_exists('mb_regex_encoding') and mb_regex_encoding(Config::get('system.charset'));
+        function_exists('mb_internal_encoding') and mb_internal_encoding(Config::get('system.charset'));
+
+        // Set default timezone
+        @ini_set('date.timezone', Config::get('system.timezone'));
+        if (function_exists('date_default_timezone_set')) {
+            date_default_timezone_set(Config::get('system.timezone'));
+        } else {
+            putenv('TZ='.Config::get('system.timezone'));
+        }
+
         // Start the session
         Session::start();
 
