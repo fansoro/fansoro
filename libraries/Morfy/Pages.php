@@ -19,6 +19,13 @@ class Pages
     protected static $instance = null;
 
     /**
+     * Parsedown Extra
+     *
+     * @var object
+     */
+    public static $parsedown_extra;
+
+    /**
      * Current page.
      *
      * @var array
@@ -186,8 +193,11 @@ class Pages
      */
     public static function parsedown($content)
     {
-        $parsedown_extra = new ParsedownExtra();
-        return $parsedown_extra->text($content);
+        if (!static::$parsedown_extra) {
+            static::$parsedown_extra = new Parsedown_Extra;
+        }
+
+        return static::$parsedown_extra->text($content);
     }
 
     /**
