@@ -194,7 +194,7 @@ class Pages
     public static function parsedown($content)
     {
         if (!static::$parsedown_extra) {
-            static::$parsedown_extra = new Parsedown_Extra;
+            static::$parsedown_extra = new ParsedownExtra();
         }
 
         return static::$parsedown_extra->text($content);
