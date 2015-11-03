@@ -30,7 +30,7 @@ class Pages
      *
      * @var array
      */
-    public static $currentPage;
+    public static $current_page;
 
     /**
      * Protected clone method to enforce singleton behavior.
@@ -50,11 +50,11 @@ class Pages
     protected function __construct()
     {
         // Get page for current requested url
-        static::$currentPage = static::getPage(Url::getUriString());
+        static::$current_page = static::getPage(Url::getUriString());
 
         // Load template
         Actions::run('before_page_rendered');
-        static::loadPageTemplate(static::$currentPage);
+        static::loadPageTemplate(static::$current_page);
         Actions::run('after_page_rendered');
     }
 
