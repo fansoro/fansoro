@@ -16,7 +16,7 @@
       "issues": "https://github.com/morfy-cms/morfy/issues"
     },
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.3.2",
         "fenom/fenom": "2.8.*",
         "erusev/parsedown-extra": "0.7.*",
         "mustangostang/spyc" : "0.5.*",
