@@ -44,9 +44,8 @@ class Morfy
      */
     protected function __construct()
     {
-        // Set configs
-        Config::setFile(CONFIG_PATH . '/site.yml');
-        Config::setFile(CONFIG_PATH . '/system.yml');
+        // Init Config
+        Config::init();
 
         // Send default header and set internal encoding
         header('Content-Type: text/html; charset='.Config::get('system.charset'));
@@ -76,6 +75,8 @@ class Morfy
 
         // Init Pages
         Pages::init();
+
+        print_r(Config::$config);
     }
 
     /**

@@ -12,6 +12,13 @@
 class Config
 {
     /**
+     * An instance of the Plugins class
+     *
+     * @var object
+     */
+    protected static $instance = null;
+
+    /**
      * Config
      *
      * @var array
@@ -19,19 +26,45 @@ class Config
     public static $config = array();
 
     /**
-     * Set config file
+     * Config Paths
      *
-     *  <code>
-     *      Config::setFile('path_to_config_file');
-     *  </code>
-     *
-     * @access public
-     * @param string $path Path to config file
+     * @var array
      */
-    public static function setFile($path)
+    public static $config_paths = array('config', 'themes', 'plugins');
+
+    /**
+     * Protected clone method to enforce singleton behavior.
+     *
+     * @access  protected
+     */
+    protected function __clone()
     {
-        if (File::exists($path)) {
-            static::$config[File::name($path)] = Spyc::YAMLLoad(file_get_contents($path));
+        // Nothing here.
+    }
+
+    /**
+     * Constructor.
+     *
+     * @access  protected
+     */
+    protected function __construct()
+    {
+        foreach (Config::$config_paths as $config_path) {
+            $config_list[$config_path] = File::scan(ROOT_DIR . '/' . $config_path, 'yml');
+        }
+
+        foreach ($config_list['config'] as $config) {
+            Config::$config[File::name($config)] = Spyc::YAMLLoad(file_get_contents($config));
+        }
+
+        foreach ($config_list['plugins'] as $config) {
+            Config::$config['plugins'][File::name($config)] = Spyc::YAMLLoad(file_get_contents($config));
+        }
+
+        foreach ($config_list['themes'] as $config) {
+            if (File::name($config) == Config::$config['system']['theme']) {
+                Config::$config['theme'] = Spyc::YAMLLoad(file_get_contents($config));
+            }
         }
     }
 
@@ -65,5 +98,22 @@ class Config
     public static function get($key)
     {
         return Arr::get(static::$config, $key);
+    }
+
+    /**
+     * Initialize Morfy Config
+     *
+     *  <code>
+     *      Config::init();
+     *  </code>
+     *
+     * @access  public
+     */
+    public static function init()
+    {
+        if (! isset(self::$instance)) {
+            self::$instance = new Config();
+        }
+        return self::$instance;
     }
 }
