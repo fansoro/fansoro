@@ -1,7 +1,7 @@
 # v2.0.0, 2015-XX-XX
 * Improved Morfy Architecture.
 * Minimum PHP version for Morfy is 5.3.2
-* Added /libraries/morfy/boot/ directory with defines.php
+* Added /libraries/morfy/boot/ directory with defines.php, shortcodes.php, actions.php filters.php
 * Added Composer Support.
 * Added New Config File system.yml with plugins, themes and fenom settings
 * Added New Action before_page_rendered and after_page_rendered
