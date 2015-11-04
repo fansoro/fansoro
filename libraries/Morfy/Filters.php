@@ -32,7 +32,7 @@ class Filters
      * Apply filters
      *
      *  <code>
-     *      Filtes::apply('content', $content);
+     *      Filters::apply('content', $content);
      *  </code>
      *
      * @access  public

@@ -42,12 +42,13 @@ class Pages
      */
     protected function __construct()
     {
-        // Get page for current requested url
-        static::$current_page = static::getPage(Url::getUriString());
-
-        // Load template
+        // Run actions before page rendered
         Actions::run('before_page_rendered');
-        static::loadPageTemplate(static::$current_page);
+
+        // Get page for current requested url
+        static::loadPageTemplate(static::$current_page = static::getPage(Url::getUriString()));
+
+        // Run actions after page rendered
         Actions::run('after_page_rendered');
     }
 
@@ -192,7 +193,7 @@ class Pages
     }
 
     /**
-     * Load Page template
+     * Load Page Template
      *
      *  <code>
      *      Pages::loadPageTemplate($page);
