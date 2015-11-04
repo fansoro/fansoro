@@ -85,7 +85,16 @@ class Pages
                 $url = rtrim($url, '/');
                 $_pages[$key]['url'] = $url;
 
-                $_content = static::parseContent($_page[2]);
+                $_content = $_page[2];
+
+                // Parse page for summary <!--more-->
+                if (($pos = strpos($_content, "<!--more-->")) === false) {
+                    $_content = Filters::apply('content', $_content);
+                } else {
+                    $_content = explode("<!--more-->", $_content);
+                    $_content['summary']  = Filters::apply('content', $_content[0]);
+                    $_content['content']  = Filters::apply('content', $_content[0].$_content[1]);
+                }
 
                 if (is_array($_content)) {
                     $_pages[$key]['summary'] = $_content['summary'];
@@ -154,7 +163,16 @@ class Pages
         $url = rtrim($url, '/');
         $page['url'] = $url;
 
-        $_content = static::parseContent($_page[2]);
+        $_content = $_page[2];
+
+        // Parse page for summary <!--more-->
+        if (($pos = strpos($_content, "<!--more-->")) === false) {
+            $_content = Filters::apply('content', $_content);
+        } else {
+            $_content = explode("<!--more-->", $_content);
+            $_content['summary']  = Filters::apply('content', $_content[0]);
+            $_content['content']  = Filters::apply('content', $_content[0].$_content[1]);
+        }
 
         if (is_array($_content)) {
             $page['summary'] = $_content['summary'];
@@ -171,27 +189,6 @@ class Pages
         empty($page['description']) and $page['description'] = Config::get('site.description');
 
         return $page;
-    }
-
-    /**
-     * Content Parser
-     *
-     * @param  string $content Content to parse
-     * @return string $content Formatted content
-     */
-    public static function parseContent($content)
-    {
-        // Parse page for summary <!--more-->
-        if (($pos = strpos($content, "<!--more-->")) === false) {
-            $content = Filters::apply('content', $content);
-        } else {
-            $content = explode("<!--more-->", $content);
-            $content['summary']  = Filters::apply('content', $content[0]);
-            $content['content']  = Filters::apply('content', $content[0].$content[1]);
-        }
-
-        // Return content
-        return $content;
     }
 
     /**
