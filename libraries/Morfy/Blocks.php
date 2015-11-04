@@ -28,7 +28,7 @@ class Blocks
             return Cache::driver()->fetch('block.'.$name);
         } else {
             if (File::exists($block_path = BLOCKS_PATH . '/' . $name . '.md')) {
-                $block = Pages::parseContent(file_get_contents($block_path));
+                $block = Markdown::parse(file_get_contents($block_path));
                 Cache::driver()->save('block.'.$name, $block);
                 return $block;
             } else {

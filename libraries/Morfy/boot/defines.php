@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Morfy.
+ *
+ * (c) Romanenko Sergey / Awilum <awilum@msn.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 // Define the path to the root directory (without trailing slash).
 define('ROOT_DIR', str_replace(DIRECTORY_SEPARATOR, '/', getcwd()));
 

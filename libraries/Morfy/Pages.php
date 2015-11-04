@@ -19,13 +19,6 @@ class Pages
     protected static $instance = null;
 
     /**
-     * Parsedown Extra
-     *
-     * @var object
-     */
-    public static $parsedown_extra;
-
-    /**
      * Current page.
      *
      * @var array
@@ -181,26 +174,6 @@ class Pages
     }
 
     /**
-     * Parsedown
-     *
-     *  <code>
-     *      $content = Pages::parsedown($content);
-     *  </code>
-     *
-     * @access  public
-     * @param  string $content Content to parse
-     * @return string Formatted content
-     */
-    public static function parsedown($content)
-    {
-        if (!static::$parsedown_extra) {
-            static::$parsedown_extra = new ParsedownExtra();
-        }
-
-        return static::$parsedown_extra->text($content);
-    }
-
-    /**
      * Content Parser
      *
      * @param  string $content Content to parse
@@ -208,28 +181,6 @@ class Pages
      */
     public static function parseContent($content)
     {
-        // Add {site_url} shortcode
-        Shortcode::add('site_url', function () {
-            return Url::getBase();
-        });
-
-        // Add {block name=block-name} shortcode
-        Shortcode::add('block', function ($attributes) {
-            if (isset($attributes['name'])) {
-                if (File::exists($block_file = BLOCKS_PATH . '/' . $attributes['name'] . '.md')) {
-                    return file_get_contents($block_file);
-                } else {
-                    return 'Block ' . $attributes['name'] . ' is not found!';
-                }
-            }
-        });
-
-        // Parse Shortcodes
-        $content = Shortcode::parse($content);
-
-        // Parsedown
-        $content = static::parsedown($content);
-
         // Parse page for summary <!--more-->
         if (($pos = strpos($content, "<!--more-->")) === false) {
             $content = Filters::apply('content', $content);
