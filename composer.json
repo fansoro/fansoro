@@ -34,7 +34,10 @@
             "libraries/Morfy/"
         ],
         "files": [
-            "libraries/Morfy/boot/defines.php"
+            "libraries/Morfy/boot/defines.php",
+            "libraries/Morfy/boot/shortcodes.php",
+            "libraries/Morfy/boot/filters.php",
+            "libraries/Morfy/boot/actions.php"
         ]
     }
 }
