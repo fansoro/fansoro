@@ -37,7 +37,15 @@ class Plugins
     {
         if (is_array(Config::get('system.plugins')) && count(Config::get('system.plugins')) > 0) {
             foreach (Config::get('system.plugins') as $plugin) {
-                Config::set('plugins.'.$plugin, Spyc::YAMLLoad(file_get_contents(PLUGINS_PATH .'/'. $plugin . '/' . $plugin.'.yml')));
+                if (Cache::driver()->contains('plugin.'.$plugin)) {
+                    $plugin_manifest = Cache::driver()->fetch('plugin.'.$plugin);
+                } else {
+                    $plugin_manifest = Spyc::YAMLLoad(file_get_contents(PLUGINS_PATH .'/'. $plugin . '/' . $plugin.'.yml'));
+                    Cache::driver()->save('plugin.'.$plugin, $plugin_manifest);
+                }
+
+                Config::set('plugins.'.$plugin, $plugin_manifest);
+
                 if (Config::get('plugins.'.$plugin.'.enabled')) {
                     include_once PLUGINS_PATH .'/'. $plugin .'/'. $plugin . '.php';
                 }
