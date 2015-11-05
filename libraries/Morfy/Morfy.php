@@ -67,6 +67,9 @@ class Morfy
         // Init Cache
         Cache::init();
 
+        // Init Template
+        Template::init();
+
         // Sanitize URL to prevent XSS - Cross-site scripting
         Url::runSanitizeURL();
 

@@ -205,28 +205,8 @@ class Pages
      */
     public static function loadPageTemplate($page)
     {
-        // Create fenom cache directory if its not exists
-        if (!Dir::exists(CACHE_PATH . '/fenom/')) {
-            Dir::create(CACHE_PATH . '/fenom/');
-        }
-
-        $fenom = Fenom::factory(
-            THEMES_PATH . '/' . Config::get('system.theme') . '/',
-            CACHE_PATH . '/fenom/',
-            Config::get('system.fenom')
-        );
-
-        if (File::exists($theme_config_path = THEMES_PATH . '/' . Config::get('system.theme') . '/'. Config::get('system.theme') .'.yml')) {
-            Config::set('theme', Spyc::YAMLLoad(file_get_contents($theme_config_path)));
-        }
-
-        // Do global tag {$.config} for the template
-        $fenom->addAccessorSmart('config', 'config', Fenom::ACCESSOR_PROPERTY);
-        $fenom->config = Config::$config;
-
-        // Display page
         try {
-            $fenom->display(((!empty($page['template'])) ? $page['template'] : 'index') . '.tpl', $page);
+            Template::fenom()->display(((!empty($page['template'])) ? $page['template'] : 'index') . '.tpl', $page);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
