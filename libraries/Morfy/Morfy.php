@@ -75,8 +75,6 @@ class Morfy
 
         // Init Pages
         Pages::init();
-
-        print_r(Config::$config);
     }
 
     /**
