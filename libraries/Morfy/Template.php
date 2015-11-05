@@ -37,7 +37,7 @@ class Template
         // Create fenom cache directory if its not exists
         !Dir::exists(CACHE_PATH . '/fenom/') and Dir::create(CACHE_PATH . '/fenom/');
 
-        $fenom = Fenom::factory(THEMES_PATH . '/' . Config::get('system.theme') . '/',
+        $fenom = FenomExtended::factory(THEMES_PATH . '/' . Config::get('system.theme') . '/',
                                 CACHE_PATH . '/fenom/',
                                 Config::get('system.fenom'));
 
@@ -71,4 +71,9 @@ class Template
         }
         return self::$instance;
     }
+}
+
+class FenomExtended extends \Fenom
+{
+    use \Fenom\StorageTrait;
 }
