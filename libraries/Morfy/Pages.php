@@ -15,6 +15,7 @@ class Pages
      * An instance of the Pages class
      *
      * @var object
+     * @access  protected
      */
     protected static $instance = null;
 
@@ -22,8 +23,9 @@ class Pages
      * Current page.
      *
      * @var array
+     * @access  protected
      */
-    public static $current_page;
+    protected static $current_page;
 
     /**
      * Protected clone method to enforce singleton behavior.
@@ -190,6 +192,20 @@ class Pages
         empty($page['description']) and $page['description'] = Config::get('site.description');
 
         return $page;
+    }
+
+    /**
+     * Get Current Page
+     *
+     *  <code>
+     *      $page = Pages::getCurrentPage();
+     *  </code>
+     *
+     * @return array
+     */
+    public static function getCurrentPage()
+    {
+        return static::$current_page;
     }
 
     /**
