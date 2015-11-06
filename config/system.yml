@@ -1,11 +1,9 @@
 # System Configuration
 
-timezone: ''
+timezone: 'Europe/Helsinki'
 charset: 'UTF-8'
 
 theme: 'default'
-
-plugins:
 
 fenom:
   disable_methods: false
