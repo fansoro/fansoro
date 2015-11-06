@@ -42,7 +42,7 @@ class Template
                                 Config::get('system.fenom'));
 
         $fenom->addAccessorSmart('config', 'config', Fenom::ACCESSOR_PROPERTY);
-        $fenom->config = Config::$config;
+        $fenom->config = Config::getConfig();
 
         static::$fenom = $fenom;
     }

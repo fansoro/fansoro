@@ -15,6 +15,7 @@ class Config
      * An instance of the Plugins class
      *
      * @var object
+     * @access  protected
      */
     protected static $instance = null;
 
@@ -22,15 +23,17 @@ class Config
      * Config
      *
      * @var array
+     * @access  protected
      */
-    public static $config = array();
+    protected static $config = array();
 
     /**
      * Config Paths
      *
      * @var array
+     * @access  protected
      */
-    public static $config_paths = array('config', 'themes', 'plugins');
+    protected static $config_paths = array('config', 'themes', 'plugins');
 
     /**
      * Protected clone method to enforce singleton behavior.
@@ -49,21 +52,21 @@ class Config
      */
     protected function __construct()
     {
-        foreach (Config::$config_paths as $config_path) {
+        foreach (static::$config_paths as $config_path) {
             $config_list[$config_path] = File::scan(ROOT_DIR . '/' . $config_path, 'yml');
         }
 
         foreach ($config_list['config'] as $config) {
-            Config::$config[File::name($config)] = Spyc::YAMLLoad(file_get_contents($config));
+            static::$config[File::name($config)] = Spyc::YAMLLoad(file_get_contents($config));
         }
 
         foreach ($config_list['plugins'] as $config) {
-            Config::$config['plugins'][File::name($config)] = Spyc::YAMLLoad(file_get_contents($config));
+            static::$config['plugins'][File::name($config)] = Spyc::YAMLLoad(file_get_contents($config));
         }
 
         foreach ($config_list['themes'] as $config) {
-            if (File::name($config) == Config::$config['system']['theme']) {
-                Config::$config['theme'] = Spyc::YAMLLoad(file_get_contents($config));
+            if (File::name($config) == static::$config['system']['theme']) {
+                static::$config['theme'] = Spyc::YAMLLoad(file_get_contents($config));
             }
         }
     }
@@ -94,10 +97,26 @@ class Config
      *
      * @access  public
      * @param  string $key Key
+     * @return mixed
      */
     public static function get($key)
     {
         return Arr::get(static::$config, $key);
+    }
+
+    /**
+     * Get config array
+     *
+     *  <code>
+     *      $config = Config::getConfig();
+     *  </code>
+     *
+     * @access  public
+     * @return array
+     */
+    public static function getConfig()
+    {
+        return static::$config;
     }
 
     /**

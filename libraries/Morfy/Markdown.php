@@ -15,8 +15,9 @@ class Markdown
      * Parsedown Extra Object
      *
      * @var object
+     * @access  protected
      */
-    public static $markdown;
+    protected static $markdown;
 
     /**
      * Markdown parser
