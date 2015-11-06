@@ -15,6 +15,7 @@ class Plugins
      * An instance of the Plugins class
      *
      * @var object
+     * @access protected
      */
     protected static $instance = null;
 

@@ -17,6 +17,7 @@ class Morfy
      * An instance of the Morfy class
      *
      * @var object
+     * @access protected
      */
     protected static $instance = null;
 

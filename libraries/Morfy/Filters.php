@@ -15,6 +15,7 @@ class Filters
      * Filters
      *
      * @var array
+     * @access public
      */
     public static $filters = array();
 
