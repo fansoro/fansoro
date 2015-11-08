@@ -36,8 +36,25 @@ class Plugins
      */
     protected function __construct()
     {
-        if (is_array(Config::get('system.plugins')) && count(Config::get('system.plugins')) > 0) {
-            foreach (Config::get('system.plugins') as $plugin) {
+        // Create Unique Cache ID for Plugins
+        $plugins_cache_id = md5('plugins' . ROOT_DIR . filemtime(PLUGINS_PATH));
+
+        if (Cache::driver()->contains($plugins_cache_id)) {
+            Config::set('plugins', Cache::driver()->fetch($plugins_cache_id));
+        } else {
+            $plugins_list = File::scan(PLUGINS_PATH, 'yml');
+
+            foreach ($plugins_list as $plugin_config) {
+                $_plugins_config[File::name($plugin_config)] = Spyc::YAMLLoad(file_get_contents($plugin_config));
+            }
+
+            Config::set('plugins', $_plugins_config);
+
+            Cache::driver()->save($plugins_cache_id, $_plugins_config);
+        }
+
+        if (is_array(Config::get('plugins')) && count(Config::get('plugins')) > 0) {
+            foreach (Config::get('plugins') as $plugin) {
                 if (Config::get('plugins.'.$plugin.'.enabled')) {
                     include_once PLUGINS_PATH .'/'. $plugin .'/'. $plugin . '.php';
                 }

@@ -28,14 +28,6 @@ class Config
     protected static $config = array();
 
     /**
-     * Config Paths
-     *
-     * @var array
-     * @access  protected
-     */
-    protected static $config_paths = array('config', 'themes', 'plugins');
-
-    /**
      * Protected clone method to enforce singleton behavior.
      *
      * @access  protected
@@ -52,23 +44,8 @@ class Config
      */
     protected function __construct()
     {
-        foreach (static::$config_paths as $config_path) {
-            $config_list[$config_path] = File::scan(ROOT_DIR . '/' . $config_path, 'yml');
-        }
-
-        foreach ($config_list['config'] as $config) {
-            static::$config[File::name($config)] = Spyc::YAMLLoad(file_get_contents($config));
-        }
-
-        foreach ($config_list['plugins'] as $config) {
-            static::$config['plugins'][File::name($config)] = Spyc::YAMLLoad(file_get_contents($config));
-        }
-
-        foreach ($config_list['themes'] as $config) {
-            if (File::name($config) == static::$config['system']['theme']) {
-                static::$config['theme'] = Spyc::YAMLLoad(file_get_contents($config));
-            }
-        }
+        static::$config['site'] = Spyc::YAMLLoad(file_get_contents(CONFIG_PATH . '/' . 'site.yml'));
+        static::$config['system'] = Spyc::YAMLLoad(file_get_contents(CONFIG_PATH . '/' . 'system.yml'));
     }
 
     /**

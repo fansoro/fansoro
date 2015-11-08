@@ -37,6 +37,18 @@ class Template
         // Create fenom cache directory if its not exists
         !Dir::exists(CACHE_PATH . '/fenom/') and Dir::create(CACHE_PATH . '/fenom/');
 
+        // Create Unique Cache ID for Theme
+        $theme_config_file = THEMES_PATH . '/' . Config::get('system.theme') . '/' . Config::get('system.theme') . '.yml';
+        $theme_cache_id = md5('theme' . ROOT_DIR . filemtime($theme_config_file));
+
+        if (Cache::driver()->contains($theme_cache_id)) {
+            Config::set('theme', Cache::driver()->fetch($theme_cache_id));
+        } else {
+            $theme_config = Spyc::YAMLLoad(file_get_contents($theme_config_file));
+            Config::set('theme', $theme_config);
+            Cache::driver()->save($theme_cache_id, $theme_config);
+        }
+
         $fenom = FenomExtended::factory(THEMES_PATH . '/' . Config::get('system.theme') . '/',
                                 CACHE_PATH . '/fenom/',
                                 Config::get('system.fenom'));
