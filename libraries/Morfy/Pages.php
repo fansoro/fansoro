@@ -235,9 +235,6 @@ class Pages
      */
     public static function init()
     {
-        if (! isset(self::$instance)) {
-            self::$instance = new Pages();
-        }
-        return self::$instance;
+        return !isset(self::$instance) and self::$instance = new Pages();
     }
 }

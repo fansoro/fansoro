@@ -41,6 +41,7 @@ class Template
         $theme_config_file = THEMES_PATH . '/' . Config::get('system.theme') . '/' . Config::get('system.theme') . '.yml';
         $theme_cache_id = md5('theme' . ROOT_DIR . filemtime($theme_config_file));
 
+        // Set current them options
         if (Cache::driver()->contains($theme_cache_id)) {
             Config::set('theme', Cache::driver()->fetch($theme_cache_id));
         } else {
@@ -49,10 +50,12 @@ class Template
             Cache::driver()->save($theme_cache_id, $theme_config);
         }
 
+        // Create Fenom object
         $fenom = FenomExtended::factory(THEMES_PATH . '/' . Config::get('system.theme') . '/',
                                 CACHE_PATH . '/fenom/',
                                 Config::get('system.fenom'));
 
+        // Add {$.config} for templates
         $fenom->addAccessorSmart('config', 'config', Fenom::ACCESSOR_PROPERTY);
         $fenom->config = Config::getConfig();
 
@@ -78,10 +81,7 @@ class Template
      */
     public static function init()
     {
-        if (! isset(self::$instance)) {
-            self::$instance = new Template();
-        }
-        return self::$instance;
+        return !isset(self::$instance) and self::$instance = new Template();
     }
 }
 

@@ -39,6 +39,7 @@ class Plugins
         // Create Unique Cache ID for Plugins
         $plugins_cache_id = md5('plugins' . ROOT_DIR . filemtime(PLUGINS_PATH));
 
+        // Get plugins list from cache or scan plugins folder and create new plugins cache item
         if (Cache::driver()->contains($plugins_cache_id)) {
             Config::set('plugins', Cache::driver()->fetch($plugins_cache_id));
         } else {
@@ -53,6 +54,7 @@ class Plugins
             Cache::driver()->save($plugins_cache_id, $_plugins_config);
         }
 
+        // Include enabled plugins
         if (is_array(Config::get('plugins')) && count(Config::get('plugins')) > 0) {
             foreach (Config::get('plugins') as $plugin) {
                 if (Config::get('plugins.'.$plugin.'.enabled')) {
@@ -60,6 +62,8 @@ class Plugins
                 }
             }
         }
+
+        // Run Actions on plugins_loaded
         Actions::run('plugins_loaded');
     }
 

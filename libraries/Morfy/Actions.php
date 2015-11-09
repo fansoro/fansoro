@@ -16,7 +16,7 @@ class Actions
      *
      * @var array
      */
-    public static $actions = array();
+    protected static $actions = array();
 
     /**
      * Protected constructor since this is a static class.

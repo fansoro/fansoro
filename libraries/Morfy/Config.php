@@ -44,7 +44,7 @@ class Config
      */
     protected function __construct()
     {
-        static::$config['site'] = Yaml::parseFile(CONFIG_PATH . '/' . 'site.yml');
+        static::$config['site']   = Yaml::parseFile(CONFIG_PATH . '/' . 'site.yml');
         static::$config['system'] = Yaml::parseFile(CONFIG_PATH . '/' . 'system.yml');
     }
 
@@ -107,9 +107,6 @@ class Config
      */
     public static function init()
     {
-        if (! isset(self::$instance)) {
-            self::$instance = new Config();
-        }
-        return self::$instance;
+        return !isset(self::$instance) and self::$instance = new Config();
     }
 }

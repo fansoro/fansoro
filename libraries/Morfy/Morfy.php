@@ -93,9 +93,6 @@ class Morfy
      */
     public static function init()
     {
-        if (! isset(self::$instance)) {
-            self::$instance = new Morfy();
-        }
-        return self::$instance;
+        return !isset(self::$instance) and self::$instance = new Morfy();
     }
 }

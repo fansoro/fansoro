@@ -32,9 +32,7 @@ class Markdown
      */
     public static function parse($content)
     {
-        if (!static::$markdown) {
-            static::$markdown = new ParsedownExtra();
-        }
+        !static::$markdown and static::$markdown = new ParsedownExtra();
 
         return static::$markdown->text($content);
     }

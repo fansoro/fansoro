@@ -235,9 +235,6 @@ class Cache
      */
     public static function init()
     {
-        if (! isset(self::$instance)) {
-            self::$instance = new Cache();
-        }
-        return self::$instance;
+        return !isset(self::$instance) and self::$instance = new Cache();
     }
 }
