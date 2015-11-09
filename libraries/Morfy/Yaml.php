@@ -14,6 +14,11 @@ class Yaml
     /**
      * Parses YAML to array.
      *
+     *  <code>
+     *      $array = Yaml::parseFile('file.yml');
+     *  </code>
+     *
+     * @access  public
      * @param string $file Path to YAML file.
      * @return array
      */
@@ -25,6 +30,10 @@ class Yaml
     /**
      * Parses YAML to array.
      *
+     *  <code>
+     *      $array = Yaml::parse('title: My title');
+     *  </code>
+     *
      * @param string $string YAML string.
      * @return array
      */
@@ -35,6 +44,10 @@ class Yaml
 
     /**
      * Dumps array to YAML.
+     *
+     *  <code>
+     *      $yaml = Yaml::dump($data);
+     *  </code>
      *
      * @param array $data Array.
      * @return string

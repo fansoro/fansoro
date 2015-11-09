@@ -64,6 +64,13 @@ class Template
 
     /**
      * Get Fenom Object
+     *
+     *  <code>
+     *      Template::fenom()->display('template.tpl');
+     *  </code>
+     *
+     * @access  public
+     * @return object
      */
     public static function fenom()
     {
