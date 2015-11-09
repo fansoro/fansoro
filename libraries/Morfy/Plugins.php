@@ -45,7 +45,7 @@ class Plugins
             $plugins_list = File::scan(PLUGINS_PATH, 'yml');
 
             foreach ($plugins_list as $plugin_config) {
-                $_plugins_config[File::name($plugin_config)] = Spyc::YAMLLoad(file_get_contents($plugin_config));
+                $_plugins_config[File::name($plugin_config)] = Yaml::parseFile($plugin_config);
             }
 
             Config::set('plugins', $_plugins_config);

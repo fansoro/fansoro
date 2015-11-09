@@ -44,8 +44,8 @@ class Config
      */
     protected function __construct()
     {
-        static::$config['site'] = Spyc::YAMLLoad(file_get_contents(CONFIG_PATH . '/' . 'site.yml'));
-        static::$config['system'] = Spyc::YAMLLoad(file_get_contents(CONFIG_PATH . '/' . 'system.yml'));
+        static::$config['site'] = Yaml::parseFile(CONFIG_PATH . '/' . 'site.yml');
+        static::$config['system'] = Yaml::parseFile(CONFIG_PATH . '/' . 'system.yml');
     }
 
     /**

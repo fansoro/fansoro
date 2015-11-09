@@ -79,7 +79,7 @@ class Pages
 
                 $_page = explode('---', $content, 3);
 
-                $_pages[$key] = Spyc::YAMLLoad($_page[1]);
+                $_pages[$key] = Yaml::parse($_page[1]);
 
                 $url = str_replace(PAGES_PATH, Url::getBase(), $page);
                 $url = str_replace('index.md', '', $url);
@@ -157,7 +157,7 @@ class Pages
 
         $_page = explode('---', $content, 3);
 
-        $page = Spyc::YAMLLoad($_page[1]);
+        $page = Yaml::parse($_page[1]);
 
         $url = str_replace(PAGES_PATH, Url::getBase(), $file);
         $url = str_replace('index.md', '', $url);

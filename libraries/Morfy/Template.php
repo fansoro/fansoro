@@ -44,7 +44,7 @@ class Template
         if (Cache::driver()->contains($theme_cache_id)) {
             Config::set('theme', Cache::driver()->fetch($theme_cache_id));
         } else {
-            $theme_config = Spyc::YAMLLoad(file_get_contents($theme_config_file));
+            $theme_config = Yaml::parseFile($theme_config_file);
             Config::set('theme', $theme_config);
             Cache::driver()->save($theme_cache_id, $theme_config);
         }
