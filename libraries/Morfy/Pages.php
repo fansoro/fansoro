@@ -134,20 +134,21 @@ class Pages
     public static function getPage($url)
     {
 
-        // Get the file path
+        // If url is empty that its a homepage
         if ($url) {
             $file = PAGES_PATH . '/' . $url;
         } else {
             $file = PAGES_PATH . '/' .'index';
         }
 
-        // Load the file
+        // Select the file
         if (is_dir($file)) {
             $file = PAGES_PATH . '/' . $url .'/index.md';
         } else {
             $file .= '.md';
         }
 
+        // Get the file
         if (file_exists($file)) {
             $content = file_get_contents($file);
         } else {
@@ -159,12 +160,7 @@ class Pages
 
         $page = Yaml::parse($_page[1]);
 
-        $url = str_replace(PAGES_PATH, Url::getBase(), $file);
-        $url = str_replace('index.md', '', $url);
-        $url = str_replace('.md', '', $url);
-        $url = str_replace('\\', '/', $url);
-        $url = rtrim($url, '/');
-        $page['url'] = $url;
+        $page['url'] = Url::getCurrent();
 
         $_content = $_page[2];
 
