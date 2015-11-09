@@ -15,6 +15,7 @@ class Actions
      * Actions
      *
      * @var array
+     * @access protected
      */
     protected static $actions = array();
 
