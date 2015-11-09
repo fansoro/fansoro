@@ -64,16 +64,16 @@ class Cache
     protected function __construct()
     {
         // Set current time
-        Cache::$now = time();
+        static::$now = time();
 
         // Cache key allows us to invalidate all cache on configuration changes.
-        Cache::$key = (Config::get('system.cache.prefix') ? Config::get('system.cache.prefix') : 'morfy') . '-' . md5(ROOT_PATH . VERSION);
+        static::$key = (Config::get('system.cache.prefix') ? Config::get('system.cache.prefix') : 'morfy') . '-' . md5(ROOT_PATH . VERSION);
 
         // Get Cache Driver
-        Cache::$driver = Cache::getCacheDriver();
+        static::$driver = static::getCacheDriver();
 
         // Set the cache namespace to our unique key
-        Cache::$driver->setNamespace(Cache::$key);
+        static::$driver->setNamespace(static::$key);
     }
 
     /**
@@ -140,7 +140,7 @@ class Cache
      */
     public static function driver()
     {
-        return Cache::$driver;
+        return static::$driver;
     }
 
     /**
@@ -151,7 +151,7 @@ class Cache
      */
     public static function getKey()
     {
-        return Cache::$key;
+        return static::$key;
     }
 
     /**
@@ -164,7 +164,7 @@ class Cache
     public function fetch($id)
     {
         if (Config::get('system.cache.enabled')) {
-            return Cache::$driver->fetch($id);
+            return static::$driver->fetch($id);
         } else {
             return false;
         }
@@ -184,9 +184,9 @@ class Cache
     {
         if (Config::get('system.cache.enabled')) {
             if ($lifetime === null) {
-                $lifetime = Cache::getLifetime();
+                $lifetime = static::getLifetime();
             }
-            Cache::$driver->save($id, $data, $lifetime);
+            static::$driver->save($id, $data, $lifetime);
         }
     }
 
@@ -204,8 +204,8 @@ class Cache
 
         $interval = $future - $this->now;
 
-        if ($interval > 0 && $interval < Cache::getLifetime()) {
-            Cache::$lifetime = $interval;
+        if ($interval > 0 && $interval < static::getLifetime()) {
+            static::$lifetime = $interval;
         }
     }
 
@@ -217,10 +217,10 @@ class Cache
      */
     public static function getLifetime()
     {
-        if (Cache::$lifetime === null) {
-            Cache::$lifetime = Config::get('system.cache.lifetime') ?: 604800;
+        if (static::$lifetime === null) {
+            static::$lifetime = Config::get('system.cache.lifetime') ?: 604800;
         }
-        return Cache::$lifetime;
+        return static::$lifetime;
     }
 
     /**
