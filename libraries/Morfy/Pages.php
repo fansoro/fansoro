@@ -133,7 +133,8 @@ class Pages
      */
     public static function getPage($url)
     {
-        $content = Pages::getRawPage($url);
+        $page = static::requestedPage($url);
+        $content = static::getRawPage($page);
 
         $_page = explode('---', $content, 3);
 
@@ -174,6 +175,25 @@ class Pages
         return $page;
     }
 
+    public static function requestedPage($url)
+    {
+        // Get the file path
+        if ($url) {
+            $page_file = PAGES_PATH . '/' . $url;
+        } else {
+            $page_file = PAGES_PATH . '/' .'index';
+        }
+
+        // Load the file
+        if (is_dir($page_file)) {
+            $page_file = PAGES_PATH . '/' . $url .'/index.md';
+        } else {
+            $page_file .= '.md';
+        }
+
+        return $page_file;
+    }
+
     /**
      * Get Raw Page
      *
@@ -185,24 +205,10 @@ class Pages
      * @param  string $url Url
      * @return array
      */
-    public static function getRawPage($url)
+    public static function getRawPage($page_path)
     {
-        // Get the file path
-        if ($url) {
-            $file = PAGES_PATH . '/' . $url;
-        } else {
-            $file = PAGES_PATH . '/' .'index';
-        }
-
-        // Load the file
-        if (is_dir($file)) {
-            $file = PAGES_PATH . '/' . $url .'/index.md';
-        } else {
-            $file .= '.md';
-        }
-
-        if (File::exists($file)) {
-            $content = file_get_contents($file);
+        if (File::exists($page_path)) {
+            $content = file_get_contents($page_path);
         } else {
             $content = file_get_contents(PAGES_PATH . '/' . '404.md');
             Response::status(404);
