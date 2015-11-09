@@ -133,27 +133,7 @@ class Pages
      */
     public static function getPage($url)
     {
-
-        // Get the file path
-        if ($url) {
-            $file = PAGES_PATH . '/' . $url;
-        } else {
-            $file = PAGES_PATH . '/' .'index';
-        }
-
-        // Load the file
-        if (is_dir($file)) {
-            $file = PAGES_PATH . '/' . $url .'/index.md';
-        } else {
-            $file .= '.md';
-        }
-
-        if (file_exists($file)) {
-            $content = file_get_contents($file);
-        } else {
-            $content = file_get_contents(PAGES_PATH . '/' . '404.md');
-            Response::status(404);
-        }
+        $content = Pages::getRawPage($url);
 
         $_page = explode('---', $content, 3);
 
@@ -193,6 +173,44 @@ class Pages
 
         return $page;
     }
+
+    /**
+     * Get Raw Page
+     *
+     *  <code>
+     *      $page = Pages::getRawPage('downloads');
+     *  </code>
+     *
+     * @access  public
+     * @param  string $url Url
+     * @return array
+     */
+    public static function getRawPage($url)
+    {
+        // Get the file path
+        if ($url) {
+            $file = PAGES_PATH . '/' . $url;
+        } else {
+            $file = PAGES_PATH . '/' .'index';
+        }
+
+        // Load the file
+        if (is_dir($file)) {
+            $file = PAGES_PATH . '/' . $url .'/index.md';
+        } else {
+            $file .= '.md';
+        }
+
+        if (File::exists($file)) {
+            $content = file_get_contents($file);
+        } else {
+            $content = file_get_contents(PAGES_PATH . '/' . '404.md');
+            Response::status(404);
+        }
+
+        return $content;
+    }
+
 
     /**
      * Get Current Page
