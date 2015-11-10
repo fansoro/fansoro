@@ -160,7 +160,12 @@ class Pages
 
         $page = Yaml::parse($_page[1]);
 
-        $page['url'] = Url::getCurrent();
+        $url = str_replace(PAGES_PATH, Url::getBase(), $file);
+        $url = str_replace('index.md', '', $url);
+        $url = str_replace('.md', '', $url);
+        $url = str_replace('\\', '/', $url);
+        $url = rtrim($url, '/');
+        $page['url'] = $url;
 
         $_content = $_page[2];
 
