@@ -1,7 +1,7 @@
 {
     "name": "morfy-cms/morfy",
     "type": "library",
-    "description": "Morfy is an Open Source, fast and light-weighted file-based Content Management System.",
+    "description": "Morfy is Modern Open Source Flat-File Content Management System",
     "keywords": ["morfy", "php", "cms", "flat-file", "markdown"],
     "homepage": "http://morfy.org",
     "license": "MIT",
