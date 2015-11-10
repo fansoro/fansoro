@@ -32,7 +32,7 @@ class Blocks
             if (Cache::driver()->contains($block_cache_id)) {
                 return Cache::driver()->fetch($block_cache_id);
             } else {
-                Cache::driver()->save($block_cache_id, $block = Filters::apply('content', file_get_contents($block_path)));
+                Cache::driver()->save($block_cache_id, $block = Filter::apply('content', file_get_contents($block_path)));
                 return $block;
             }
         } else {

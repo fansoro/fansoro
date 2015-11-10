@@ -45,13 +45,13 @@ class Pages
     protected function __construct()
     {
         // Run actions before page rendered
-        Actions::run('before_page_rendered');
+        Action::run('before_page_rendered');
 
         // Get page for current requested url
         static::loadPageTemplate(static::$current_page = static::getPage(Url::getUriString()));
 
         // Run actions after page rendered
-        Actions::run('after_page_rendered');
+        Action::run('after_page_rendered');
     }
 
     /**
@@ -92,11 +92,11 @@ class Pages
 
                 // Parse page for summary <!--more-->
                 if (($pos = strpos($_content, "<!--more-->")) === false) {
-                    $_content = Filters::apply('content', $_content);
+                    $_content = Filter::apply('content', $_content);
                 } else {
                     $_content = explode("<!--more-->", $_content);
-                    $_content['summary']  = Filters::apply('content', $_content[0]);
-                    $_content['content']  = Filters::apply('content', $_content[0].$_content[1]);
+                    $_content['summary']  = Filter::apply('content', $_content[0]);
+                    $_content['content']  = Filter::apply('content', $_content[0].$_content[1]);
                 }
 
                 if (is_array($_content)) {
@@ -166,11 +166,11 @@ class Pages
 
         // Parse page for summary <!--more-->
         if (($pos = strpos($_content, "<!--more-->")) === false) {
-            $_content = Filters::apply('content', $_content);
+            $_content = Filter::apply('content', $_content);
         } else {
             $_content = explode("<!--more-->", $_content);
-            $_content['summary']  = Filters::apply('content', $_content[0]);
-            $_content['content']  = Filters::apply('content', $_content[0].$_content[1]);
+            $_content['summary']  = Filter::apply('content', $_content[0]);
+            $_content['content']  = Filter::apply('content', $_content[0].$_content[1]);
         }
 
         if (is_array($_content)) {

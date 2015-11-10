@@ -10,7 +10,7 @@
  */
 
 // Add Shortcode parser filter
-Filters::add('content', 'Shortcode::parse', 1);
+Filter::add('content', 'Shortcode::parse', 1);
 
 // Add Parsedown parser filter
-Filters::add('content', 'Markdown::parse', 2);
+Filter::add('content', 'Markdown::parse', 2);

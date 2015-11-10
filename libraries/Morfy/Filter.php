@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-class Filters
+class Filter
 {
     /**
      * Filters
@@ -33,7 +33,7 @@ class Filters
      * Apply filters
      *
      *  <code>
-     *      Filters::apply('content', $content);
+     *      Filter::apply('content', $content);
      *  </code>
      *
      * @access  public
@@ -79,7 +79,7 @@ class Filters
      * Add filter
      *
      *  <code>
-     *      Filters::add('content', 'replacer');
+     *      Filter::add('content', 'replacer');
      *
      *      function replacer($content) {
      *          return preg_replace(array('/\[b\](.*?)\[\/b\]/ms'), array('<strong>\1</strong>'), $content);

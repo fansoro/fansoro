@@ -64,7 +64,7 @@ class Plugins
         }
 
         // Run Actions on plugins_loaded
-        Actions::run('plugins_loaded');
+        Action::run('plugins_loaded');
     }
 
     /**

@@ -10,6 +10,6 @@
  */
 
 // Set Morfy Meta Generator
-Actions::add('theme_meta', function () {
+Action::add('theme_meta', function () {
     echo('<meta name="generator" content="Powered by Morfy" />');
 });

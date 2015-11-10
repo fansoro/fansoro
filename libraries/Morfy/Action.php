@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-class Actions
+class Action
 {
     /**
      * Actions
@@ -34,7 +34,7 @@ class Actions
      *
      *  <code>
      *      // Hooks a function "newLink" on to a "footer" action.
-     *      Actions::add('footer', 'newLink', 10);
+     *      Action::add('footer', 'newLink', 10);
      *
      *      function newLink() {
      *          echo '<a href="#">My link</a>';
@@ -63,7 +63,7 @@ class Actions
      *
      *  <code>
      *      // Run functions hooked on a "footer" action hook.
-     *      Actions::run('footer');
+     *      Action::run('footer');
      *  </code>
      *
      * @access public
