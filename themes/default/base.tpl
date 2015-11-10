@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="{$description}>">
 
-		{Actions::run('theme_meta')}
+		{Action::run('theme_meta')}
 
 		<link rel="shortcut icon" href="{$.config.site.url}/favicon.ico">
 
@@ -15,15 +15,15 @@
 		{* Bootstrap core CSS *}
 		<link href="{Url::getBase()}/themes/{$.config.system.theme}/assets/css/bootstrap.min.css" rel="stylesheet">
 		<link href="{Url::getBase()}/themes/{$.config.system.theme}/assets/css/theme.css" rel="stylesheet">
-		{Actions::run('theme_header')}
+		{Action::run('theme_header')}
 
 	</head>
 	<body>
 		<div id="wrap">
 			{include 'navbar.tpl'}
-			{Actions::run('theme_content_before')}
+			{Action::run('theme_content_before')}
 			{block 'content'}{/block}
-			{Actions::run('theme_content_after')}
+			{Action::run('theme_content_after')}
 		</div>
 		<div id="footer">
 			<div class="container">
@@ -34,6 +34,6 @@
 		{* Placed at the end of the document so the pages load faster *}
 		<script src="{Url::getBase()}/themes/{$.config.site.theme}/assets/js/jquery.min.js"></script>
 		<script src="{Url::getBase()}/themes/{$.config.site.theme}/assets/js/bootstrap.min.js"></script>
-		{Actions::run('theme_footer')}
+		{Action::run('theme_footer')}
 	</body>
 </html>
