@@ -58,12 +58,7 @@ class Morfy
         function_exists('mb_internal_encoding') and mb_internal_encoding(Config::get('system.charset'));
 
         // Set default timezone
-        @ini_set('date.timezone', Config::get('system.timezone'));
-        if (function_exists('date_default_timezone_set')) {
-            date_default_timezone_set(Config::get('system.timezone'));
-        } else {
-            putenv('TZ='.Config::get('system.timezone'));
-        }
+        date_default_timezone_set(Config::get('system.timezone'));
 
         // Start the session
         Session::start();
