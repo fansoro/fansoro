@@ -1,4 +1,4 @@
-{extends 'base.tpl'}
+{extends 'partials/base.tpl'}
 {block 'content'}
 	<div class="container">
 		{set $posts = Pages::getPages('blog', 'date', 'DESC', ['404','index'])}

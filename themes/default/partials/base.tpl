@@ -20,20 +20,12 @@
 	</head>
 	<body>
 		<div id="wrap">
-			{include 'navbar.tpl'}
+			{include 'partials/navigation.tpl'}
 			{Action::run('theme_content_before')}
 			{block 'content'}{/block}
 			{Action::run('theme_content_after')}
 		</div>
-		<div id="footer">
-			<div class="container">
-			    <p class="text-muted pull-right">Powered by <a href="http://morfy.org" title="Simple and fast file-based CMS">Morfy</a></p>
-			</div>
-		</div>
-		{* Bootstrap core JavaScript *}
-		{* Placed at the end of the document so the pages load faster *}
-		<script src="{Url::getBase()}/themes/{$.config.site.theme}/assets/js/jquery.min.js"></script>
-		<script src="{Url::getBase()}/themes/{$.config.site.theme}/assets/js/bootstrap.min.js"></script>
-		{Action::run('theme_footer')}
+		{include 'partials/footer.tpl'}
+		{include 'partials/tail.tpl'}
 	</body>
 </html>
