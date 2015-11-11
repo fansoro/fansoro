@@ -27,7 +27,7 @@ class Blocks
         if (File::exists($block_path = BLOCKS_PATH . '/' . $name . '.md')) {
 
             // Create Unique Cache ID for Block
-            $block_cache_id = md5('block' . ROOT_DIR . filemtime(BLOCKS_PATH . '/' . $name . '.md'));
+            $block_cache_id = md5('block' . ROOT_DIR . $block_path .  filemtime($block_path));
 
             if (Cache::driver()->contains($block_cache_id)) {
                 return Cache::driver()->fetch($block_cache_id);

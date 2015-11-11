@@ -39,7 +39,7 @@ class Template
 
         // Create Unique Cache ID for Theme
         $theme_config_file = THEMES_PATH . '/' . Config::get('system.theme') . '/' . Config::get('system.theme') . '.yml';
-        $theme_cache_id = md5('theme' . ROOT_DIR . filemtime($theme_config_file));
+        $theme_cache_id = md5('theme' . ROOT_DIR . $theme_config_file . filemtime($theme_config_file));
 
         // Set current them options
         if (Cache::driver()->contains($theme_cache_id)) {

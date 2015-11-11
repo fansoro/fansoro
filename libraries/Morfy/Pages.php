@@ -71,53 +71,62 @@ class Pages
      */
     public static function getPages($url = '', $order_by = 'date', $order_type = 'DESC', $ignore = array('404'), $limit = null)
     {
-        $pages = File::scan(PAGES_PATH . '/' . $url, 'md');
 
-        foreach ($pages as $key => $page) {
-            if (!in_array(basename($page, '.md'), $ignore)) {
-                $content = file_get_contents($page);
+        // Create Unique Cache ID for requested list pages
+        $pages_cache_id = md5('pages' . ROOT_DIR . $url . filemtime(PAGES_PATH . '/' . $url));
 
-                $_page = explode('---', $content, 3);
+        if (Cache::driver()->contains($pages_cache_id)) {
+            return Cache::driver()->fetch($pages_cache_id);
+        } else {
+            $pages = File::scan(PAGES_PATH . '/' . $url, 'md');
 
-                $_pages[$key] = Yaml::parse($_page[1]);
+            foreach ($pages as $key => $page) {
+                if (!in_array(basename($page, '.md'), $ignore)) {
+                    $content = file_get_contents($page);
 
-                $url = str_replace(PAGES_PATH, Url::getBase(), $page);
-                $url = str_replace('index.md', '', $url);
-                $url = str_replace('.md', '', $url);
-                $url = str_replace('\\', '/', $url);
-                $url = rtrim($url, '/');
-                $_pages[$key]['url'] = $url;
+                    $_page = explode('---', $content, 3);
 
-                $_content = $_page[2];
+                    $_pages[$key] = Yaml::parse($_page[1]);
 
-                // Parse page for summary <!--more-->
-                if (($pos = strpos($_content, "<!--more-->")) === false) {
-                    $_content = Filter::apply('content', $_content);
-                } else {
-                    $_content = explode("<!--more-->", $_content);
-                    $_content['summary']  = Filter::apply('content', $_content[0]);
-                    $_content['content']  = Filter::apply('content', $_content[0].$_content[1]);
+                    $url = str_replace(PAGES_PATH, Url::getBase(), $page);
+                    $url = str_replace('index.md', '', $url);
+                    $url = str_replace('.md', '', $url);
+                    $url = str_replace('\\', '/', $url);
+                    $url = rtrim($url, '/');
+                    $_pages[$key]['url'] = $url;
+
+                    $_content = $_page[2];
+
+                        // Parse page for summary <!--more-->
+                        if (($pos = strpos($_content, "<!--more-->")) === false) {
+                            $_content = Filter::apply('content', $_content);
+                        } else {
+                            $_content = explode("<!--more-->", $_content);
+                            $_content['summary']  = Filter::apply('content', $_content[0]);
+                            $_content['content']  = Filter::apply('content', $_content[0].$_content[1]);
+                        }
+
+                    if (is_array($_content)) {
+                        $_pages[$key]['summary'] = $_content['summary'];
+                        $_pages[$key]['content'] = $_content['content'];
+                    } else {
+                        $_pages[$key]['summary'] = $_content;
+                        $_pages[$key]['content'] = $_content;
+                    }
+
+                    $_pages[$key]['slug'] = basename($page, '.md');
                 }
-
-                if (is_array($_content)) {
-                    $_pages[$key]['summary'] = $_content['summary'];
-                    $_pages[$key]['content'] = $_content['content'];
-                } else {
-                    $_pages[$key]['summary'] = $_content;
-                    $_pages[$key]['content'] = $_content;
-                }
-
-                $_pages[$key]['slug'] = basename($page, '.md');
             }
+
+            $_pages = Arr::subvalSort($_pages, $order_by, $order_type);
+
+            if ($limit != null) {
+                $_pages = array_slice($_pages, null, $limit);
+            }
+
+            Cache::driver()->save($pages_cache_id, $_pages);
+            return $_pages;
         }
-
-        $_pages = Arr::subvalSort($_pages, $order_by, $order_type);
-
-        if ($limit != null) {
-            $_pages = array_slice($_pages, null, $limit);
-        }
-
-        return $_pages;
     }
 
     /**
@@ -148,51 +157,59 @@ class Pages
             $file .= '.md';
         }
 
-        // Get the file
-        if (file_exists($file)) {
-            $content = file_get_contents($file);
-        } else {
-            $content = file_get_contents(PAGES_PATH . '/' . '404.md');
+        // Get 404 page if file not exists
+        if (!file_exists($file)) {
+            $file = PAGES_PATH . '/' . '404.md';
             Response::status(404);
         }
 
-        $_page = explode('---', $content, 3);
+        // Create Unique Cache ID for requested page
+        $page_cache_id = md5('page' . ROOT_DIR . $file . filemtime($file));
 
-        $page = Yaml::parse($_page[1]);
-
-        $url = str_replace(PAGES_PATH, Url::getBase(), $file);
-        $url = str_replace('index.md', '', $url);
-        $url = str_replace('.md', '', $url);
-        $url = str_replace('\\', '/', $url);
-        $url = rtrim($url, '/');
-        $page['url'] = $url;
-
-        $_content = $_page[2];
-
-        // Parse page for summary <!--more-->
-        if (($pos = strpos($_content, "<!--more-->")) === false) {
-            $_content = Filter::apply('content', $_content);
+        if (Cache::driver()->contains($page_cache_id)) {
+            return Cache::driver()->fetch($page_cache_id);
         } else {
-            $_content = explode("<!--more-->", $_content);
-            $_content['summary']  = Filter::apply('content', $_content[0]);
-            $_content['content']  = Filter::apply('content', $_content[0].$_content[1]);
+            $content = file_get_contents($file);
+
+            $_page = explode('---', $content, 3);
+
+            $page = Yaml::parse($_page[1]);
+
+            $url = str_replace(PAGES_PATH, Url::getBase(), $file);
+            $url = str_replace('index.md', '', $url);
+            $url = str_replace('.md', '', $url);
+            $url = str_replace('\\', '/', $url);
+            $url = rtrim($url, '/');
+            $page['url'] = $url;
+
+            $_content = $_page[2];
+
+            // Parse page for summary <!--more-->
+            if (($pos = strpos($_content, "<!--more-->")) === false) {
+                $_content = Filter::apply('content', $_content);
+            } else {
+                $_content = explode("<!--more-->", $_content);
+                $_content['summary']  = Filter::apply('content', $_content[0]);
+                $_content['content']  = Filter::apply('content', $_content[0].$_content[1]);
+            }
+
+            if (is_array($_content)) {
+                $page['summary'] = $_content['summary'];
+                $page['content'] = $_content['content'];
+            } else {
+                $page['content'] = $_content;
+            }
+
+            $page['slug'] = basename($file, '.md');
+
+            // Overload page title, keywords and description if needed
+            empty($page['title']) and $page['title'] = Config::get('site.title');
+            empty($page['keywords']) and $page['keywords'] = Config::get('site.keywords');
+            empty($page['description']) and $page['description'] = Config::get('site.description');
+
+            Cache::driver()->save($page_cache_id, $page);
+            return $page;
         }
-
-        if (is_array($_content)) {
-            $page['summary'] = $_content['summary'];
-            $page['content'] = $_content['content'];
-        } else {
-            $page['content'] = $_content;
-        }
-
-        $page['slug'] = basename($file, '.md');
-
-        // Overload page title, keywords and description if needed
-        empty($page['title']) and $page['title'] = Config::get('site.title');
-        empty($page['keywords']) and $page['keywords'] = Config::get('site.keywords');
-        empty($page['description']) and $page['description'] = Config::get('site.description');
-
-        return $page;
     }
 
     /**

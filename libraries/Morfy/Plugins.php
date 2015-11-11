@@ -37,7 +37,7 @@ class Plugins
     protected function __construct()
     {
         // Create Unique Cache ID for Plugins
-        $plugins_cache_id = md5('plugins' . ROOT_DIR . filemtime(PLUGINS_PATH));
+        $plugins_cache_id = md5('plugins' . ROOT_DIR . PLUGINS_PATH . filemtime(PLUGINS_PATH));
 
         // Get plugins list from cache or scan plugins folder and create new plugins cache item
         if (Cache::driver()->contains($plugins_cache_id)) {
