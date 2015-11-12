@@ -56,9 +56,9 @@ class Plugins
 
         // Include enabled plugins
         if (is_array(Config::get('plugins')) && count(Config::get('plugins')) > 0) {
-            foreach (Config::get('plugins') as $plugin) {
-                if (Config::get('plugins.'.$plugin.'.enabled')) {
-                    include_once PLUGINS_PATH .'/'. $plugin .'/'. $plugin . '.php';
+            foreach (Config::get('plugins') as $plugin_name => $plugin) {
+                if (Config::get('plugins.'.$plugin_name.'.enabled')) {
+                    include_once PLUGINS_PATH .'/'. $plugin_name .'/'. $plugin_name . '.php';
                 }
             }
         }
