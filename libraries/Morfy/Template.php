@@ -9,30 +9,11 @@
  * file that was distributed with this source code.
  */
 
-class Template
+class Template extends \Fenom
 {
-    /**
-     * An instance of the Template class
-     *
-     * @var object
-     * @access  protected
-     */
-    protected static $instance = null;
+    use \Fenom\StorageTrait;
 
-    /**
-     * Fenom object
-     *
-     * @var object
-     * @access  protected
-     */
-    protected static $fenom = null;
-
-    /**
-     * Constructor.
-     *
-     * @access  protected
-     */
-    protected function __construct()
+    public static function factory($source, $compile_dir = '/tmp', $options = 0)
     {
         // Create fenom cache directory if its not exists
         !Dir::exists(CACHE_PATH . '/fenom/') and Dir::create(CACHE_PATH . '/fenom/');
@@ -50,49 +31,15 @@ class Template
             Cache::driver()->save($theme_cache_id, $theme_config);
         }
 
-        // Create Fenom object
-        $fenom = FenomExtended::factory(THEMES_PATH . '/' . Config::get('system.theme') . '/',
-                                CACHE_PATH . '/fenom/',
-                                Config::get('system.fenom'));
+        $compile_dir = CACHE_PATH . '/fenom/';
+        $options = Config::get('system.fenom');
+
+        $fenom = parent::factory($source, $compile_dir, $options);
 
         // Add {$.config} for templates
         $fenom->addAccessorSmart('config', 'config', Fenom::ACCESSOR_PROPERTY);
         $fenom->config = Config::getConfig();
 
-        static::$fenom = $fenom;
+        return $fenom;
     }
-
-    /**
-     * Get Fenom Object
-     *
-     *  <code>
-     *      Template::fenom()->display('template.tpl');
-     *  </code>
-     *
-     * @access  public
-     * @return object
-     */
-    public static function fenom()
-    {
-        return static::$fenom;
-    }
-
-    /**
-     * Initialize Morfy Template
-     *
-     *  <code>
-     *      Template::init();
-     *  </code>
-     *
-     * @access  public
-     */
-    public static function init()
-    {
-        return !isset(self::$instance) and self::$instance = new Template();
-    }
-}
-
-class FenomExtended extends \Fenom
-{
-    use \Fenom\StorageTrait;
 }
