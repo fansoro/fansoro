@@ -239,11 +239,8 @@ class Pages
      */
     public static function loadPageTemplate($page)
     {
-        try {
-            Template::fenom()->display(((!empty($page['template'])) ? $page['template'] : 'index') . '.tpl', $page);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        $template = Template::factory(THEMES_PATH . '/' . Config::get('system.theme'));
+        $template->display(((!empty($page['template'])) ? $page['template'] : 'index') . '.tpl', $page);
     }
 
     /**
