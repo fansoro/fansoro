@@ -12,10 +12,54 @@
 class Blocks
 {
     /**
+     * An instance of the Blocks class
+     *
+     * @var object
+     * @access  protected
+     */
+    protected static $instance = null;
+
+    /**
+     * Protected clone method to enforce singleton behavior.
+     *
+     * @access  protected
+     */
+    protected function __clone()
+    {
+        // Nothing here.
+    }
+
+    /**
+     * Constructor.
+     *
+     * @access  protected
+     */
+    protected function __construct()
+    {
+        $blocks_cache_id = '';
+
+        $blocks = File::scan(BLOCKS_PATH, 'md');
+
+        foreach ($blocks as $block) {
+            $blocks_cache_id .= filemtime($block);
+        }
+
+        // Create Unique Cache ID for Block
+        $blocks_cache_id = md5('blocks' . ROOT_DIR . $blocks_cache_id);
+
+        if (Cache::driver()->contains($blocks_cache_id)) {
+            Cache::driver()->fetch($blocks_cache_id);
+        } else {
+            Config::set('pages_flush_cache', true);
+            Cache::driver()->save($blocks_cache_id, $blocks_cache_id);
+        }
+    }
+
+    /**
      * Get Page Block
      *
      *  <code>
-     *      $content = Blocks::get('my-block');
+     *      $block = Blocks::get('my-block');
      *  </code>
      *
      * @access public
@@ -38,5 +82,19 @@ class Blocks
         } else {
             return 'Block '.$name.' is not found!';
         }
+    }
+
+    /**
+     * Initialize Morfy Blocks
+     *
+     *  <code>
+     *      Blocks::init();
+     *  </code>
+     *
+     * @access  public
+     */
+    public static function init()
+    {
+        return !isset(self::$instance) and self::$instance = new Blocks();
     }
 }

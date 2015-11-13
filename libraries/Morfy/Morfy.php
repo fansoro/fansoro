@@ -66,11 +66,11 @@ class Morfy
         // Init Cache
         Cache::init();
 
-        // Init Template
-        Template::init();
-
         // Init Plugins
         Plugins::init();
+
+        // Init Blocks
+        Blocks::init();
 
         // Init Pages
         Pages::init();
