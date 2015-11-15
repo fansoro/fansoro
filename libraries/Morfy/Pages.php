@@ -240,7 +240,7 @@ class Pages
     public static function loadPageTemplate($page)
     {
         $template = Template::factory(THEMES_PATH . '/' . Config::get('system.theme'));
-        $template->display(((!empty($page['template'])) ? $page['template'] : 'index') . '.tpl', $page);
+        $template->display(((!empty($page['template'])) ? $page['template'] : 'index'), $page);
     }
 
     /**
