@@ -19,7 +19,6 @@ fenom:
   strip: true
 
 pages:
-  extensions: [txt, md, markdown]
   flush_cache: false
 
 cache:
