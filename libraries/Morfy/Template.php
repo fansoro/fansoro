@@ -13,8 +13,6 @@ class Template extends \Fenom
 {
     use \Fenom\StorageTrait;
 
-    protected static $extension = 'tpl';
-
     /**
      * Template factory
      *
@@ -74,7 +72,7 @@ class Template extends \Fenom
     public function display($template, array $vars = array())
     {
         try {
-            $this->getTemplate($template . '.' . self::$extension)->display($vars);
+            $this->getTemplate($template)->display($vars);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
