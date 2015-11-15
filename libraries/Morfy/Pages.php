@@ -44,11 +44,13 @@ class Pages
      */
     protected function __construct()
     {
+        static::$current_page = static::getPage(Url::getUriString());
+
         // Run actions before page rendered
         Action::run('before_page_rendered');
 
         // Get page for current requested url
-        static::loadPageTemplate(static::$current_page = static::getPage(Url::getUriString()));
+        static::loadPageTemplate(static::$current_page);
 
         // Run actions after page rendered
         Action::run('after_page_rendered');
