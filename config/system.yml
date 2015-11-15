@@ -18,11 +18,12 @@ fenom:
   disable_statics: false
   strip: true
 
+pages:
+  extensions: [txt, md, markdown]
+  flush_cache: false
+
 cache:
   enabled: true
   prefix: 'morfy'
   driver: auto
   lifetime: 604800
-
-session:
-  enabled: true
