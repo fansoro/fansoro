@@ -166,7 +166,7 @@ class Pages
         // Create Unique Cache ID for requested page
         $page_cache_id = md5('page' . ROOT_DIR . $file . filemtime($file));
 
-        if (Cache::driver()->contains($page_cache_id) && Config::get('pages_flush_cache') == false) {
+        if (Cache::driver()->contains($page_cache_id) && Config::get('system.pages.flush_cache') == false) {
             return Cache::driver()->fetch($page_cache_id);
         } else {
             $content = file_get_contents($file);

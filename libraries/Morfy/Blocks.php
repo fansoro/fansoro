@@ -50,7 +50,7 @@ class Blocks
         if (Cache::driver()->contains($blocks_cache_id)) {
             Cache::driver()->fetch($blocks_cache_id);
         } else {
-            Config::set('pages_flush_cache', true);
+            Config::set('system.pages.flush_cache', true);
             Cache::driver()->save($blocks_cache_id, $blocks_cache_id);
         }
     }
