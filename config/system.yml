@@ -1,9 +1,9 @@
 # System Configuration
 
-timezone: 'UTC'
-charset: 'UTF-8'
+timezone: UTC
+charset: UTF-8
 
-theme: 'default'
+theme: default
 
 fenom:
   disable_methods: false
@@ -23,6 +23,6 @@ pages:
 
 cache:
   enabled: true
-  prefix: 'morfy'
+  prefix: morfy
   driver: auto
   lifetime: 604800
