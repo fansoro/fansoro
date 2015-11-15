@@ -73,7 +73,7 @@ class Pages
     {
 
         // Create Unique Cache ID for requested list pages
-        $pages_cache_id = md5('pages' . ROOT_DIR . $url . filemtime(PAGES_PATH . '/' . $url));
+        $pages_cache_id = md5('pages' . ROOT_DIR . $url . $order_by . $order_type . implode(",", $ignore) . (($limit === null) ? 'null' : $limit) . filemtime(PAGES_PATH . '/' . $url));
 
         if (Cache::driver()->contains($pages_cache_id)) {
             return Cache::driver()->fetch($pages_cache_id);
