@@ -13,6 +13,19 @@ class Template extends \Fenom
 {
     use \Fenom\StorageTrait;
 
+    /**
+     * Template factory
+     *
+     *  <code>
+     *      $template = Template::factory('templates_path');
+     *  </code>
+     *
+     * @param string|Fenom\ProviderInterface $source path to templates or custom provider
+     * @param string $compile_dir path to compiled files
+     * @param int|array $options
+     * @throws InvalidArgumentException
+     * @return Fenom
+     */
     public static function factory($source, $compile_dir = '/tmp', $options = 0)
     {
         // Create fenom cache directory if its not exists
@@ -41,5 +54,27 @@ class Template extends \Fenom
         $fenom->config = Config::getConfig();
 
         return $fenom;
+    }
+
+
+    /**
+     * Execute template and write result into stdout
+     *
+     *  <code>
+     *      $template->display('template.tpl');
+     *  </code>
+     *
+     * @param string|array $template name of template.
+     * If it is array of names of templates they will be extended from left to right.
+     * @param array $vars array of data for template
+     * @return Fenom\Render
+     */
+    public function display($template, array $vars = array())
+    {
+        try {
+            $this->getTemplate($template)->display($vars);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }
