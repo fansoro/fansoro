@@ -67,7 +67,7 @@ class Cache
         static::$now = time();
 
         // Cache key allows us to invalidate all cache on configuration changes.
-        static::$key = (Config::get('system.cache.prefix') ? Config::get('system.cache.prefix') : 'morfy') . '-' . md5(ROOT_PATH . VERSION);
+        static::$key = (Config::get('system.cache.prefix') ? Config::get('system.cache.prefix') : 'morfy') . '-' . md5(ROOT_DIR . Morfy::VERSION);
 
         // Get Cache Driver
         static::$driver = static::getCacheDriver();

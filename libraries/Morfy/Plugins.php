@@ -36,7 +36,7 @@ class Plugins
      */
     protected function __construct()
     {
-        $blocks_cache_id = '';
+        $plugins_cache_id = '';
 
         // Get Plugins List
         $plugins_list = Config::get('system.plugins');
