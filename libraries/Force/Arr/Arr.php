@@ -52,6 +52,34 @@ class Arr
      }
 
     /**
+     * Sets an array value using "dot notation".
+     *
+     *  <code>
+     *      Arr::set($array, 'foo.bar', 'value');
+     *  </code>
+     *
+     * @access  public
+     * @param   array    $array  Array you want to modify
+     * @param   string   $path   Array path
+     * @param   mixed    $value  Value to set
+     */
+    public static function set(&$array, $path, $value)
+    {
+        // Get segments from path
+        $segments = explode('.', $path);
+
+        // Loop through segments
+        while (count($segments) > 1) {
+            $segment = array_shift($segments);
+            if (!isset($array[$segment]) || !is_array($array[$segment])) {
+                $array[$segment] = [];
+            }
+            $array =& $array[$segment];
+        }
+        $array[array_shift($segments)] = $value;
+    }
+
+    /**
      * Returns value from array using "dot notation".
      * If the key does not exist in the array, the default value will be returned instead.
      *

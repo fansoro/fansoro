@@ -141,7 +141,7 @@ class Dir
         if (is_dir($dir)&&$dh=opendir($dir)) {
             $f=array();
             while ($fn=readdir($dh)) {
-                if ($fn!='.'&&$fn!='..'&&is_dir($dir.DS.$fn)) {
+                if ($fn!='.'&&$fn!='..'&&is_dir($dir.'/'.$fn)) {
                     $f[]=$fn;
                 }
             }

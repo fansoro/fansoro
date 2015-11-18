@@ -6,6 +6,11 @@ Subval sort
 $new_array = Arr::subvalSort($old_array, 'sort');
 ```
 
+Sets an array value using "dot notation".
+```php
+Arr::set($array, 'foo.bar', 'value');
+```
+
 Return value from array using "dot notation".  
 If the key does not exist in the array, the default value will be returned instead.
 ```php

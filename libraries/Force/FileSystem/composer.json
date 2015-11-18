@@ -1,0 +1,25 @@
+{
+  "name": "force/filesystem",
+  "keywords": ["filesystem", "file", "dir", "force"],
+  "license": "MIT",
+  "homepage": "https://github.com/force-components/FileSystem/issues",
+  "description": "File and Dir class contains methods that assist in working with files and directories.",
+  "authors": [
+    {
+        "name": "Sergey Romanenko",
+        "email": "awilum@msn.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/force-components/FileSystem/issues"
+  },
+  "autoload": {
+    "files": [
+      "File.php",
+      "Dir.php"
+    ]
+  },
+  "require": {
+    "php": ">=5.3.0"
+  }
+}

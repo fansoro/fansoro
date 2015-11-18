@@ -33,7 +33,7 @@ class Shortcode
      *
      *  <code>
      *      function returnSiteUrl() {
-     *          return Option::get('siteurl');
+     *          return 'http://example.org';
      *      }
      *
      *      // Add shortcode {siteurl}

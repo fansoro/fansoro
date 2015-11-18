@@ -1,0 +1,24 @@
+{
+  "name": "force/shortcode",
+  "keywords": ["shortcode", "parser", "force"],
+  "license": "MIT",
+  "homepage": "https://github.com/force-components/Shortcode/issues",
+  "description": "The Shortcode class for creating shortcodes",
+  "authors": [
+    {
+        "name": "Sergey Romanenko",
+        "email": "awilum@msn.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/force-components/Shortcode/issues"
+  },
+  "autoload": {
+    "files": [
+      "Shortcode.php"
+    ]
+  },
+  "require": {
+    "php": ">=5.3.0"
+  }
+}
