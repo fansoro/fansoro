@@ -92,7 +92,7 @@ trim("title: '{$post_site_title}'
 description: '{$post_site_description}'
 keywords: '{$post_site_keywords}'
 url: '{$post_site_url}'
-autor:
+author:
   email: '{$post_email}'
 charset: 'UTF-8'
 timezone: '{$post_site_timezone}'
