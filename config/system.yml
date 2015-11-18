@@ -6,7 +6,6 @@ charset: UTF-8
 theme: default
 
 plugins:
-    
 
 fenom:
   disable_methods: false
@@ -23,6 +22,9 @@ fenom:
 
 pages:
   flush_cache: false
+
+errors:
+  display: false
 
 cache:
   enabled: true
