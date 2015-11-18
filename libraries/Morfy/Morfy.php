@@ -25,7 +25,7 @@ class Morfy
      *
      * @var string
      */
-    const VERSION = '1.1.3';
+    const VERSION = '1.1.4';
 
     /**
      * Site Config array (/config/site.yml).
