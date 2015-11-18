@@ -8,7 +8,7 @@
 
 		{Action::run('theme_meta')}
 
-		<link rel="shortcut icon" href="{$.config.site.url}/favicon.ico">
+		<link rel="shortcut icon" href="{Url::getBase()}/favicon.ico">
 
 		<title>{$.config.site.title} | {$title}</title>
 
