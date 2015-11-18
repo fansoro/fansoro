@@ -51,6 +51,9 @@ class Morfy
         // Turn on output buffering
         ob_start();
 
+        // Display Errors
+        Config::get('system.errors.display') and error_reporting(-1);
+
         // Set internal encoding
         function_exists('mb_language') and mb_language('uni');
         function_exists('mb_regex_encoding') and mb_regex_encoding(Config::get('system.charset'));
