@@ -7,7 +7,7 @@ You simply create markdown files in the pages folder and that becomes a page.
 
 ## Requirements
 Operation system: Unix, Linux, Windows, Mac OS  
-Middleware: PHP 5.3.2 or higher with PHP's [Multibyte String module](http://php.net/mbstring)   
+Middleware: PHP 5.5 or higher with PHP's [Multibyte String module](http://php.net/mbstring)   
 Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)  
 
 ## Steps to Install
