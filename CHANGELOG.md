@@ -9,6 +9,10 @@
 * Removed Fenom Config file fenom.yml
 * Removed Actions before_render and after_render
 
+# v1.1.4, 2015-11-18
+* Fixed Morfy Installer
+* Fixed Force Libraries
+
 # v1.1.3, 2015-10-25
 * Default Theme: change layout.tpl to base.tpl
 * Fixed welcome page bug. Change content to storage
