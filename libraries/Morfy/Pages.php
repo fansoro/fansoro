@@ -232,6 +232,20 @@ class Pages
     }
 
     /**
+     * Update Current Page
+     *
+     *  <code>
+     *      Pages::updateCurrentPage('title', 'My new Page Title');
+     *  </code>
+     *
+     * @return array
+     */
+    public static function updateCurrentPage($path, $value)
+    {
+        Arr::set(static::$current_page, $path, $value);
+    }
+
+    /**
      * Display Page
      *
      *  <code>
