@@ -78,12 +78,12 @@ class Pages
     {
 
         // Create Unique Cache ID for requested list pages
-        $pages_cache_id = md5('pages' . ROOT_DIR . $url . $order_by . $order_type . implode(",", $ignore) . (($limit === null) ? 'null' : $limit) . filemtime(PAGES_PATH . '/' . $url));
+        $pages_cache_id = md5('pages' . ROOT_DIR . $url . $order_by . $order_type . implode(",", $ignore) . (($limit === null) ? 'null' : $limit) . filemtime(STORAGE_PATH . '/pages/' . $url));
 
         if (Cache::driver()->contains($pages_cache_id)) {
             return Cache::driver()->fetch($pages_cache_id);
         } else {
-            $pages = File::scan(PAGES_PATH . '/' . $url, 'md');
+            $pages = File::scan(STORAGE_PATH . '/pages/' . $url, 'md');
 
             foreach ($pages as $key => $page) {
                 if (!in_array(basename($page, '.md'), $ignore)) {
@@ -93,7 +93,7 @@ class Pages
 
                     $_pages[$key] = Yaml::parse($_page[1]);
 
-                    $url = str_replace(PAGES_PATH, Url::getBase(), $page);
+                    $url = str_replace(STORAGE_PATH . '/pages', Url::getBase(), $page);
                     $url = str_replace('index.md', '', $url);
                     $url = str_replace('.md', '', $url);
                     $url = str_replace('\\', '/', $url);
@@ -150,21 +150,21 @@ class Pages
 
         // If url is empty that its a homepage
         if ($url) {
-            $file = PAGES_PATH . '/' . $url;
+            $file = STORAGE_PATH . '/pages/' . $url;
         } else {
-            $file = PAGES_PATH . '/' .'index';
+            $file = STORAGE_PATH . '/pages/' . 'index';
         }
 
         // Select the file
         if (is_dir($file)) {
-            $file = PAGES_PATH . '/' . $url .'/index.md';
+            $file = STORAGE_PATH . '/pages/' . $url .'/index.md';
         } else {
             $file .= '.md';
         }
 
         // Get 404 page if file not exists
         if (!file_exists($file)) {
-            $file = PAGES_PATH . '/' . '404.md';
+            $file = STORAGE_PATH . '/pages/' . '404.md';
             Response::status(404);
         }
 
@@ -180,7 +180,7 @@ class Pages
 
             $page = Yaml::parse($_page[1]);
 
-            $url = str_replace(PAGES_PATH, Url::getBase(), $file);
+            $url = str_replace(STORAGE_PATH . '/pages', Url::getBase(), $file);
             $url = str_replace('index.md', '', $url);
             $url = str_replace('.md', '', $url);
             $url = str_replace('\\', '/', $url);

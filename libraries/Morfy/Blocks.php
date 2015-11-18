@@ -38,7 +38,7 @@ class Blocks
     {
         $blocks_cache_id = '';
 
-        $blocks = File::scan(BLOCKS_PATH, 'md');
+        $blocks = File::scan(STORAGE_PATH . '/blocks', 'md');
 
         foreach ($blocks as $block) {
             $blocks_cache_id .= filemtime($block);
@@ -68,7 +68,7 @@ class Blocks
      */
     public static function get($name)
     {
-        if (File::exists($block_path = BLOCKS_PATH . '/' . $name . '.md')) {
+        if (File::exists($block_path = STORAGE_PATH .'/blocks/' . $name . '.md')) {
 
             // Create Unique Cache ID for Block
             $block_cache_id = md5('block' . ROOT_DIR . $block_path .  filemtime($block_path));
