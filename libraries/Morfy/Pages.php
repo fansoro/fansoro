@@ -52,8 +52,8 @@ class Pages
         // Run actions before page rendered
         Action::run('before_page_rendered');
 
-        // Get page for current requested url
-        static::loadPageTemplate(static::$current_page);
+        // Display page for current requested url
+        static::display(static::$current_page);
 
         // Run actions after page rendered
         Action::run('after_page_rendered');
@@ -232,17 +232,17 @@ class Pages
     }
 
     /**
-     * Load Page Template
+     * Display Page
      *
      *  <code>
-     *      Pages::loadPageTemplate($page);
+     *      Pages::display($page);
      *  </code>
      *
      * @access public
      * @param  array $page Page array
      * @return string
      */
-    public static function loadPageTemplate($page)
+    public static function display($page)
     {
         $template = Template::factory(THEMES_PATH . '/' . Config::get('system.theme'));
         $template->display(((!empty($page['template'])) ? $page['template'] : 'index') . '.tpl', $page);
