@@ -17,7 +17,7 @@ class Filter
      * @var array
      * @access protected
      */
-    protected static $filters = array();
+    protected static $filters = [];
 
     /**
      * Protected constructor since this is a static class.

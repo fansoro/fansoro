@@ -17,7 +17,7 @@ class Action
      * @var array
      * @access protected
      */
-    protected static $actions = array();
+    protected static $actions = [];
 
     /**
      * Protected constructor since this is a static class.
@@ -72,7 +72,7 @@ class Action
      * @param boolean $return      Return data or not. Default is false
      * @return mixed
      */
-    public static function run($action_name, $args = array(), $return = false)
+    public static function run($action_name, $args = [], $return = false)
     {
         // Redefine arguments
         $action_name = (string) $action_name;

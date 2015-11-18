@@ -69,7 +69,7 @@ class Template extends \Fenom
      * @param array $vars array of data for template
      * @return Fenom\Render
      */
-    public function display($template, array $vars = array())
+    public function display($template, array $vars = [])
     {
         try {
             $this->getTemplate($template)->display($vars);

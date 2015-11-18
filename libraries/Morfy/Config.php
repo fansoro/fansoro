@@ -25,7 +25,7 @@ class Config
      * @var array
      * @access  protected
      */
-    protected static $config = array();
+    protected static $config = [];
 
     /**
      * Protected clone method to enforce singleton behavior.
