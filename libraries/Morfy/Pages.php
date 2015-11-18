@@ -46,6 +46,9 @@ class Pages
     {
         static::$current_page = static::getPage(Url::getUriString());
 
+        // Send default header
+        header('Content-Type: text/html; charset='.Config::get('system.charset'));
+
         // Run actions before page rendered
         Action::run('before_page_rendered');
 

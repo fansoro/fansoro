@@ -51,8 +51,7 @@ class Morfy
         // Turn on output buffering
         ob_start();
 
-        // Send default header and set internal encoding
-        header('Content-Type: text/html; charset='.Config::get('system.charset'));
+        // Set internal encoding
         function_exists('mb_language') and mb_language('uni');
         function_exists('mb_regex_encoding') and mb_regex_encoding(Config::get('system.charset'));
         function_exists('mb_internal_encoding') and mb_internal_encoding(Config::get('system.charset'));
