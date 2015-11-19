@@ -1,9 +1,0 @@
-language: php
-php: 5.5
-branches:
-  only:
-    - dev
-
-before_script:
-  - composer selfupdate --quiet
-  - composer install -n --prefer-source --no-dev
