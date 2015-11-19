@@ -10,11 +10,11 @@
 
 		<link rel="shortcut icon" href="{Url::getBase()}/favicon.ico">
 
-		<title>{$.config.site.title} | {$title}</title>
+		<title>{$config.site.title} | {$title}</title>
 
 		{* Bootstrap core CSS *}
-		<link href="{Url::getBase()}/themes/{$.config.system.theme}/assets/css/bootstrap.min.css" rel="stylesheet">
-		<link href="{Url::getBase()}/themes/{$.config.system.theme}/assets/css/theme.css" rel="stylesheet">
+		<link href="{Url::getBase()}/themes/{$config.system.theme}/assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{Url::getBase()}/themes/{$config.system.theme}/assets/css/theme.css" rel="stylesheet">
 		{Action::run('theme_header')}
 
 	</head>
