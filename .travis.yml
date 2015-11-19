@@ -5,4 +5,5 @@ branches:
     - dev
 
 before_script:
-  - composer install
+  - composer selfupdate --quiet
+  - composer install -n --prefer-source --no-dev
