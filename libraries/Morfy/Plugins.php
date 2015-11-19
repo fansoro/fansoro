@@ -59,15 +59,20 @@ class Plugins
         if (Cache::driver()->contains($plugins_cache_id)) {
             Config::set('plugins', Cache::driver()->fetch($plugins_cache_id));
         } else {
+
+            // If Plugins List isnt empty
             if (is_array($plugins_list) && count($plugins_list) > 0) {
-                if (File::exists($_plugin = PLUGINS_PATH . '/' . $plugin . '/' . $plugin . '.yml')) {
-                    $_plugins_config[File::name($_plugin)] = Yaml::parseFile($_plugin);
+
+                // Go through...
+                foreach ($plugins_list as $plugin) {
+                    if (File::exists($_plugin = PLUGINS_PATH . '/' . $plugin . '/' . $plugin . '.yml')) {
+                        $_plugins_config[File::name($_plugin)] = Yaml::parseFile($_plugin);
+                    }
                 }
+
+                Config::set('plugins', $_plugins_config);
+                Cache::driver()->save($plugins_cache_id, $_plugins_config);
             }
-
-            Config::set('plugins', $_plugins_config);
-
-            Cache::driver()->save($plugins_cache_id, $_plugins_config);
         }
 
         // Include enabled plugins
