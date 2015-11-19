@@ -49,9 +49,7 @@ class Template extends \Fenom
 
         $fenom = parent::factory($source, $compile_dir, $options);
 
-        // Add {$.config} for templates
-        $fenom->addAccessorSmart('config', 'config', Fenom::ACCESSOR_PROPERTY);
-        $fenom->config = Config::getConfig();
+        $fenom->assign('config', Config::getConfig());
 
         return $fenom;
     }
@@ -72,7 +70,7 @@ class Template extends \Fenom
     public function display($template, array $vars = [])
     {
         try {
-            $this->getTemplate($template)->display($vars);
+            return $this->_vars = $this->getTemplate($template)->display($vars ? $vars + $this->_vars : $this->_vars);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
