@@ -1,35 +1,30 @@
-<<<<<<< HEAD
-=======
 # v2.0.0, 2015-XX-XX
 * Improved Morfy Architecture.
 * Improved Morfy Security.
 * Improved Default Morfy Theme.
 * Improved Morfy Configurations System.
-* Added Morfy Smart Cache based on Doctrine Cache with ability to choose any cache driver.
+* Added Morfy Smart Cache based on Doctrine Cache.
 * Added Minimum PHP version support is 5.5
 * Added Composer Support.
-* Added Morfy `/boot/` directory with defines.php, shortcodes.php, actions.php filters.php
+* Added Morfy /boot/ directory with defines.php, shortcodes.php, actions.php filters.php
 * Added New Classes: Action, Filter, Blocks, Cache, Config, Pages, Template, Yaml, Plugins.
-* Added New Config file: system.yml to store system settings.
-* Added New Pages::getCurrentPage() and Pages::updateCurrentPage() public methods.
-* Added New Pages::display() public method.
+* Added New Config file: system.yml
+* Added New Pages::getCurrentPage() and Pages::updateCurrentPage() methods.
+* Added new Pages::display() method.
 * Added New Pages actions `before_page_rendered` and `after_page_rendered`
 * Added Shortcode and Markdown parsers as a content filters.
 * Added Fenom Storage to store data in Fenom.
 * Added Output buffering.
-* Added New Theme $config variable instead of {$.config}
 * Added ability to configure of display errors. Default value is false - for production.
 * Added and used Composer Autoloader instead of Force Autoloader.
-* Added .gitignore, composer.json and .gitkeep instead of .empty
-* Added New Action on `theme_meta` with meta generator information.
 * Removed BLOCKS_PATH and PAGES_PATH constants.
+* Added .gitignore, composer.json and .gitkeep instead of .empty
 * Removed constants: site, fenom, theme, page, plugins and actions from Morfy Class.
-* Removed force, fenom, parsedown and spyc from libraries directory, and libraries also removed.
+* Removed force, fenom, parsedown and spyc from libraries directory.
 * Removed Fenom Config file fenom.yml
-* Removed Actions `before_render` and `after_render`
+* Removed Actions before_render and after_render
 * Removed Morfy Installer.
 
->>>>>>> dev
 # v1.1.4, 2015-11-18
 * Fixed Morfy Installer
 * Fixed Force Libraries
