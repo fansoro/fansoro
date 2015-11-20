@@ -26,7 +26,7 @@ class Morfy
      *
      * @var string
      */
-    const VERSION = '2.X.X';
+    const VERSION = '2.0.0';
 
     /**
      * Protected clone method to enforce singleton behavior.

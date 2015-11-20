@@ -1,4 +1,4 @@
-# v2.0.0, 2015-XX-XX
+# v2.0.0, 2015-11-20
 * Improved Morfy Architecture.
 * Improved Morfy Security.
 * Improved Default Morfy Theme.
