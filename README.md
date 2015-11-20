@@ -14,9 +14,7 @@ Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mo
 1. [Download the latest version.](http://morfy.org/download)
 2. Unzip the contents to a new folder on your local computer.
 3. Upload that whole folder with an FTP client to your host.
-4. You may also need to recursively CHMOD the folder /content/, /themes/, '/cache/' to 755(or 777) if your host doesn't set it implicitly.
-5. Also you may also need to recursively CHMOD the /install.php, /.htaccess to 755(or 777) if your host doesn't set it implicitly.
-6. Type http://example.org/install.php in the browser.
+4. You may also need to recursively CHMOD the folder '/cache/' to 755(or 777) if your host doesn't set it implicitly.
 
 ## Contributing
 1. Help on the [Forum.](http://forum.morfy.org)
