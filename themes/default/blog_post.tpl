@@ -1,4 +1,4 @@
-{extends 'base.tpl'}
+{extends 'partials/base.tpl'}
 {block 'content'}
 	<div class="container">
 		<h1>{$title}</h1>

@@ -1,0 +1,44 @@
+{
+    "name": "morfy-cms/morfy",
+    "type": "library",
+    "description": "Morfy is Modern Open Source Flat-File Content Management System",
+    "keywords": ["morfy", "php", "cms", "flat-file", "markdown"],
+    "homepage": "http://morfy.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergey Romanenko",
+            "email": "awilum@msn.com",
+            "homepage": "https://github.com/Awilum"
+        }
+    ],
+    "support": {
+      "issues": "https://github.com/morfy-cms/morfy/issues"
+    },
+    "require": {
+        "php": ">=5.5",
+        "fenom/fenom": "2.8.*",
+        "fenom/storage": "1.*",
+        "erusev/parsedown-extra": "0.7.*",
+        "mustangostang/spyc" : "0.5.*",
+        "doctrine/cache": "1.4.*",
+        "force/session" : "*",
+        "force/filesystem" : "*",
+        "force/arr" : "*",
+        "force/http" : "*",
+        "force/shortcode" : "*",
+        "force/token" : "*",
+        "force/url" : "*"
+    },
+    "autoload": {
+        "classmap": [
+            "morfy"
+        ],
+        "files": [
+            "morfy/boot/defines.php",
+            "morfy/boot/shortcodes.php",
+            "morfy/boot/filters.php",
+            "morfy/boot/actions.php"
+        ]
+    }
+}

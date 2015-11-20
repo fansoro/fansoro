@@ -1,0 +1,33 @@
+# System Configuration
+
+timezone: UTC
+charset: UTF-8
+
+theme: default
+
+plugins:
+
+fenom:
+  disable_methods: false
+  disable_native_funcs: false
+  auto_reload: true
+  force_compile: false
+  disable_cache: false
+  force_include: true
+  auto_escape: false
+  force_verify: false
+  disable_php_calls: false
+  disable_statics: false
+  strip: true
+
+pages:
+  flush_cache: false
+
+errors:
+  display: false
+
+cache:
+  enabled: true
+  prefix: morfy
+  driver: auto
+  lifetime: 604800

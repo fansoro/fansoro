@@ -10,7 +10,6 @@ You can start editing the content and customising your site.
 To edit this page, simply go to the folder you installed Morfy, and then browse to the `/storage/pages/` folder and open the `index.md` file in your editor.
 
 ### Create a New page
-
 Creating a new page is very simple in Morfy.  
 
 1. Launch your text editor and paste this sample text:

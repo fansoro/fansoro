@@ -1,12 +1,13 @@
 # Morfy
-Simple and fast file-based CMS
-
 [![Join the chat at https://gitter.im/morfy-cms/morfy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/morfy-cms/morfy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+Morfy is Modern Open Source Flat-File Content Management System.   
+Content in Morfy is just a simple files written with markdown syntax in pages folder.   
+You simply create markdown files in the pages folder and that becomes a page.
 
 ## Requirements
 Operation system: Unix, Linux, Windows, Mac OS  
-Middleware: PHP 5.3.0 or higher with PHP's [Multibyte String module](http://php.net/mbstring)   
+Middleware: PHP 5.5 or higher with PHP's [Multibyte String module](http://php.net/mbstring)   
 Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)  
 
 ## Steps to Install
