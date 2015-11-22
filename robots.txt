@@ -2,3 +2,4 @@ User-agent: *
 Disallow: /morfy/
 Disallow: /plugins/
 Disallow: /config/
+Disallow: /vendor/
