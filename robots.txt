@@ -1,4 +1,5 @@
 User-agent: *
-Disallow: /libraries/
+Disallow: /morfy/
 Disallow: /plugins/
 Disallow: /config/
+Disallow: /vendor/
