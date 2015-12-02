@@ -12,7 +12,7 @@ Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mo
 
 ## Installation
 
-### Using (S)FTP
+#### Using (S)FTP
 
 [Download the latest version.](http://morfy.org/download)  
 
@@ -21,7 +21,7 @@ Unzip the contents to a new folder on your local computer, and upload to your we
 * `themes/`
 * `plugins/`
 
-### Using Composer
+#### Using Composer
 
 You can easily install Morfy with Composer.
 
