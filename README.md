@@ -12,7 +12,7 @@ Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mo
 
 ## Installation
 
-### Using (S)FTP{.margin-top-hard}
+### Using (S)FTP
 
 [Download the latest version.](http://morfy.org/download)  
 
