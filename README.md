@@ -11,7 +11,23 @@ Middleware: PHP 5.5 or higher with PHP's [Multibyte String module](http://php.ne
 Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)  
 
 ## Installation
-Detailed instructions can be found in the [Installation section in the documentation.](http://morfy.org/documentation/basics/installation)
+
+### Using (S)FTP{.margin-top-hard}
+
+[Download the latest version.](http://morfy.org/download)  
+
+Unzip the contents to a new folder on your local computer, and upload to your webhost using the (S)FTP client of your choice. After you’ve done this, be sure to chmod the following directories (with containing files) to 777, so they are readable and writable by Morfy:  
+* `cache/`
+* `themes/`
+* `plugins/`
+
+### Using Composer
+
+You can easily install Morfy with Composer.
+
+```
+composer create-project morfy-cms/morfy
+```
 
 ## Contributing
 1. Help on the [Forum.](http://forum.morfy.org)
