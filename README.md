@@ -10,11 +10,8 @@ Operation system: Unix, Linux, Windows, Mac OS
 Middleware: PHP 5.5 or higher with PHP's [Multibyte String module](http://php.net/mbstring)   
 Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)  
 
-## Steps to Install
-1. [Download the latest version.](http://morfy.org/download)
-2. Unzip the contents to a new folder on your local computer.
-3. Upload that whole folder with an FTP client to your host.
-4. You may also need to recursively CHMOD the folder '/cache/' to 755(or 777) if your host doesn't set it implicitly.
+## Installation
+Detailed instructions can be found in the [Installation section in the documentation.](http://morfy.org/documentation/basics/installation)
 
 ## Contributing
 1. Help on the [Forum.](http://forum.morfy.org)
