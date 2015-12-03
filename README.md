@@ -6,9 +6,8 @@ Content in Morfy is just a simple files written with markdown syntax in pages fo
 You simply create markdown files in the pages folder and that becomes a page.
 
 ## Requirements
-Operation system: Unix, Linux, Windows, Mac OS  
-Middleware: PHP 5.5 or higher with PHP's [Multibyte String module](http://php.net/mbstring)   
-Webserver: Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)  
+PHP 5.5 or higher with PHP's [Multibyte String module](http://php.net/mbstring)   
+Apache with [Mod Rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)  
 
 ## Installation
 
