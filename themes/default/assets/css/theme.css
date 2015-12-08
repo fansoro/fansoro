@@ -3,8 +3,6 @@
 
 html,
 body {
-    font-size: 16px;
-
     height: 100%;
     /* The html and body elements cannot have any padding or margin. */
 }
