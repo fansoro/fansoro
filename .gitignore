@@ -2,4 +2,5 @@
 composer.phar
 composer.lock
 vendor
-cache/*
+cache
+bower_components
