@@ -1,3 +1,11 @@
+# v2.0.2, 2015-12-08
+* Added BOWER for Default Theme
+* Added ability to access Current Page Template with public static method getCurrentTemplate()
+* Updated Twitter Bootstrap to 3.3.6 for Default Theme
+* Updated Doctrine Cache to 1.5.2
+* Updated .gitignore
+* Fixed Default Themes styles
+
 # v2.0.1, 2015-12-03
 * Fixed robots.txt
 * Removed LIBRARIES_PATH constant

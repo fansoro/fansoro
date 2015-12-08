@@ -21,7 +21,7 @@
         "fenom/storage": "1.*",
         "erusev/parsedown-extra": "0.7.*",
         "mustangostang/spyc" : "0.5.*",
-        "doctrine/cache": "1.4.*",
+        "doctrine/cache": "1.5.*",
         "force/session" : "*",
         "force/filesystem" : "*",
         "force/arr" : "*",
