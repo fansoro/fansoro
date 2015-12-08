@@ -28,6 +28,14 @@ class Pages
     protected static $current_page;
 
     /**
+     * Current page template.
+     *
+     * @var object
+     * @access  protected
+     */
+    protected static $current_template;
+
+    /**
      * Protected clone method to enforce singleton behavior.
      *
      * @access  protected
@@ -44,6 +52,10 @@ class Pages
      */
     protected function __construct()
     {
+        // Get Theme Templates
+        static::$current_template = Template::factory(THEMES_PATH . '/' . Config::get('system.theme'));
+
+        // Get Current Page
         static::$current_page = static::getPage(Url::getUriString());
 
         // Send default header
@@ -258,8 +270,22 @@ class Pages
      */
     public static function display($page)
     {
-        $template = Template::factory(THEMES_PATH . '/' . Config::get('system.theme'));
-        $template->display(((!empty($page['template'])) ? $page['template'] : 'index') . '.tpl', $page);
+        static::$current_template->display(((!empty($page['template'])) ? $page['template'] : 'index') . '.tpl', $page);
+    }
+
+    /**
+     * Get Current Template
+     *
+     *  <code>
+     *      $template = Pages::getCurrentTemplate();
+     *  </code>
+     *
+     * @access public
+     * @return object
+     */
+    public static function getCurrentTemplate()
+    {
+        return static::$current_template;
     }
 
     /**
