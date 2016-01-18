@@ -1,16 +1,16 @@
 ---
 title: Welcome  
-description: Morfy is a simple and light-weighted Content Management System  
+description: Fansoro is a simple and light-weighted Content Management System  
 template: index  
 ---
-## Morfy is succesfully installed!  
+## Fansoro is succesfully installed!  
 You can start editing the content and customising your site.
 
 ### Edit this Page
-To edit this page, simply go to the folder you installed Morfy, and then browse to the `/storage/pages/` folder and open the `index.md` file in your editor.
+To edit this page, simply go to the folder you installed Fansoro, and then browse to the `/storage/pages/` folder and open the `index.md` file in your editor.
 
 ### Create a New page
-Creating a new page is very simple in Morfy.  
+Creating a new page is very simple in Fansoro.  
 
 1. Launch your text editor and paste this sample text:
 
@@ -25,4 +25,4 @@ Creating a new page is very simple in Morfy.
 
 That is it!  
 
-{block name=morfy-docs}
+{block name=fansoro-docs}

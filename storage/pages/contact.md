@@ -1,15 +1,15 @@
 ---
 title: Contact  
-description: Morfy is a simple and light-weighted Content Management System  
+description: Fansoro is a simple and light-weighted Content Management System  
 ---
 
 ## Stay in touch
 
-[Morfy official site](http://morfy.org/)   
-[Morfy forum](http://forum.morfy.org/)  
-[Morfy on Github](https://github.com/morfy-cms/morfy)  
-[Morfy Gitter chat room](https://gitter.im/morfy-cms/morfy)  
+[Fansoro official site](http://fansoro.org/)   
+[Fansoro forum](http://forum.fansoro.org/)  
+[Fansoro on Github](https://github.com/fansoro/fansoro)  
+[Fansoro Gitter chat room](https://gitter.im/fansoro/fansoro)  
 
 ## Follow us on Twitter
 
-Follow Morfy on Twitter [@morfy_cms](https://twitter.com/morfy_cms)
+Follow Fansoro on Twitter [@fansoro_cms](https://twitter.com/fansoro_cms)

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Morfy.
+ * This file is part of the Fansoro.
  *
  * (c) Romanenko Sergey / Awilum <awilum@msn.com>
  *
@@ -85,7 +85,7 @@ class Blocks
     }
 
     /**
-     * Initialize Morfy Blocks
+     * Initialize Fansoro Blocks
      *
      *  <code>
      *      Blocks::init();

@@ -1,9 +1,9 @@
 {
-    "name": "morfy-cms/morfy",
+    "name": "fansoro/fansoro",
     "type": "library",
-    "description": "Morfy is Modern Open Source Flat-File Content Management System",
-    "keywords": ["morfy", "php", "cms", "flat-file", "markdown"],
-    "homepage": "http://morfy.org",
+    "description": "Fansoro is Modern Open Source Flat-File Content Management System",
+    "keywords": ["fansoro", "php", "cms", "flat-file", "markdown"],
+    "homepage": "http://fansoro.org",
     "license": "MIT",
     "authors": [
         {
@@ -13,7 +13,7 @@
         }
     ],
     "support": {
-      "issues": "https://github.com/morfy-cms/morfy/issues"
+      "issues": "https://github.com/fansoro/fansoro/issues"
     },
     "require": {
         "php": ">=5.5",
@@ -32,13 +32,13 @@
     },
     "autoload": {
         "classmap": [
-            "morfy"
+            "fansoro"
         ],
         "files": [
-            "morfy/boot/defines.php",
-            "morfy/boot/shortcodes.php",
-            "morfy/boot/filters.php",
-            "morfy/boot/actions.php"
+            "fansoro/boot/defines.php",
+            "fansoro/boot/shortcodes.php",
+            "fansoro/boot/filters.php",
+            "fansoro/boot/actions.php"
         ]
     }
 }

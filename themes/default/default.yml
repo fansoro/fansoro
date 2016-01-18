@@ -1,12 +1,12 @@
 name: Default
 version: 1.0.0
-description: Default Morfy theme
+description: Default Fansoro theme
 author:
   name: Sergey Romanenko
   email: awilum@msn.com
   url: https://github.com/Awilum
-homepage: https://github.com/morfy-cms/morfy
-bugs: https://github.com/morfy-cms/morfy/issues
+homepage: https://github.com/fansoro/fansoro
+bugs: https://github.com/fansoro/fansoro/issues
 license: MIT
 
 # Theme settings
