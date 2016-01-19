@@ -40,12 +40,14 @@ class Blocks
 
         $blocks = File::scan(STORAGE_PATH . '/blocks', 'md');
 
-        foreach ($blocks as $block) {
-            $blocks_cache_id .= filemtime($block);
-        }
+        if ($blocks) {
+            foreach ($blocks as $block) {
+                $blocks_cache_id .= filemtime($block);
+            }
 
-        // Create Unique Cache ID for Block
-        $blocks_cache_id = md5('blocks' . ROOT_DIR . $blocks_cache_id);
+            // Create Unique Cache ID for Block
+            $blocks_cache_id = md5('blocks' . ROOT_DIR . $blocks_cache_id);
+        }
 
         if (Cache::driver()->contains($blocks_cache_id)) {
             Cache::driver()->fetch($blocks_cache_id);
