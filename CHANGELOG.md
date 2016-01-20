@@ -1,3 +1,9 @@
+# v2.0.3, 2016-01-20
+* Project Rebranded!
+* Added new favicon
+* License updated
+* Blocks: bug with empty $blocks - Fixed
+
 # v2.0.2, 2015-12-08
 * Added BOWER for Default Theme
 * Added ability to access Current Page Template with public static method getCurrentTemplate()
