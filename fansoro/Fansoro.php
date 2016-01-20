@@ -1,20 +1,20 @@
 <?php
 
  /**
-  * Morfy
+  * Fansoro
   *
-  * @package Morfy
+  * @package Fansoro
   * @author Romanenko Sergey / Awilum <awilum@msn.com>
-  * @link http://morfy.org
+  * @link http://fansoro.org
   *
   * For the full copyright and license information, please view the LICENSE
   * file that was distributed with this source code.
   */
 
-class Morfy
+class Fansoro
 {
     /**
-     * An instance of the Morfy class
+     * An instance of the Fansoro class
      *
      * @var object
      * @access protected
@@ -22,11 +22,11 @@ class Morfy
     protected static $instance = null;
 
     /**
-     * The version of Morfy
+     * The version of Fansoro
      *
      * @var string
      */
-    const VERSION = '2.0.2';
+    const VERSION = '2.0.3';
 
     /**
      * Protected clone method to enforce singleton behavior.
@@ -82,10 +82,10 @@ class Morfy
     }
 
     /**
-     * Initialize Morfy Application
+     * Initialize Fansoro Application
      *
      *  <code>
-     *      Morfy::init();
+     *      Fansoro::init();
      *  </code>
      *
      * @access public
@@ -93,6 +93,6 @@ class Morfy
      */
     public static function init()
     {
-        return !isset(self::$instance) and self::$instance = new Morfy();
+        return !isset(self::$instance) and self::$instance = new Fansoro();
     }
 }

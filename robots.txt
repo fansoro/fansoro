@@ -1,5 +1,5 @@
 User-agent: *
-Disallow: /morfy/
+Disallow: /fansoro/
 Disallow: /plugins/
 Disallow: /config/
 Disallow: /vendor/

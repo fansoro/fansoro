@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Morfy.
+ * This file is part of the Fansoro.
  *
  * (c) Romanenko Sergey / Awilum <awilum@msn.com>
  *
@@ -67,7 +67,7 @@ class Cache
         static::$now = time();
 
         // Cache key allows us to invalidate all cache on configuration changes.
-        static::$key = (Config::get('system.cache.prefix') ? Config::get('system.cache.prefix') : 'morfy') . '-' . md5(ROOT_DIR . Morfy::VERSION);
+        static::$key = (Config::get('system.cache.prefix') ? Config::get('system.cache.prefix') : 'fansoro') . '-' . md5(ROOT_DIR . Fansoro::VERSION);
 
         // Get Cache Driver
         static::$driver = static::getCacheDriver();
@@ -224,7 +224,7 @@ class Cache
     }
 
     /**
-     * Initialize Morfy Cache
+     * Initialize Fansoro Cache
      *
      *  <code>
      *      Cache::init();

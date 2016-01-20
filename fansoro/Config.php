@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Morfy.
+ * This file is part of the Fansoro.
  *
  * (c) Romanenko Sergey / Awilum <awilum@msn.com>
  *
@@ -97,7 +97,7 @@ class Config
     }
 
     /**
-     * Initialize Morfy Config
+     * Initialize Fansoro Config
      *
      *  <code>
      *      Config::init();

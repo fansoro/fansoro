@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Morfy.
+ * This file is part of the Fansoro.
  *
  * (c) Romanenko Sergey / Awilum <awilum@msn.com>
  *

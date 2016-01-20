@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Morfy.
+ * This file is part of the Fansoro.
  *
  * (c) Romanenko Sergey / Awilum <awilum@msn.com>
  *
@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-// Set Morfy Meta Generator
+// Set Fansoro Meta Generator
 Action::add('theme_meta', function () {
-    echo('<meta name="generator" content="Powered by Morfy" />');
+    echo('<meta name="generator" content="Powered by Fansoro" />');
 });
