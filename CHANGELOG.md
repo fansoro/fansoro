@@ -2,7 +2,7 @@
 * Project Rebranded!
 * Added new favicon
 * License updated
-* Blocks: bug with empty $blocks - Fixed
+* Fixed Blocks bug with empty $blocks
 
 # v2.0.2, 2015-12-08
 * Added BOWER for Default Theme
