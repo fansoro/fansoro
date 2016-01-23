@@ -1,3 +1,10 @@
+# v2.0.4, 2016-01-23
+* Added ability to load plugins settings.yml
+* Added ability to set default return value in Config::get()
+* Added default values for Memcache and Redis cache.
+* Added new public static method Cache::clear() to clear Fansoro cache.
+* Fixed bug with cache for Pages::getPages()
+
 # v2.0.3, 2016-01-20
 * Project Rebranded!
 * Added new favicon
