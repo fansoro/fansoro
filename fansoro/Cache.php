@@ -110,15 +110,15 @@ class Cache
                 break;
             case 'memcache':
                 $memcache = new \Memcache();
-                $memcache->connect(Config::get('system.cache.memcache.server'),
-                                   Config::get('system.cache.memcache.port'));
+                $memcache->connect(Config::get('system.cache.memcache.server', 'localhost'),
+                                   Config::get('system.cache.memcache.port', 11211));
                 $driver = new \Doctrine\Common\Cache\MemcacheCache();
                 $driver->setMemcache($memcache);
                 break;
             case 'redis':
                 $redis = new \Redis();
-                $redis->connect(Config::get('system.cache.redis.server'),
-                                Config::get('system.cache.redis.port'));
+                $redis->connect(Config::get('system.cache.redis.server', 'localhost'),
+                                Config::get('system.cache.redis.port', 6379));
                 $driver = new \Doctrine\Common\Cache\RedisCache();
                 $driver->setRedis($redis);
                 break;
