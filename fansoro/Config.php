@@ -12,7 +12,7 @@
 class Config
 {
     /**
-     * An instance of the Plugins class
+     * An instance of the Config class
      *
      * @var object
      * @access  protected
