@@ -70,15 +70,17 @@ class Config
      *  <code>
      *      Config::get('site');
      *      Config::get('site.title');
+     *      Config::get('site.title', 'Default title');
      *  </code>
      *
      * @access  public
      * @param  string $key Key
+     * @param  mixed  $default Default value
      * @return mixed
      */
-    public static function get($key)
+    public static function get($key, $default = null)
     {
-        return Arr::get(static::$config, $key);
+        return Arr::get(static::$config, $key, $default);
     }
 
     /**
