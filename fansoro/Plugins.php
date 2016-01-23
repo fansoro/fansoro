@@ -38,6 +38,9 @@ class Plugins
     {
         $plugins_cache_id = '';
 
+        $plugin_manifest = [];
+        $plugin_settings = [];
+
         // Get Plugins List
         $plugins_list = Config::get('system.plugins');
 
@@ -65,9 +68,15 @@ class Plugins
 
                 // Go through...
                 foreach ($plugins_list as $plugin) {
-                    if (File::exists($_plugin = PLUGINS_PATH . '/' . $plugin . '/' . $plugin . '.yml')) {
-                        $_plugins_config[File::name($_plugin)] = Yaml::parseFile($_plugin);
+                    if (File::exists($_plugin_manifest = PLUGINS_PATH . '/' . $plugin . '/' . $plugin . '.yml')) {
+                        $plugin_manifest = Yaml::parseFile($_plugin_manifest);
                     }
+
+                    if (File::exists($_plugin_settings = PLUGINS_PATH . '/' . $plugin . '/settings.yml')) {
+                        $plugin_settings = Yaml::parseFile($_plugin_settings);
+                    }
+
+                    $_plugins_config[File::name($_plugin_manifest)] = array_merge($plugin_manifest, $plugin_settings);
                 }
 
                 Config::set('plugins', $_plugins_config);

@@ -26,7 +26,7 @@ class Fansoro
      *
      * @var string
      */
-    const VERSION = '2.0.3';
+    const VERSION = '2.0.4';
 
     /**
      * Protected clone method to enforce singleton behavior.

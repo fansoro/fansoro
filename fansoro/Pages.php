@@ -88,15 +88,20 @@ class Pages
      */
     public static function getPages($url = '', $order_by = 'date', $order_type = 'DESC', $ignore = array('404'), $limit = null)
     {
+        $pages = File::scan(STORAGE_PATH . '/pages/' . $url, 'md');
 
-        // Create Unique Cache ID for requested list pages
-        $pages_cache_id = md5('pages' . ROOT_DIR . $url . $order_by . $order_type . implode(",", $ignore) . (($limit === null) ? 'null' : $limit) . filemtime(STORAGE_PATH . '/pages/' . $url));
+        if ($pages) {
+            foreach ($pages as $page) {
+                $pages_cache_id .= filemtime($page);
+            }
+
+            // Create Unique Cache ID for Pages
+            $pages_cache_id = md5('pages' . ROOT_DIR . $url . $order_by . $order_type . implode(",", $ignore) . (($limit === null) ? 'null' : $limit) . $pages_cache_id);
+        }
 
         if (Cache::driver()->contains($pages_cache_id)) {
             return Cache::driver()->fetch($pages_cache_id);
         } else {
-            $pages = File::scan(STORAGE_PATH . '/pages/' . $url, 'md');
-
             foreach ($pages as $key => $page) {
                 if (!in_array(basename($page, '.md'), $ignore)) {
                     $content = file_get_contents($page);
