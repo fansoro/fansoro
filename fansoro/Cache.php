@@ -191,6 +191,15 @@ class Cache
     }
 
     /**
+     * Clear Cache
+     */
+    public static function clear()
+    {
+        Dir::delete(CACHE_PATH . '/doctrine/');
+        Dir::delete(CACHE_PATH . '/fenom/');
+    }
+
+    /**
      * Set the cache lifetime.
      *
      * @access public
