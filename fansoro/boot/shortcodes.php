@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-// Add {block name=block-name} shortcode
+// Add {block name=block-name raw=true} shortcode
 Shortcode::add('block', function ($attributes) {
     if (isset($attributes['name'])) {
-        return Blocks::get($attributes['name']);
+        return Blocks::get($attributes['name'], (($attributes['raw'] && $attributes['raw'] == 'true') ? true : false));
     }
 });
 

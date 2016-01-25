@@ -62,23 +62,26 @@ class Blocks
      *
      *  <code>
      *      $block = Blocks::get('my-block');
+     *      $block_raw = Blocks::get('my-block', true);
      *  </code>
      *
      * @access public
-     * @param  string $name Block name
+     * @param  string  $name Block name
+     * @param  boolean $raw  Return raw block content. Default is false
      * @return string Formatted Block content
      */
-    public static function get($name)
+    public static function get($name, $raw = false)
     {
         if (File::exists($block_path = STORAGE_PATH .'/blocks/' . $name . '.md')) {
 
             // Create Unique Cache ID for Block
-            $block_cache_id = md5('block' . ROOT_DIR . $block_path .  filemtime($block_path));
+            $block_cache_id = md5('block' . ROOT_DIR . $block_path . (($raw) ? 'true' : 'false') . filemtime($block_path));
 
             if (Cache::driver()->contains($block_cache_id)) {
                 return Cache::driver()->fetch($block_cache_id);
             } else {
-                Cache::driver()->save($block_cache_id, $block = Filter::apply('content', file_get_contents($block_path)));
+                $block = (($raw) ? trim(file_get_contents($block_path)) : trim(Filter::apply('content', file_get_contents($block_path))));
+                Cache::driver()->save($block_cache_id, $block);
                 return $block;
             }
         } else {
