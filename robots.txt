@@ -3,3 +3,6 @@ Disallow: /fansoro/
 Disallow: /plugins/
 Disallow: /config/
 Disallow: /vendor/
+Disallow: /cache/
+Allow: /storage/
+Allow: /themes/
