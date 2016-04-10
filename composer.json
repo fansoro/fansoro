@@ -13,17 +13,18 @@
         }
     ],
     "support": {
-      "issues": "https://github.com/fansoro/fansoro/issues"
+        "issues": "https://github.com/fansoro/fansoro/issues"
     },
     "require": {
-        "php": ">=5.5",
-        "fenom/fenom": "2.8.*",
-        "fenom/storage": "1.*",
+        "php": ">=5.5.9",
         "erusev/parsedown-extra": "0.7.*",
-        "mustangostang/spyc" : "0.5.*",
-        "doctrine/cache": "1.5.*",
+        "doctrine/cache": "1.*",
+        "pimple/pimple": "3.*",
+        "twig/twig": "1.*",
+        "symfony/filesystem": "3.*",
+        "symfony/finder": "3.*",
+        "symfony/yaml": "3.*",
         "force/session" : "*",
-        "force/filesystem" : "*",
         "force/arr" : "*",
         "force/http" : "*",
         "force/shortcode" : "*",
@@ -31,14 +32,14 @@
         "force/url" : "*"
     },
     "autoload": {
-        "classmap": [
-            "fansoro"
-        ],
+        "psr-4": {
+            "Fansoro\\": "src"
+        },
         "files": [
-            "fansoro/boot/defines.php",
-            "fansoro/boot/shortcodes.php",
-            "fansoro/boot/filters.php",
-            "fansoro/boot/actions.php"
+            "src/boot/defines.php",
+            "src/boot/shortcodes.php",
+            "src/boot/filters.php",
+            "src/boot/actions.php"
         ]
     }
 }

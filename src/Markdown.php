@@ -1,4 +1,7 @@
 <?php
+namespace Fansoro;
+
+use ParsedownExtra;
 
 /**
  * This file is part of the Fansoro.

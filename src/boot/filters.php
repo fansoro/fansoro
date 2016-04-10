@@ -1,4 +1,5 @@
 <?php
+namespace Fansoro;
 
 /**
  * This file is part of the Fansoro.
@@ -9,7 +10,8 @@
  * file that was distributed with this source code.
  */
 
-// Set Fansoro Meta Generator
-Action::add('theme_meta', function () {
-    echo('<meta name="generator" content="Powered by Fansoro" />');
-});
+// Add Shortcode parser filter
+Filter::add('content', 'Shortcode::parse', 1);
+
+// Add Parsedown parser filter
+Filter::add('content', '\Fansoro\Markdown::parse', 2);

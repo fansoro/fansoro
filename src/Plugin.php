@@ -1,4 +1,5 @@
 <?php
+namespace Fansoro;
 
 /**
  * This file is part of the Fansoro.
@@ -9,8 +10,19 @@
  * file that was distributed with this source code.
  */
 
-// Add Shortcode parser filter
-Filter::add('content', 'Shortcode::parse', 1);
 
-// Add Parsedown parser filter
-Filter::add('content', 'Markdown::parse', 2);
+class Plugin
+{
+    /**
+     * @var Fansoro
+     */
+    protected $fansoro;
+
+    /**
+     * __construct
+     */
+    public function __construct(Fansoro $c)
+    {
+        $this->fansoro = $c;
+    }
+}

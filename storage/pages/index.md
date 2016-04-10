@@ -25,4 +25,4 @@ Creating a new page is very simple in Fansoro.
 
 That is it!  
 
-{block name=fansoro-docs}
+{{block name=fansoro-docs}}

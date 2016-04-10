@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+// Define required minimum PHP version for Fansoro.
+define('PHP_MIN_VERSION', '5.5.9');
+
 // Define the path to the root directory (without trailing slash).
 define('ROOT_DIR', str_replace(DIRECTORY_SEPARATOR, '/', getcwd()));
 

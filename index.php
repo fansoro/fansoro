@@ -1,10 +1,14 @@
 <?php
-
-// Fansoro requires PHP 5.5.0 or greater
-version_compare(PHP_VERSION, "5.5.0", "<") and exit("Fansoro requires PHP 5.5.0 or greater.");
+namespace Fansoro;
 
 // Register the auto-loader.
-require_once __DIR__ . '/vendor/autoload.php';
+$loader = require __DIR__ . '/vendor/autoload.php';
 
-// Initialize Fansoro Application
-Fansoro::init();
+// Check PHP Version
+version_compare(PHP_VERSION, PHP_MIN_VERSION, "<") and exit('Fansoro requires PHP '.PHP_MIN_VERSION.' or greater.');
+
+// Get Fansoro Instance
+$app = Fansoro::instance();
+
+// Run Fansoro Application
+$app->run();

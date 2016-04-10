@@ -1,0 +1,13 @@
+name: Sandbox
+version: 1.0.0
+description: "Font Awesome integration for Fansoro"
+author:
+  name: Sergey Romanenko
+  email: awilum@msn.com
+  url: http://fansoro.org
+homepage: https://github.com/fansoro/fansoro-plugin-font-awesome
+bugs: https://github.com/fansoro/fansoro-plugin-font-awesome/issues
+license: MIT
+
+# Plugin settings
+enabled: true

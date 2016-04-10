@@ -1,4 +1,5 @@
 <?php
+namespace Fansoro;
 
 /**
  * This file is part of the Fansoro.
