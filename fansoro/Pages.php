@@ -91,6 +91,7 @@ class Pages
         $pages = File::scan(STORAGE_PATH . '/pages/' . $url, 'md');
 
         if ($pages) {
+            $pages_cache_id = "";
             foreach ($pages as $page) {
                 $pages_cache_id .= filemtime($page);
             }
